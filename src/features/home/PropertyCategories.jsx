@@ -1,5 +1,5 @@
 // src/components/PropertyCategories.jsx
-import { Box, Typography, Stack } from "@mui/material";
+import { Box, Typography, Stack, Container } from "@mui/material";
 import PropertyCategoryCard from "../../components/cards/PropertyCategoryCard";
 
 // images
@@ -12,45 +12,55 @@ export default function PropertyCategories() {
     <Box
       sx={{
         width: "100%",
-        py: 10,
+        py: { xs: 6, sm: 8, md: 10 },
         backgroundColor: "#ffffff",
       }}
     >
-      {/* Heading */}
-      <Stack spacing={2} alignItems="center" mb={8}>
-        <Typography
-          variant="h4"
-          fontSize={35}
-          sx={{ fontWeight: 500, color: "#1f2a44", fontFamily: "Montserrat" }}
-        >
-          Property Categories
-        </Typography>
+      <Container maxWidth="lg">
+        {/* Heading */}
+        <Stack spacing={2} alignItems="center" mb={{ xs: 4, sm: 6, md: 8 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontSize: { xs: "24px", sm: "28px", md: "35px" },
+              fontWeight: 500,
+              color: "#1f2a44",
+              fontFamily: "Montserrat",
+              textAlign: "center",
+            }}
+          >
+            Property Categories
+          </Typography>
 
-        <Typography
-          variant="body1"
-          fontSize={16}
-          sx={{
-            fontFamily: "Montserrat",
-            color: "#6b7280",
-            maxWidth: 820,
-            textAlign: "center",
-          }}
-        >
-          Explore properties tailored to your needs — whether you’re buying,
-          renting, or investing in commercial spaces.
-        </Typography>
-      </Stack>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: { xs: "14px", sm: "15px", md: "16px" },
+              fontFamily: "Montserrat",
+              color: "#6b7280",
+              maxWidth: 820,
+              textAlign: "center",
+              px: { xs: 2, sm: 0 },
+            }}
+          >
+            Explore properties tailored to your needs — whether you're buying,
+            renting, or investing in commercial spaces.
+          </Typography>
+        </Stack>
 
-      {/* Cards */}
-      <Stack
-        direction="row"
-        justifyContent="center"
-        gap="166px" // matches figma spacing
-      >
-        <PropertyCategoryCard image={BuyImg} label="Buy" />
-        <PropertyCategoryCard image={RentImg} label="Rent" />
-        <PropertyCategoryCard image={CommercialImg} label="Commercial" />
-      </Stack>
+        {/* Cards */}
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          justifyContent="center"
+          alignItems="center"
+          gap={{ xs: 4, sm: 3, md: 6, lg: "166px" }}
+          sx={{ flexWrap: { sm: "wrap" } }}
+        >
+          <PropertyCategoryCard image={BuyImg} label="Buy" />
+          <PropertyCategoryCard image={RentImg} label="Rent" />
+          <PropertyCategoryCard image={CommercialImg} label="Commercial" />
+        </Stack>
+      </Container>
     </Box>
   );
 }

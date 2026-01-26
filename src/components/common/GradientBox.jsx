@@ -7,6 +7,7 @@ export default function GradientBox({ children }) {
       sx={{
         width: "100%",
         minHeight: "650px",
+        
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

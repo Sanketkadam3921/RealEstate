@@ -23,8 +23,8 @@ export default function HeroSearchBar() {
       }}
     >
       <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={{ xs: 2, md: 1.5 }}
+        direction={{ xs: "column", sm: "row" }}
+        spacing={{ xs: 2, sm: 1.5 }}
         alignItems="stretch"
       >
         {/* Search Input */}
@@ -173,7 +173,7 @@ export default function HeroSearchBar() {
             fontWeight: 600,
             fontSize: "0.95rem",
             textTransform: "none",
-            minWidth: { xs: "100%", md: "auto" },
+            minWidth: { xs: "100%", sm: "auto" },
             boxShadow: "none",
             "&:hover": {
               backgroundColor: "#7B2FE3",

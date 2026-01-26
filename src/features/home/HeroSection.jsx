@@ -7,8 +7,9 @@ export default function HeroSection() {
     <Box
       sx={{
         pt: { xs: 6, md: 8 },
-        pb: { xs: 16, md: 8 },
+        pb: { xs: 20, md: 14 }, // Increased bottom padding to accommodate search bar
         minHeight: { xs: "auto", md: "400px" },
+        position: "relative", // Added to create positioning context
       }}
     >
       <Container
@@ -17,7 +18,7 @@ export default function HeroSection() {
           maxWidth: "1440px",
           px: { xs: 3, md: 8 },
           position: "relative",
-          overflow: "hidden",
+          overflow: "visible", // Changed from "hidden" to "visible"
         }}
       >
         {/* Background Shape (SVG) - Now inside Container */}
@@ -87,10 +88,10 @@ export default function HeroSection() {
                 sx={{
                   position: "absolute",
                   top: "50%",
-                  left: 16,
+                  left: { xs: 8, sm: 12, md: 16 },
                   transform: "translateY(-50%)",
-                  width: 40,
-                  height: 40,
+                  width: { xs: 32, sm: 36, md: 40 },
+                  height: { xs: 32, sm: 36, md: 40 },
                   borderRadius: "50%",
                   backgroundColor: "rgba(255,255,255,0.9)",
                   display: "flex",
@@ -103,7 +104,12 @@ export default function HeroSection() {
                   },
                 }}
               >
-                <Typography sx={{ fontSize: "1.2rem", color: "#666" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
+                    color: "#666",
+                  }}
+                >
                   ‹
                 </Typography>
               </Box>
@@ -112,10 +118,10 @@ export default function HeroSection() {
                 sx={{
                   position: "absolute",
                   top: "50%",
-                  right: 16,
+                  right: { xs: 8, sm: 12, md: 16 },
                   transform: "translateY(-50%)",
-                  width: 40,
-                  height: 40,
+                  width: { xs: 32, sm: 36, md: 40 },
+                  height: { xs: 32, sm: 36, md: 40 },
                   borderRadius: "50%",
                   backgroundColor: "rgba(255,255,255,0.9)",
                   display: "flex",
@@ -128,7 +134,12 @@ export default function HeroSection() {
                   },
                 }}
               >
-                <Typography sx={{ fontSize: "1.2rem", color: "#666" }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
+                    color: "#666",
+                  }}
+                >
                   ›
                 </Typography>
               </Box>
@@ -192,10 +203,11 @@ export default function HeroSection() {
             position: "absolute",
             left: "50%",
             transform: "translateX(-50%)",
-            bottom: { xs: -65, md: -45 },
-            width: "calc(100% - 64px)",
+            bottom: { xs: -90, sm: -80, md: -60 }, // Adjusted positioning
+            width: { xs: "calc(100% - 32px)", sm: "calc(100% - 48px)", md: "calc(100% - 64px)" },
             maxWidth: "1200px",
             zIndex: 10,
+            px: { xs: 1, sm: 0 },
           }}
         >
           <HeroSearchBar />

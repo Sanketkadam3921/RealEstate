@@ -12,8 +12,10 @@ export default function FeaturedPropertyCard({
   return (
     <Stack
       sx={{
-        maxWidth: 398,
-        height: 451,
+        maxWidth: { xs: "100%", sm: 350, md: 380, lg: 398 },
+        width: { xs: "100%", sm: "auto" },
+        height: { xs: "auto", sm: 451 },
+        minHeight: { xs: 400, sm: 451 },
         backgroundColor: "#ffffff",
         borderRadius: "14px",
         border: "1px solid #B7B7B7",
@@ -24,7 +26,7 @@ export default function FeaturedPropertyCard({
 
         // padding controls distance from border
         pt: 2,
-        px: 3,
+        px: { xs: 2.5, sm: 3 },
         pb: 3,
       }}
     >
@@ -35,7 +37,7 @@ export default function FeaturedPropertyCard({
         alt={title}
         sx={{
           width: "100%",
-          height: 206,
+          height: { xs: 180, sm: 200, md: 206 },
           objectFit: "cover",
           borderRadius: "11px",
           mb: 2,
@@ -44,19 +46,34 @@ export default function FeaturedPropertyCard({
 
       {/* Content */}
       <Stack spacing={1}>
-        <Typography fontWeight={400} fontSize="17px">
+        <Typography
+          fontWeight={400}
+          sx={{ fontSize: { xs: "15px", sm: "16px", md: "17px" } }}
+        >
           {title}
         </Typography>
 
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ fontSize: { xs: "13px", sm: "14px" } }}
+        >
           Location : {location}
         </Typography>
 
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ fontSize: { xs: "13px", sm: "14px" } }}
+        >
           Type ({type})
         </Typography>
 
-        <Typography variant="body2" fontWeight={600}>
+        <Typography
+          variant="body2"
+          fontWeight={600}
+          sx={{ fontSize: { xs: "13px", sm: "14px" } }}
+        >
           Area ({area})
         </Typography>
       </Stack>
@@ -69,10 +86,11 @@ export default function FeaturedPropertyCard({
         variant="contained"
         fullWidth
         sx={{
-          height: 44,
+          height: { xs: 40, sm: 44 },
           borderRadius: "8px",
           textTransform: "none",
           fontWeight: 600,
+          fontSize: { xs: "14px", sm: "16px" },
           backgroundColor: "#9b5cff",
           "&:hover": {
             backgroundColor: "#8a4ef0",

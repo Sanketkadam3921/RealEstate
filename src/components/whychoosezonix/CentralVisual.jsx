@@ -8,9 +8,11 @@ export default function CentralVisual() {
     <Box
       sx={{
         position: "relative",
-        width: 530,
-        height: 812,
+        width: { xs: "100%", sm: 400, md: 480, lg: 530 },
+        maxWidth: "100%",
+        height: { xs: 400, sm: 500, md: 650, lg: 812 },
         mx: "auto",
+        my: { xs: 2, md: 0 },
       }}
     >
       <Box
@@ -22,6 +24,7 @@ export default function CentralVisual() {
           inset: 0,
           width: "100%",
           height: "100%",
+          objectFit: "contain",
         }}
       />
 
@@ -41,7 +44,11 @@ export default function CentralVisual() {
           component="img"
           src={Logo}
           alt="Zonix Realty"
-          sx={{ width: 446 }}
+          sx={{
+            width: { xs: "80%", sm: 300, md: 380, lg: 446 },
+            maxWidth: "100%",
+            height: "auto",
+          }}
         />
       </Box>
     </Box>

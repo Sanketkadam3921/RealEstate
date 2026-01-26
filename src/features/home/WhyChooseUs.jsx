@@ -10,15 +10,18 @@ import CentralVisual from "../../components/whychoosezonix/CentralVisual";
 
 export default function WhyChooseZonix() {
   return (
-    <Box sx={{ bgcolor: "#ffffff", py: 12 }}>
+    <Box sx={{ bgcolor: "#ffffff", py: { xs: 6, sm: 8, md: 12 } }}>
       <Container maxWidth="lg">
         {/* Header */}
-        <Stack spacing={1.5} alignItems="center" mb={1}>
+        <Stack spacing={1.5} alignItems="center" mb={{ xs: 4, sm: 6, md: 1 }}>
           <Typography
             variant="h4"
             fontWeight={500}
-            fontSize={36}
-            color="#24364E"
+            sx={{
+              fontSize: { xs: "24px", sm: "28px", md: "36px" },
+              color: "#24364E",
+              textAlign: "center",
+            }}
           >
             Why Choose Zonix Realty ?
           </Typography>
@@ -27,7 +30,10 @@ export default function WhyChooseZonix() {
             variant="subtitle2"
             color="text.secondary"
             fontWeight={500}
-            fontSize={16}
+            sx={{
+              fontSize: { xs: "14px", sm: "15px", md: "16px" },
+              textAlign: "center",
+            }}
           >
             Professional, Trusted, Transparent.
           </Typography>
@@ -38,31 +44,35 @@ export default function WhyChooseZonix() {
             maxWidth={800}
             color="text.secondary"
             fontWeight={500}
-            fontSize={16}
+            sx={{
+              fontSize: { xs: "13px", sm: "14px", md: "16px" },
+              px: { xs: 2, sm: 0 },
+            }}
           >
             We make property discovery simple, transparent, and reliable with
             verified listings and expert support.
           </Typography>
         </Stack>
 
-        {/* Arc */}
+        {/* Arc - Hidden on mobile, visible on tablet+ */}
         <Box
           sx={{
             position: "relative",
             width: "100%",
-            height: 140, // layout height (small)
-            overflow: "", // hides extra SVG
-            mt: 14,
+            height: { xs: 0, md: 140 },
+            overflow: "hidden",
+            mt: { xs: 4, md: 14 },
+            display: { xs: "none", md: "block" },
           }}
         >
           <svg
             width="100%"
-            height="400" // visual height (big)
+            height="400"
             viewBox="0 0 1312 400"
             preserveAspectRatio="none"
             style={{
               position: "absolute",
-              bottom: 0, // anchor curve bottom
+              bottom: 0,
               left: 0,
             }}
           >
@@ -77,10 +87,15 @@ export default function WhyChooseZonix() {
         </Box>
 
         {/* Main layout */}
-        <Grid container alignItems="center" sx={{ mt: -16 }}>
+        <Grid
+          container
+          alignItems="center"
+          sx={{ mt: { xs: 4, md: -16 } }}
+          spacing={{ xs: 4, md: 0 }}
+        >
           {/* Left */}
           <Grid size={{ xs: 12, md: 3 }}>
-            <Stack spacing={35}>
+            <Stack spacing={{ xs: 4, sm: 6, md: 35 }}>
               <FeatureItem
                 icon={<VerifiedIcon sx={{ color: "#fff" }} />}
                 title="Verified Listings"
@@ -104,7 +119,7 @@ export default function WhyChooseZonix() {
 
           {/* Right */}
           <Grid size={{ xs: 12, md: 3 }}>
-            <Stack spacing={35}>
+            <Stack spacing={{ xs: 4, sm: 6, md: 35 }}>
               <FeatureItem
                 icon={<SearchIcon sx={{ color: "#fff" }} />}
                 title="Easy Search"
@@ -122,9 +137,8 @@ export default function WhyChooseZonix() {
           </Grid>
         </Grid>
 
-        {/* Bottom */}
-        {/* Bottom */}
-        <Box sx={{ mt: -12 }}>
+        {/* Bottom - Hidden on mobile, visible on tablet+ */}
+        <Box sx={{ mt: { xs: 4, md: -12 }, display: { xs: "none", md: "block" } }}>
           <Stack
             direction="row"
             alignItems="flex-end"
@@ -145,7 +159,11 @@ export default function WhyChooseZonix() {
             </svg>
 
             {/* Text */}
-            <Typography color="text.secondary" fontSize={18} fontWeight={500}>
+            <Typography
+              color="text.secondary"
+              sx={{ fontSize: { md: 18 } }}
+              fontWeight={500}
+            >
               Explore
             </Typography>
 
