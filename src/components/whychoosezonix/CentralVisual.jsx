@@ -45,7 +45,7 @@ export default function CentralVisual() {
           src={Logo}
           alt="Zonix Realty"
           sx={{
-            width: { xs: "80%", sm: 300, md: 380, lg: 446 },
+            width: { xs: 250, sm: 300, md: 380, lg: 446 },
             maxWidth: "100%",
             height: "auto",
           }}

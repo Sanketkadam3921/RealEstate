@@ -9,6 +9,8 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
+const BORDER_COLOR = "#A237FF";
+
 export default function HeroSearchBar() {
   return (
     <Box
@@ -17,9 +19,9 @@ export default function HeroSearchBar() {
         borderRadius: 3,
         p: { xs: 2, md: 2.5 },
         boxShadow: "0px 20px 60px rgba(0,0,0,0.1)",
-        maxWidth: "1200px",
+        maxWidth: "1300px",
         mx: "auto",
-        border: "1px solid #f0f0f0",
+        border: `1px solid ${BORDER_COLOR}`, // ✅ OUTER BORDER
       }}
     >
       <Stack
@@ -34,59 +36,23 @@ export default function HeroSearchBar() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon sx={{ color: "#999" }} />
+                <SearchIcon sx={{ color: BORDER_COLOR }} />
               </InputAdornment>
             ),
           }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: 2,
-              backgroundColor: "#fff",
-              "& fieldset": {
-                borderColor: "#e0e0e0",
-              },
-              "&:hover fieldset": {
-                borderColor: "#c0c0c0",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "#8E3CF7",
-              },
-            },
-            "& input::placeholder": {
-              color: "#999",
-              opacity: 1,
-            },
-          }}
+          sx={inputStyles}
         />
 
-        {/* Location Dropdown */}
+        {/* Location */}
         <TextField
           select
           fullWidth
           defaultValue=""
-          placeholder="Location"
           SelectProps={{
             displayEmpty: true,
             IconComponent: KeyboardArrowDownIcon,
           }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: 2,
-              backgroundColor: "#fff",
-              "& fieldset": {
-                borderColor: "#e0e0e0",
-              },
-              "&:hover fieldset": {
-                borderColor: "#c0c0c0",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "#8E3CF7",
-              },
-            },
-            "& .MuiSelect-select": {
-              color: "#333",
-            },
-          }}
+          sx={inputStyles}
         >
           <MenuItem value="" disabled>
             Location
@@ -95,7 +61,7 @@ export default function HeroSearchBar() {
           <MenuItem value="mumbai">Mumbai</MenuItem>
         </TextField>
 
-        {/* Property Type Dropdown */}
+        {/* Property Type */}
         <TextField
           select
           fullWidth
@@ -104,21 +70,7 @@ export default function HeroSearchBar() {
             displayEmpty: true,
             IconComponent: KeyboardArrowDownIcon,
           }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: 2,
-              backgroundColor: "#fff",
-              "& fieldset": {
-                borderColor: "#e0e0e0",
-              },
-              "&:hover fieldset": {
-                borderColor: "#c0c0c0",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "#8E3CF7",
-              },
-            },
-          }}
+          sx={inputStyles}
         >
           <MenuItem value="" disabled>
             Property Type
@@ -128,7 +80,7 @@ export default function HeroSearchBar() {
           <MenuItem value="commercial">Commercial</MenuItem>
         </TextField>
 
-        {/* Budget Dropdown */}
+        {/* Budget */}
         <TextField
           select
           fullWidth
@@ -137,21 +89,7 @@ export default function HeroSearchBar() {
             displayEmpty: true,
             IconComponent: KeyboardArrowDownIcon,
           }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: 2,
-              backgroundColor: "#fff",
-              "& fieldset": {
-                borderColor: "#e0e0e0",
-              },
-              "&:hover fieldset": {
-                borderColor: "#c0c0c0",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "#8E3CF7",
-              },
-            },
-          }}
+          sx={inputStyles}
         >
           <MenuItem value="" disabled>
             Budget
@@ -161,14 +99,14 @@ export default function HeroSearchBar() {
           <MenuItem value="100+">₹1Cr+</MenuItem>
         </TextField>
 
-        {/* Find Now Button */}
+        {/* Button */}
         <Button
           variant="contained"
           sx={{
             px: { xs: 3, md: 5 },
             py: 1.5,
             borderRadius: 2,
-            backgroundColor: "#8E3CF7",
+            backgroundColor: BORDER_COLOR,
             whiteSpace: "nowrap",
             fontWeight: 600,
             fontSize: "0.95rem",
@@ -176,8 +114,8 @@ export default function HeroSearchBar() {
             minWidth: { xs: "100%", sm: "auto" },
             boxShadow: "none",
             "&:hover": {
-              backgroundColor: "#7B2FE3",
-              boxShadow: "0px 4px 12px rgba(142, 60, 247, 0.3)",
+              backgroundColor: "#8B2FF2",
+              boxShadow: "0px 4px 12px rgba(162, 55, 255, 0.3)",
             },
           }}
         >
@@ -187,3 +125,25 @@ export default function HeroSearchBar() {
     </Box>
   );
 }
+
+/* Shared input styles */
+const inputStyles = {
+  "& .MuiOutlinedInput-root": {
+    borderRadius: 2,
+    backgroundColor: "#fff",
+    "& fieldset": {
+      borderColor: "#A237FF", // ✅ DEFAULT
+    },
+    "&:hover fieldset": {
+      borderColor: "#A237FF", // ✅ HOVER
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#A237FF", // ✅ FOCUS
+      borderWidth: 2,
+    },
+  },
+  "& input::placeholder": {
+    color: "#999",
+    opacity: 1,
+  },
+};

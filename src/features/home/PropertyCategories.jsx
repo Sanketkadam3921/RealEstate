@@ -12,8 +12,8 @@ export default function PropertyCategories() {
     <Box
       sx={{
         width: "100%",
-        py: { xs: 6, sm: 8, md: 10 },
-        backgroundColor: "#ffffff",
+        py: { xs: 6, sm: 1, md: 1 },
+        backgroundColor: "#F6F6F6",
       }}
     >
       <Container maxWidth="false" sx={{ maxWidth: 1440 }}>
@@ -53,7 +53,7 @@ export default function PropertyCategories() {
           direction={{ xs: "column", sm: "row" }}
           justifyContent="center"
           alignItems="center"
-          gap={{ xs: 4, sm: 3, md: 3, lg: "166px" }}
+          gap={{ xs: 4, sm: 3, md: 3, lg: "80px", xl: "120px" }}
           sx={{ flexWrap: { sm: "wrap" } }}
         >
           <PropertyCategoryCard image={BuyImg} label="Buy" />

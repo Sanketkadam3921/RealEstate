@@ -21,7 +21,7 @@ import Logo from "../../assets/Logo/Logo.svg";
 
 export default function Footer() {
   return (
-    <Box bgcolor="#fff" pt={8}>
+    <Box bgcolor="#F6F6F6" pt={8}>
       {/* Top Footer */}
       <Container
         maxWidth={false}
@@ -164,7 +164,6 @@ export default function Footer() {
                 sx={{
                   width: 44,
                   height: 44,
-                  color: "primary.main",
                   flexShrink: 0,
                   mt: 0.5,
                 }}
@@ -266,7 +265,7 @@ export default function Footer() {
       </Container>
 
       {/* Bottom Bar */}
-      <Box bgcolor="#E9E6FA" mt={8}>
+      <Box bgcolor="#DEDAF5" mt={8}>
         <Container
           maxWidth={false}
           sx={{

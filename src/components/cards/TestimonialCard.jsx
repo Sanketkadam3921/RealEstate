@@ -93,6 +93,7 @@ export default function TestimonialCard({
                 key={i}
                 sx={{
                   fontSize: { xs: 16, sm: 18 },
+                  color: "#F5A623",
                 }}
               />
             ) : (

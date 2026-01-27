@@ -12,7 +12,7 @@ export default function FeaturedPropertyCard({
   return (
     <Stack
       sx={{
-        maxWidth: { xs: "100%", sm: 350, md: 380, lg: 398 },
+        maxWidth: { xs: "350px", sm: 350, md: 380, lg: 398 },
         width: { xs: "100%", sm: "auto" },
 
         height: { xs: "auto", sm: 401 },

@@ -12,7 +12,9 @@ export default function FeaturedProperties() {
     <Box
       sx={{
         width: "100%",
-        py: { xs: 6, sm: 8, md: 10 },
+        pt: { xs: 6, sm: 8, md: 3 },
+        pb: { xs: 6, sm: 8, md: 10 },
+
         background:
           "linear-gradient(180deg, #DDE2FC 0%, #DADCF5 50%, #E4D7F5 100%)",
       }}
@@ -55,7 +57,7 @@ export default function FeaturedProperties() {
           direction={{ xs: "column", sm: "row" }}
           justifyContent="center"
           alignItems="center"
-          gap={{ xs: 3, sm: 2, md: 4, lg: "58px" }}
+          gap={{ xs: 3, sm: 2, md: 4, lg: 4 }}
           sx={{ flexWrap: { sm: "wrap" } }}
         >
           <FeaturedPropertyCard

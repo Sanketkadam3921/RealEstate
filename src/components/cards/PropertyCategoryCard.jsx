@@ -19,7 +19,7 @@ export default function PropertyCategoryCard({ image, label }) {
         sx={{
           width: { xs: "100%", sm: 280, md: 300, lg: 324 },
           maxWidth: { xs: "100%", sm: 280, md: 300, lg: 324 },
-          height: { xs: 280, sm: 320, md: 340, lg: 355 },
+          height: { xs: 370, sm: 320, md: 340, lg: 355 },
           objectFit: "cover",
           borderRadius: { xs: "30px", md: "50px" },
         }}

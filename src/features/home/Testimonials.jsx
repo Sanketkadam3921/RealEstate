@@ -21,10 +21,11 @@ export default function Testimonials() {
         <Stack spacing={1.5} alignItems="center" mb={{ xs: 4, sm: 6, md: 8 }}>
           <Typography
             variant="h4"
-            fontWeight={600}
+            fontWeight={500}
             sx={{
-              fontSize: { xs: "24px", sm: "28px", md: "32px" },
+              fontSize: { xs: "24px", sm: "28px", md: "36px" },
               textAlign: "center",
+              color: "#000000",
             }}
           >
             Testimonials
@@ -33,8 +34,9 @@ export default function Testimonials() {
           <Typography
             variant="body2"
             color="text.secondary"
+            fontWeight={400}
             sx={{
-              fontSize: { xs: "14px", sm: "15px" },
+              fontSize: { xs: "15px", sm: "16px" },
               textAlign: "center",
               px: { xs: 2, sm: 0 },
             }}
