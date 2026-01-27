@@ -7,18 +7,18 @@ import FeatureItem from "../../components/whychoosezonix/FeatureItem";
 import CentralVisual from "../../components/whychoosezonix/CentralVisual";
 export default function WhyChooseZonix() {
   return (
-    <Box sx={{ bgcolor: "#F6F6F6", py: { xs: 6, sm: 8, md: 12 } }}>
+    <Box sx={{ bgcolor: "#F6F6F6", py: { xs: 6, sm: 12 } }}>
       {" "}
       <Container maxWidth="lg">
         {" "}
         {/* Header */}{" "}
-        <Stack spacing={1.5} alignItems="center" mb={{ xs: 4, sm: 6, md: 1 }}>
+        <Stack spacing={1.5} alignItems="center" mb={{ xs: 4, sm: 1 }}>
           {" "}
           <Typography
             variant="h4"
             fontWeight={500}
             sx={{
-              fontSize: { xs: "24px", sm: "28px", md: "36px" },
+              fontSize: { xs: "24px", sm: "36px" },
               color: "#24364E",
               textAlign: "center",
             }}
@@ -31,7 +31,7 @@ export default function WhyChooseZonix() {
             color="text.secondary"
             fontWeight={500}
             sx={{
-              fontSize: { xs: "14px", sm: "15px", md: "16px" },
+              fontSize: { xs: "14px", sm: "16px" },
               textAlign: "center",
             }}
           >
@@ -45,7 +45,7 @@ export default function WhyChooseZonix() {
             color="text.secondary"
             fontWeight={500}
             sx={{
-              fontSize: { xs: "13px", sm: "14px", md: "16px" },
+              fontSize: { xs: "13px", sm: "16px" },
               px: { xs: 2, sm: 0 },
             }}
           >
@@ -60,10 +60,10 @@ export default function WhyChooseZonix() {
             top: -120,
             position: "relative",
             width: "100%",
-            height: { xs: 0, md: 150 },
+            height: { xs: 0, sm: 150 },
             overflow: "visible",
-            mt: { xs: 4, md: 14 },
-            display: { xs: "none", md: "block" },
+            mt: { xs: 4, sm: 14 },
+            display: { xs: "none", sm: "block" },
           }}
         >
           {" "}
@@ -88,14 +88,14 @@ export default function WhyChooseZonix() {
         <Grid
           container
           alignItems="center"
-          sx={{ mt: { xs: 4, md: -16 } }}
-          spacing={{ xs: 4, md: 0 }}
+          sx={{ mt: { xs: 4, sm: -16 } }}
+          spacing={{ xs: 4, sm: 0 }}
         >
           {" "}
           {/* Left */}{" "}
-          <Grid size={{ xs: 12, md: 3 }}>
+          <Grid size={{ xs: 12, sm: 3 }}>
             {" "}
-            <Stack spacing={{ xs: 4, sm: 6, md: 35 }}>
+            <Stack spacing={{ xs: 4, sm: 35 }}>
               {" "}
               <FeatureItem
                 icon={<VerifiedIcon sx={{ color: "#fff" }} />}
@@ -107,7 +107,7 @@ export default function WhyChooseZonix() {
                 sx={{
                   transform: {
                     xs: "none",
-                    md: "translateY(-60px)", // 👈 ONLY this item moves
+                    sm: "translateY(-60px)", // 👈 ONLY this item moves
                     lg: "none",
                   },
                 }}
@@ -122,13 +122,13 @@ export default function WhyChooseZonix() {
             </Stack>{" "}
           </Grid>{" "}
           {/* Center */}{" "}
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             {" "}
             <CentralVisual />{" "}
           </Grid>{" "}
           {/* Right */} {/* Right */}
-          <Grid size={{ xs: 12, md: 3 }}>
-            <Stack spacing={{ xs: 4, sm: 6, md: 35 }}>
+          <Grid size={{ xs: 12, sm: 3 }}>
+            <Stack spacing={{ xs: 4, sm: 35 }}>
               <FeatureItem
                 icon={<SearchIcon sx={{ color: "#fff" }} />}
                 title="Easy Search"
@@ -140,7 +140,7 @@ export default function WhyChooseZonix() {
                 sx={{
                   transform: {
                     xs: "none",
-                    md: "translateY(-60px)", // 👈 ONLY second item lifted
+                    sm: "translateY(-60px)", // 👈 ONLY second item lifted
                     lg: "none",
                   },
                 }}
@@ -157,7 +157,7 @@ export default function WhyChooseZonix() {
         </Grid>{" "}
         {/* Bottom - Hidden on mobile, visible on tablet+ */}{" "}
         <Box
-          sx={{ mt: { xs: 4, md: -12 }, display: { xs: "none", md: "block" } }}
+          sx={{ mt: { xs: 4, sm: -12 }, display: { xs: "none", sm: "block" } }}
         >
           {" "}
           <Stack
@@ -178,7 +178,7 @@ export default function WhyChooseZonix() {
             {/* Text */}{" "}
             <Typography
               color="text.secondary"
-              sx={{ fontSize: { md: 18 } }}
+              sx={{ fontSize: { sm: 18 } }}
               fontWeight={500}
             >
               {" "}

@@ -53,12 +53,20 @@ export default function FeaturedProperties() {
         </Stack>
 
         {/* Cards */}
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          justifyContent="center"
-          alignItems="center"
-          gap={{ xs: 3, sm: 2, md: 4, lg: 4 }}
-          sx={{ flexWrap: { sm: "wrap" } }}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            justifyContent: "center",
+            alignItems: "center",
+            flexWrap: { sm: "wrap" },
+            gap: { xs: 3, sm: 2, md: 4, lg: 4 },
+            maxWidth: { sm: "716px", md: "none" }, // Exactly 2 cards width: 350px + 16px gap + 350px = 716px
+            mx: "auto",
+            "@media (min-width: 768px) and (max-width: 899px)": {
+              maxWidth: "716px", // Specific for iPad Mini (768px)
+            },
+          }}
         >
           <FeaturedPropertyCard
             image={Img1}
@@ -83,7 +91,7 @@ export default function FeaturedProperties() {
             type="Apartment"
             area="650 sq ft"
           />
-        </Stack>
+        </Box>
       </Container>
     </Box>
   );

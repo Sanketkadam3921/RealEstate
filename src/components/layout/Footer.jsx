@@ -272,19 +272,64 @@ export default function Footer() {
             maxWidth: "1440px",
             px: { xs: 2, md: 6 },
             py: 2,
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: 2,
           }}
         >
-          <Typography variant="body2" color="text.secondary">
-            © 2025 Zonix Realty. All rights reserved.
-          </Typography>
+          <Stack
+            direction={{ xs: "column", sm: "column", md: "row" }}
+            justifyContent={{ xs: "flex-start", sm: "center", md: "space-between" }}
+            alignItems={{ xs: "flex-start", sm: "center", md: "center" }}
+            spacing={2}
+          >
+            {/* Privacy Policy and Terms - shown first on mobile */}
+            <Stack
+              direction="row"
+              spacing={3}
+              order={{ xs: 1, sm: 1, md: 2 }}
+            >
+              <Link underline="hover" sx={{ color: "#0F2A44" }}>
+                Privacy Policy
+              </Link>
+              <Link underline="hover" sx={{ color: "#0F2A44" }}>
+                Terms & Conditions
+              </Link>
+            </Stack>
 
-          <Stack direction="row" spacing={3}>
-            <Link underline="hover">Privacy Policy</Link>
-            <Link underline="hover">Terms & Conditions</Link>
+            {/* Copyright - shown second on mobile */}
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              order={{ xs: 2, sm: 2, md: 1 }}
+            >
+              © 2026{" "}
+              <Link
+                href="https://zonixtec.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="hover"
+                sx={{
+                  color: "inherit",
+                  fontWeight: 500,
+                }}
+              >
+                <Box
+                  component="span"
+                  sx={{
+                    display: { xs: "inline", md: "none" },
+                  }}
+                >
+                  Zonixtec It Services Private Limited
+                </Box>
+                <Box
+                  component="span"
+                  sx={{
+                    display: { xs: "none", md: "inline" },
+                  }}
+                >
+                  Zonix Realty
+                </Box>
+              </Link>
+              . All rights reserved.
+            </Typography>
           </Stack>
         </Container>
       </Box>
