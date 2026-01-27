@@ -17,7 +17,12 @@ export default function FeaturedProperties() {
           "linear-gradient(180deg, #DDE2FC 0%, #DADCF5 50%, #E4D7F5 100%)",
       }}
     >
-      <Container maxWidth="lg">
+      <Container
+        maxWidth="false"
+        sx={{
+          maxWidth: 1440,
+        }}
+      >
         {/* Heading */}
         <Stack spacing={2} alignItems="center" mb={{ xs: 4, sm: 6, md: 8 }}>
           <Typography

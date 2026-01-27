@@ -16,7 +16,7 @@ export default function PropertyCategories() {
         backgroundColor: "#ffffff",
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="false" sx={{ maxWidth: 1440 }}>
         {/* Heading */}
         <Stack spacing={2} alignItems="center" mb={{ xs: 4, sm: 6, md: 8 }}>
           <Typography
@@ -53,7 +53,7 @@ export default function PropertyCategories() {
           direction={{ xs: "column", sm: "row" }}
           justifyContent="center"
           alignItems="center"
-          gap={{ xs: 4, sm: 3, md: 6, lg: "166px" }}
+          gap={{ xs: 4, sm: 3, md: 3, lg: "166px" }}
           sx={{ flexWrap: { sm: "wrap" } }}
         >
           <PropertyCategoryCard image={BuyImg} label="Buy" />

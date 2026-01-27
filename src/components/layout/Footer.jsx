@@ -7,12 +7,15 @@ import {
   Link,
 } from "@mui/material";
 
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
-import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
+// Social Media Icons
+import InstagramIcon from "../../assets/icons/Instagram.svg";
+import FacebookIcon from "../../assets/icons/Facebook.svg";
+import LinkedInIcon from "../../assets/icons/LinkedIn.svg";
+
+// Contact Icons
+import LocationIcon from "../../assets/icons/Footer/Location.svg";
+import PhoneIcon from "../../assets/icons/Footer/Phone.svg";
+import EmailIcon from "../../assets/icons/Footer/Email.svg";
 
 import Logo from "../../assets/Logo/Logo.svg";
 
@@ -28,6 +31,14 @@ export default function Footer() {
           direction={{ xs: "column", md: "row" }}
           spacing={6}
           justifyContent="space-between"
+          sx={{
+            flexWrap: {
+              xs: "wrap", // mobile
+              sm: "wrap", // tablet
+              md: "nowrap",
+              lg: "nowrap", // desktop
+            },
+          }}
         >
           {/* Brand */}
           <Stack spacing={2} maxWidth={300}>
@@ -40,7 +51,7 @@ export default function Footer() {
                 component="img"
                 src={Logo}
                 alt="Zonix Realty"
-                sx={{ height: 40 }}
+                sx={{ height: 45 }}
               />
             </Stack>
 
@@ -51,14 +62,50 @@ export default function Footer() {
             </Typography>
 
             <Stack direction="row" spacing={1}>
-              <IconButton size="small">
-                <InstagramIcon />
+              <IconButton
+                size="small"
+                component="a"
+                href="#"
+                sx={{
+                  "&:hover": { opacity: 0.8 },
+                }}
+              >
+                <Box
+                  component="img"
+                  src={InstagramIcon}
+                  alt="Instagram"
+                  sx={{ width: 27, height: 27 }}
+                />
               </IconButton>
-              <IconButton size="small">
-                <FacebookOutlinedIcon />
+              <IconButton
+                size="small"
+                component="a"
+                href="#"
+                sx={{
+                  "&:hover": { opacity: 0.8 },
+                }}
+              >
+                <Box
+                  component="img"
+                  src={FacebookIcon}
+                  alt="Facebook"
+                  sx={{ width: 27, height: 27 }}
+                />
               </IconButton>
-              <IconButton size="small">
-                <LinkedInIcon />
+              <IconButton
+                size="small"
+                component="a"
+                href="#"
+                sx={{
+                  "&:hover": { opacity: 0.8 },
+                }}
+              >
+                <Box
+                  component="img"
+                  src={LinkedInIcon}
+                  alt="LinkedIn"
+                  sx={{ width: 24, height: 24 }}
+                />
               </IconButton>
             </Stack>
           </Stack>
@@ -67,7 +114,15 @@ export default function Footer() {
           <Stack spacing={2}>
             <Typography fontWeight={600}>Quick Links</Typography>
             {["Home", "Properties", "About Us", "Contact"].map((item) => (
-              <Link key={item} underline="hover" color="text.secondary">
+              <Link
+                key={item}
+                underline="hover"
+                color="text.secondary"
+                sx={{
+                  fontWeight: 500,
+                  fontSize: 16,
+                }}
+              >
                 {item}
               </Link>
             ))}
@@ -83,7 +138,15 @@ export default function Footer() {
               "Real Estate Consulting",
               "Property Management",
             ].map((item) => (
-              <Link key={item} underline="hover" color="text.secondary">
+              <Link
+                key={item}
+                underline="hover"
+                color="text.secondary"
+                sx={{
+                  fontWeight: 500,
+                  fontSize: 16,
+                }}
+              >
                 {item}
               </Link>
             ))}
@@ -94,30 +157,109 @@ export default function Footer() {
             <Typography fontWeight={600}>Contact Information</Typography>
 
             <Stack direction="row" spacing={2}>
-              <LocationOnOutlinedIcon color="primary" />
-              <Typography variant="body2">
-                <b>Office Address</b>
-                <br />
-                101, Business Park, Pune, Maharashtra, India
-              </Typography>
+              <Box
+                component="img"
+                src={LocationIcon}
+                alt="Location"
+                sx={{
+                  width: 44,
+                  height: 44,
+                  color: "primary.main",
+                  flexShrink: 0,
+                  mt: 0.5,
+                }}
+              />
+
+              <Stack spacing={0.5}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 600, fontSize: 16 }}
+                >
+                  Office Address
+                </Typography>
+
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 500,
+                    color: "text.secondary",
+                    fontSize: 16,
+                  }}
+                >
+                  Address : 101, Business Park, Pune
+                  <br /> Maharashtra, India{" "}
+                </Typography>
+              </Stack>
             </Stack>
 
             <Stack direction="row" spacing={2}>
-              <CallOutlinedIcon color="primary" />
-              <Typography variant="body2">
-                <b>Phone</b>
-                <br />
-                +91 90000 00000
-              </Typography>
+              <Box
+                component="img"
+                src={PhoneIcon}
+                alt="Phone"
+                sx={{
+                  width: 44,
+                  height: 44,
+                  color: "primary.main",
+                  flexShrink: 0,
+                  mt: 0.5,
+                }}
+              />
+
+              <Stack spacing={0.5}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 600, fontSize: 16 }}
+                >
+                  Phone
+                </Typography>
+
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 500,
+                    color: "text.secondary",
+                    fontSize: 16,
+                  }}
+                >
+                  +91 90000 00000
+                </Typography>
+              </Stack>
             </Stack>
 
             <Stack direction="row" spacing={2}>
-              <MailOutlineOutlinedIcon color="primary" />
-              <Typography variant="body2">
-                <b>Email</b>
-                <br />
-                info@zonixrealty.com
-              </Typography>
+              <Box
+                component="img"
+                src={EmailIcon}
+                alt="Email"
+                sx={{
+                  width: 44,
+                  height: 44,
+                  color: "primary.main",
+                  flexShrink: 0,
+                  mt: 0.5,
+                }}
+              />
+
+              <Stack spacing={0.5}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 600, fontSize: 16 }}
+                >
+                  Email
+                </Typography>
+
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 500,
+                    color: "text.secondary",
+                    fontSize: 16,
+                  }}
+                >
+                  info@esquarerealty.com
+                </Typography>
+              </Stack>
             </Stack>
           </Stack>
         </Stack>

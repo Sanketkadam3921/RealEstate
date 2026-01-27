@@ -1,27 +1,44 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
+import { useState } from "react";
 import HeroSearchBar from "./HeroSearchBar";
 import HeroBg from "../../assets/BackgroundShape/HomeHero.svg";
 
 export default function HeroSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const images = [
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+  ];
+
+  const handlePrevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNextSlide = () => {
+    setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <Box
       sx={{
-        pt: { xs: 6, md: 8 },
-        pb: { xs: 20, md: 14 }, // Increased bottom padding to accommodate search bar
-        minHeight: { xs: "auto", md: "400px" },
-        position: "relative", // Added to create positioning context
+        pt: { xs: 4, sm: 6, md: 8 },
+        pb: { xs: 20, sm: 18, md: 14 },
+        minHeight: { xs: "auto", sm: "350px", md: "400px" },
+        position: "relative",
       }}
     >
       <Container
         maxWidth={false}
         sx={{
-          maxWidth: "1440px",
-          px: { xs: 3, md: 8 },
+          maxWidth: "1300px",
+          px: { xs: 2, sm: 4, md: 8 },
           position: "relative",
-          overflow: "visible", // Changed from "hidden" to "visible"
+          overflow: "visible",
         }}
       >
-        {/* Background Shape (SVG) - Now inside Container */}
+        {/* Background Shape */}
         <Box
           component="img"
           src={HeroBg}
@@ -30,27 +47,36 @@ export default function HeroSection() {
             position: "absolute",
             top: 0,
             left: 0,
-            height: "100%",
-            objectFit: "cover",
+            width: "1440px",
+            height: "582px",
+            objectFit: { xs: "cover", md: "contain" },
+            objectPosition: "center",
             zIndex: 0,
+            opacity: { xs: 0.7, sm: 0.8, md: 1 },
           }}
         />
 
         <Stack
           direction={{ xs: "column", md: "row" }}
-          spacing={{ xs: 4, md: 6 }}
+          spacing={{ xs: 3, sm: 4, md: 6 }}
           alignItems="center"
           sx={{ position: "relative", zIndex: 1 }}
         >
           {/* LEFT CONTENT */}
-          <Box sx={{ flex: { xs: 1, md: "0 0 42%" } }}>
+          <Box
+            sx={{
+              flex: { md: "0 0 42%" },
+              width: "100%",
+              textAlign: { xs: "center", md: "left" },
+            }}
+          >
             <Typography
               variant="h2"
               fontWeight={700}
               sx={{
                 mb: 3,
                 lineHeight: 1.2,
-                fontSize: { xs: "2rem", md: "3rem" },
+                fontSize: { xs: "1.75rem", sm: "2.25rem", md: "3rem" },
                 color: "#1a1a1a",
               }}
             >
@@ -61,9 +87,9 @@ export default function HeroSection() {
               variant="body1"
               sx={{
                 color: "#666",
-                fontSize: { xs: "0.95rem", md: "1rem" },
                 lineHeight: 1.7,
                 maxWidth: 440,
+                mx: { xs: "auto", md: 0 },
               }}
             >
               Explore verified residential and commercial properties with
@@ -72,91 +98,95 @@ export default function HeroSection() {
             </Typography>
           </Box>
 
-          {/* RIGHT IMAGE */}
-          <Box sx={{ flex: { xs: 1, md: "0 0 58%" }, width: "100%" }}>
+          {/* RIGHT IMAGE / CAROUSEL */}
+          <Box
+            sx={{
+              flex: { md: "0 0 58%" },
+              width: "100%",
+            }}
+          >
             <Box
               sx={{
+                mt: 5,
                 position: "relative",
-                borderRadius: { xs: 3, md: 4 },
-                overflow: "hidden",
-                boxShadow: "0px 30px 60px rgba(0,0,0,0.12)",
-                ml: { xs: 0, md: 4 },
+                borderRadius: "20px",
+                boxShadow: {
+                  xs: "0px 10px 30px rgba(0,0,0,0.1)",
+                  md: "0px 30px 60px rgba(0,0,0,0.12)",
+                },
+                ml: { md: 4 },
               }}
             >
-              {/* Carousel Navigation Arrows */}
+              {/* LEFT ARROW */}
               <Box
+                onClick={handlePrevSlide}
                 sx={{
                   position: "absolute",
                   top: "50%",
-                  left: { xs: 8, sm: 12, md: 16 },
+                  left: { md: -20 },
                   transform: "translateY(-50%)",
-                  width: { xs: 32, sm: 36, md: 40 },
-                  height: { xs: 32, sm: 36, md: 40 },
+                  width: 40,
+                  height: 40,
                   borderRadius: "50%",
                   backgroundColor: "rgba(255,255,255,0.9)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  zIndex: 2,
+                  zIndex: 10,
                   "&:hover": {
                     backgroundColor: "rgba(255,255,255,1)",
                   },
                 }}
               >
-                <Typography
-                  sx={{
-                    fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
-                    color: "#666",
-                  }}
-                >
+                <Typography sx={{ fontSize: "1.2rem", color: "#666" }}>
                   ‹
                 </Typography>
               </Box>
 
+              {/* RIGHT ARROW */}
               <Box
+                onClick={handleNextSlide}
                 sx={{
                   position: "absolute",
                   top: "50%",
-                  right: { xs: 8, sm: 12, md: 16 },
+                  right: 16,
                   transform: "translateY(-50%)",
-                  width: { xs: 32, sm: 36, md: 40 },
-                  height: { xs: 32, sm: 36, md: 40 },
+                  width: 40,
+                  height: 40,
                   borderRadius: "50%",
                   backgroundColor: "rgba(255,255,255,0.9)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  zIndex: 2,
+                  zIndex: 10,
                   "&:hover": {
                     backgroundColor: "rgba(255,255,255,1)",
                   },
                 }}
               >
-                <Typography
-                  sx={{
-                    fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
-                    color: "#666",
-                  }}
-                >
+                <Typography sx={{ fontSize: "1.2rem", color: "#666" }}>
                   ›
                 </Typography>
               </Box>
 
-              <Box
-                component="img"
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
-                alt="Property"
-                sx={{
-                  width: "100%",
-                  height: { xs: 300, md: 460 },
-                  objectFit: "cover",
-                  display: "block",
-                }}
-              />
+              {/* IMAGE WRAPPER (overflow handled here) */}
+              <Box sx={{ overflow: "hidden", borderRadius: "20px" }}>
+                <Box
+                  component="img"
+                  src={images[currentSlide]}
+                  alt="Property"
+                  sx={{
+                    width: "100%",
+                    height: { xs: 250, sm: 350, md: 500 },
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              </Box>
 
-              {/* Carousel Dots */}
+              {/* DOTS */}
               <Box
                 sx={{
                   position: "absolute",
@@ -165,49 +195,42 @@ export default function HeroSection() {
                   transform: "translateX(-50%)",
                   display: "flex",
                   gap: 1,
-                  zIndex: 2,
+                  zIndex: 5,
                 }}
               >
-                <Box
-                  sx={{
-                    width: 32,
-                    height: 4,
-                    borderRadius: 2,
-                    backgroundColor: "#8E3CF7",
-                  }}
-                />
-                <Box
-                  sx={{
-                    width: 8,
-                    height: 4,
-                    borderRadius: 2,
-                    backgroundColor: "rgba(255,255,255,0.5)",
-                  }}
-                />
-                <Box
-                  sx={{
-                    width: 8,
-                    height: 4,
-                    borderRadius: 2,
-                    backgroundColor: "rgba(255,255,255,0.5)",
-                  }}
-                />
+                {images.map((_, index) => (
+                  <Box
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    sx={{
+                      width: currentSlide === index ? 32 : 8,
+                      height: 4,
+                      borderRadius: 2,
+                      backgroundColor:
+                        currentSlide === index
+                          ? "#8E3CF7"
+                          : "rgba(255,255,255,0.5)",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                    }}
+                  />
+                ))}
               </Box>
             </Box>
           </Box>
         </Stack>
 
-        {/* SEARCH BAR (OVERLAPPING) */}
+        {/* SEARCH BAR */}
         <Box
           sx={{
             position: "absolute",
             left: "50%",
             transform: "translateX(-50%)",
-            bottom: { xs: -90, sm: -80, md: -60 }, // Adjusted positioning
-            width: { xs: "calc(100% - 32px)", sm: "calc(100% - 48px)", md: "calc(100% - 64px)" },
+            bottom: { xs: -85, md: -150 },
+            width: "100%",
             maxWidth: "1200px",
-            zIndex: 10,
-            px: { xs: 1, sm: 0 },
+            zIndex: 20,
+            px: { xs: 1, md: 0 },
           }}
         >
           <HeroSearchBar />
