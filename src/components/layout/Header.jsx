@@ -13,13 +13,21 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import { useTheme, useMediaQuery } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import Logo from "../../assets/Logo/Logo.svg";
-const navItems = ["Home", "About Us", "Properties", "Contact"];
+
+const navItems = [
+  { label: "Home", path: "/" },
+  { label: "About Us", path: "/about" },
+  { label: "Properties", path: "/properties" },
+  { label: "Contact", path: "/contact" },
+];
 
 export default function Header() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <>
@@ -29,6 +37,7 @@ export default function Header() {
         sx={{
           background: "linear-gradient(90deg, #D9DCF5, #E9DDFC)",
           px: { xs: 2, md: 6 },
+          mt: 0,
         }}
       >
         <Toolbar disableGutters>
@@ -54,20 +63,22 @@ export default function Header() {
             </Box>{" "}
             {!isMobile && (
               <Stack direction="row" spacing={5} alignItems="center">
-                {navItems.map((item) => (
-                  <Button
-                    key={item}
-                    sx={{
-                      fontStyle: "bold",
-                      fontSize: "17px",
-                      color: "#1e2a44",
-                      fontWeight: 700,
-                      textTransform: "none",
-                    }}
-                  >
-                    {item}
-                  </Button>
-                ))}
+                {navItems.map((item) => {
+                  const isActive = location.pathname === item.path;
+                  return (
+                    <Button
+                      key={item.label}
+                      sx={{
+                        fontSize: "17px",
+                        color: "#0F2A44",
+                        fontWeight: isActive ? 700 : 500,
+                        textTransform: "none",
+                      }}
+                    >
+                      {item.label}
+                    </Button>
+                  );
+                })}
               </Stack>
             )}
             {isMobile && (
@@ -82,21 +93,24 @@ export default function Header() {
       <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
         <Box width={250} p={3}>
           <Stack spacing={3}>
-            {navItems.map((item) => (
-              <Button
-                key={item}
-                sx={{
-                  fontSize: "17px",
-                  fontWeight: 500,
-                  textTransform: "none",
-                  justifyContent: "flex-start",
-                  color: "#1e2a44",
-                }}
-                onClick={() => setOpen(false)}
-              >
-                {item}
-              </Button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Button
+                  key={item.label}
+                  sx={{
+                    fontSize: "17px",
+                    fontWeight: isActive ? 700 : 500,
+                    textTransform: "none",
+                    justifyContent: "flex-start",
+                    color: "#0F2A44",
+                  }}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </Button>
+              );
+            })}
           </Stack>
         </Box>
       </Drawer>

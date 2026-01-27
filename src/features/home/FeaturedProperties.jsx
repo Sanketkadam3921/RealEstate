@@ -26,7 +26,11 @@ export default function FeaturedProperties() {
         }}
       >
         {/* Heading */}
-        <Stack spacing={2} alignItems="center" mb={{ xs: 4, sm: 6, md: 8 }}>
+        <Stack
+          spacing={2}
+          alignItems="center"
+          mb={{ xs: 4, sm: 6, md: 8, lg: 1 }}
+        >
           <Typography
             variant="h4"
             fontWeight={500}

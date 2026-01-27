@@ -1,3 +1,25 @@
+/* ===== Global Reset (safe with MUI) ===== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default body margin (fixes top gap) */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Root should take full height for flex / hero layouts */
+#root {
+  height: 100%;
+}
+
+/* Better default font rendering */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -7,4 +29,33 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove link underline & color issues */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Media elements behave properly */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form elements inherit typography */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Prevent horizontal scroll caused by small overflow mistakes */
+body {
+  overflow-x: hidden;
 }
