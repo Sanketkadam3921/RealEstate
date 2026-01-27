@@ -167,8 +167,8 @@ export default function HeroMobileLayout({
       <Container
         maxWidth={false}
         sx={{
-          maxWidth: "1200px",
-          px: { xs: 2, sm: 4 },
+          maxWidth: "1400px",
+          px: { xs: 2, sm: 2 },
           mt: { xs: 2, sm: 3 }, // Changed from negative to positive margin
           mb: { xs: 3, sm: 4 }, // Added bottom margin for spacing
           position: "relative",

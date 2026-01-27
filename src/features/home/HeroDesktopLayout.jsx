@@ -176,7 +176,7 @@ export default function HeroDesktopLayout({
             transform: "translateX(-50%)",
             bottom: { md: -120, lg: -150 },
             width: "100%",
-            maxWidth: "1300px",
+            maxWidth: "1400px",
             px: { md: 2, lg: 0 },
             zIndex: 20,
           }}

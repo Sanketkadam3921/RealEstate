@@ -19,7 +19,7 @@ export default function HeroSearchBar() {
         borderRadius: 3,
         p: { xs: 2, md: 2.5 },
         boxShadow: "0px 20px 60px rgba(0,0,0,0.1)",
-        maxWidth: "1300px",
+        maxWidth: "1400px",
         mx: "auto",
         border: `1px solid ${BORDER_COLOR}`, // ✅ OUTER BORDER
       }}

@@ -34,14 +34,20 @@ export default function Footer() {
           sx={{
             flexWrap: {
               xs: "wrap", // mobile
-              sm: "wrap", // tablet
+              sm: "wrap", // tablet - wrap to create rows
               md: "nowrap",
               lg: "nowrap", // desktop
             },
           }}
         >
           {/* Brand */}
-          <Stack spacing={2} maxWidth={300}>
+          <Stack
+            spacing={2}
+            maxWidth={300}
+            sx={{
+              width: { xs: "100%", sm: "100%", md: "auto" }, // Full width on mobile & tablet
+            }}
+          >
             <Stack
               direction="row"
               justifyContent="flex-start"
@@ -111,7 +117,12 @@ export default function Footer() {
           </Stack>
 
           {/* Quick Links */}
-          <Stack spacing={2}>
+          <Stack
+            spacing={2}
+            sx={{
+              width: { xs: "100%", sm: "calc(33.333% - 16px)", md: "auto" }, // 1/3 width on tablet
+            }}
+          >
             <Typography fontWeight={600}>Quick Links</Typography>
             {["Home", "Properties", "About Us", "Contact"].map((item) => (
               <Link
@@ -129,7 +140,12 @@ export default function Footer() {
           </Stack>
 
           {/* Services */}
-          <Stack spacing={2}>
+          <Stack
+            spacing={2}
+            sx={{
+              width: { xs: "100%", sm: "calc(33.333% - 16px)", md: "auto" }, // 1/3 width on tablet
+            }}
+          >
             <Typography fontWeight={600}>Our Services</Typography>
             {[
               "Residential Properties",
@@ -153,7 +169,13 @@ export default function Footer() {
           </Stack>
 
           {/* Contact */}
-          <Stack spacing={3} maxWidth={360}>
+          <Stack
+            spacing={3}
+            maxWidth={360}
+            sx={{
+              width: { xs: "100%", sm: "calc(33.333% - 16px)", md: "auto" }, // 1/3 width on tablet
+            }}
+          >
             <Typography fontWeight={600}>Contact Information</Typography>
 
             <Stack direction="row" spacing={2}>
@@ -276,16 +298,16 @@ export default function Footer() {
         >
           <Stack
             direction={{ xs: "column", sm: "column", md: "row" }}
-            justifyContent={{ xs: "flex-start", sm: "center", md: "space-between" }}
+            justifyContent={{
+              xs: "flex-start",
+              sm: "center",
+              md: "space-between",
+            }}
             alignItems={{ xs: "flex-start", sm: "center", md: "center" }}
             spacing={2}
           >
             {/* Privacy Policy and Terms - shown first on mobile */}
-            <Stack
-              direction="row"
-              spacing={3}
-              order={{ xs: 1, sm: 1, md: 2 }}
-            >
+            <Stack direction="row" spacing={3} order={{ xs: 1, sm: 1, md: 2 }}>
               <Link underline="hover" sx={{ color: "#0F2A44" }}>
                 Privacy Policy
               </Link>
