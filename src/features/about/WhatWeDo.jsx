@@ -261,7 +261,13 @@ const WhatWeDo = () => {
                       width: "50%",
                       pr: 5,
                       pt: 4,
-                      transform: "translateY(-70px)",
+                      transform: {
+                        xs: "translateY(-70px)",
+                        sm: "translateY(-70px)",
+                        md: "translateY(-10px)",
+                        lg: "translateY(-70px)",
+                        xl: "translateY(-70px)",
+                      },
                     }}
                   >
                     <Item
@@ -277,7 +283,13 @@ const WhatWeDo = () => {
                       width: "50%",
                       pl: 5,
                       pt: 4,
-                      transform: "translateY(-70px)",
+                      transform: {
+                        xs: "translateY(-70px)",
+                        sm: "translateY(-70px)",
+                        md: "translateY(-10px)",
+                        lg: "translateY(-70px)",
+                        xl: "translateY(-70px)",
+                      },
                     }}
                   >
                     <Item
