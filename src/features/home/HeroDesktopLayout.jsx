@@ -72,10 +72,11 @@ export default function HeroDesktopLayout({
             <Typography
               fontWeight={700}
               sx={{
+                fontFamily: "Montserrat, sans-serif",
                 pl: 5,
                 mb: 3,
                 lineHeight: 1.2,
-                fontSize: { md: "40px", lg: "48px", xl: "48px" },
+                fontSize: { md: "40px", lg: "48px", xl: "45px" },
                 color: "#1a1a1a",
               }}
             >
@@ -84,6 +85,7 @@ export default function HeroDesktopLayout({
 
             <Typography
               sx={{
+                fontFamily: "Montserrat, sans-serif",
                 pl: 5,
                 color: "#666",
                 fontSize: { md: "0.95rem", lg: "1rem" },

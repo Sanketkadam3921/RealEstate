@@ -19,7 +19,7 @@ const CTASection = () => {
           {/* Heading */}
           <Typography
             sx={{
-              fontFamily: "Montserrat",
+              fontFamily: "Montserrat, sans-serif",
               fontWeight: 600,
               fontSize: { xs: "24px", sm: "30px", md: "36px" },
               lineHeight: "160%",
@@ -33,6 +33,7 @@ const CTASection = () => {
           {/* Subtitle */}
           <Typography
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "15px", md: "17px" },
               color: "#5f6c7b",
             }}

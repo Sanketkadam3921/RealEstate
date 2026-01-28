@@ -5,6 +5,9 @@ html,
 body {
   overflow-x: hidden;
 }
+html {
+  overflow-y: scroll;
+}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

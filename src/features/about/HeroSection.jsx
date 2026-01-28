@@ -75,6 +75,7 @@ const AboutHero = () => {
           <Stack spacing={1} alignItems="center">
             <Typography
               sx={{
+                fontFamily: "Montserrat, sans-serif",
                 color: "#ffffff",
                 fontSize: { xs: "32px", md: "48px" },
                 fontWeight: 600,
@@ -86,6 +87,7 @@ const AboutHero = () => {
 
             <Typography
               sx={{
+                fontFamily: "Montserrat, sans-serif",
                 color: "#ffffff",
                 fontSize: "18px",
                 opacity: 0.95,

@@ -25,7 +25,7 @@ export default function PropertyCategories() {
               fontSize: { xs: "24px", sm: "28px", md: "35px" },
               fontWeight: 500,
               color: "#1f2a44",
-              fontFamily: "Montserrat",
+              fontFamily: "Montserrat, sans-serif",
               textAlign: "center",
             }}
           >
@@ -36,7 +36,7 @@ export default function PropertyCategories() {
             variant="body1"
             sx={{
               fontSize: { xs: "14px", sm: "15px", md: "16px" },
-              fontFamily: "Montserrat",
+              fontFamily: "Montserrat, sans-serif",
               color: "#6b7280",
               maxWidth: 820,
               textAlign: "center",

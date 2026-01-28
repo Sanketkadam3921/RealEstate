@@ -36,6 +36,7 @@ export default function FeaturedProperties() {
             fontWeight={500}
             color="#1f2a44"
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "24px", sm: "28px", md: "36px" },
               textAlign: "center",
             }}
@@ -48,6 +49,7 @@ export default function FeaturedProperties() {
             color="#6b7280"
             textAlign="center"
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "14px", sm: "15px", md: "16px" },
               px: { xs: 2, sm: 0 },
             }}

@@ -18,6 +18,7 @@ export default function WhyChooseZonix() {
             variant="h4"
             fontWeight={500}
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "24px", sm: "36px" },
               color: "#24364E",
               textAlign: "center",
@@ -31,6 +32,7 @@ export default function WhyChooseZonix() {
             color="text.secondary"
             fontWeight={500}
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "14px", sm: "16px" },
               textAlign: "center",
             }}
@@ -45,6 +47,7 @@ export default function WhyChooseZonix() {
             color="text.secondary"
             fontWeight={500}
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "13px", sm: "16px" },
               px: { xs: 2, sm: 0 },
             }}
@@ -178,7 +181,10 @@ export default function WhyChooseZonix() {
             {/* Text */}{" "}
             <Typography
               color="text.secondary"
-              sx={{ fontSize: { sm: 18 } }}
+              sx={{ 
+                fontFamily: "Montserrat, sans-serif",
+                fontSize: { sm: 18 } 
+              }}
               fontWeight={500}
             >
               {" "}

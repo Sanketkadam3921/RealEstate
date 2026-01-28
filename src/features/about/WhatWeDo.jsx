@@ -11,6 +11,7 @@ const Item = ({ number, title, text }) => {
     >
       <Typography
         sx={{
+          fontFamily: "Montserrat, sans-serif",
           fontSize: "32px",
           fontWeight: 600,
           color: "#000000",
@@ -21,6 +22,7 @@ const Item = ({ number, title, text }) => {
 
       <Typography
         sx={{
+          fontFamily: "Montserrat, sans-serif",
           fontSize: "18px",
           fontWeight: 600,
           color: "#000000",
@@ -31,6 +33,7 @@ const Item = ({ number, title, text }) => {
 
       <Typography
         sx={{
+          fontFamily: "Montserrat, sans-serif",
           fontSize: "16px",
           color: "#6f6f6f",
           lineHeight: 1.6,
@@ -69,6 +72,7 @@ const WhatWeDoMobile = () => {
           {/* TITLE */}
           <Typography
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               fontSize: "22px",
               fontWeight: 600,
               color: "#1f2a44",
@@ -174,6 +178,7 @@ const WhatWeDo = () => {
               {/* TITLE */}
               <Typography
                 sx={{
+                  fontFamily: "Montserrat, sans-serif",
                   fontSize: "24px",
                   fontWeight: 600,
                   color: "#1f2a44",

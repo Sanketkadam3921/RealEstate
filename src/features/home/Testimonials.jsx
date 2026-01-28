@@ -23,6 +23,7 @@ export default function Testimonials() {
             variant="h4"
             fontWeight={500}
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "24px", sm: "28px", md: "36px" },
               textAlign: "center",
               color: "#000000",
@@ -36,6 +37,7 @@ export default function Testimonials() {
             color="text.secondary"
             fontWeight={400}
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "15px", sm: "16px" },
               textAlign: "center",
               px: { xs: 2, sm: 0 },

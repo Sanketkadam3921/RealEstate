@@ -38,6 +38,7 @@ const InfoCard = ({ icon, title, description, sx }) => {
       <Stack spacing={0.5}>
         <Typography
           sx={{
+            fontFamily: "Montserrat, sans-serif",
             fontSize: { xs: "18px", sm: "20px" },
             fontWeight: 500,
             color: "#9b59ff",
@@ -49,6 +50,7 @@ const InfoCard = ({ icon, title, description, sx }) => {
 
         <Typography
           sx={{
+            fontFamily: "Montserrat, sans-serif",
             fontSize: { xs: "14px", sm: "16px" },
             color: "#7a7a7a",
             lineHeight: 1.5,
@@ -78,6 +80,7 @@ const ExclusivePropertySection = () => {
           <Stack spacing={{ xs: 2.5, sm: 3 }} sx={{ flex: 1 }}>
             <Typography
               sx={{
+                fontFamily: "Montserrat, sans-serif",
                 fontSize: { xs: "28px", sm: "32px", md: "36px" },
                 fontWeight: 600,
                 color: "#1f2a44",
@@ -90,6 +93,7 @@ const ExclusivePropertySection = () => {
 
             <Typography
               sx={{
+                fontFamily: "Montserrat, sans-serif",
                 fontWeight: 300,
                 fontSize: { xs: "15px", sm: "17px", md: "20px" },
                 color: "#6f6f6f",

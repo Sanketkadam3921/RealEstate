@@ -28,6 +28,7 @@ const Card = ({ icon, title, text }) => {
       <Stack spacing={2} alignItems="center">
         <Typography
           sx={{
+            fontFamily: "Montserrat, sans-serif",
             fontSize: "24px",
             fontWeight: 600,
             color: "#2c2c2c",
@@ -50,6 +51,7 @@ const Card = ({ icon, title, text }) => {
       {/* BOTTOM TEXT */}
       <Typography
         sx={{
+          fontFamily: "Montserrat, sans-serif",
           fontSize: "20px",
           color: "#5f5f5f",
           lineHeight: 1.6,
@@ -116,6 +118,7 @@ const MissionVision = () => {
           {/* Heading */}
           <Typography
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               color: "#ffffff",
               fontSize: { xs: "24px", sm: "30px", md: "36px" },
               fontWeight: 600,

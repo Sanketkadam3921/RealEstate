@@ -85,6 +85,7 @@ export default function HeroMobileLayout({
             variant="h2"
             fontWeight={700}
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               mb: { xs: 2, sm: 3 },
               lineHeight: 1.2,
               fontSize: { xs: "1.75rem", sm: "2.75rem" },
@@ -98,6 +99,7 @@ export default function HeroMobileLayout({
           <Typography
             variant="body1"
             sx={{
+              fontFamily: "Montserrat, sans-serif",
               color: "#ffffff",
               fontSize: { xs: "0.875rem", sm: "1.1rem" },
               lineHeight: 1.7,
