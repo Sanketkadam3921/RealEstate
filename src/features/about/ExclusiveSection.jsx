@@ -13,7 +13,7 @@ const InfoCard = ({ icon, title, description, sx }) => {
   return (
     <Box
       sx={{
-        width: { xs: "100%", sm: "100%", md: "400px" },
+        width: { xs: "90%", sm: "100%", md: "400px" },
         p: { xs: 2.5, sm: 3 },
         borderRadius: { xs: "20px", sm: "30px" },
         backgroundColor: "#ffffff",

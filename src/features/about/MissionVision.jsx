@@ -13,7 +13,7 @@ const Card = ({ icon, title, text }) => {
       sx={{
         alignItems: "center",
         // Slightly reduce width on small tablets so both cards fit side‑by‑side
-        width: { xs: "100%", sm: 300, md: 351 },
+        width: { xs: "90%", sm: 300, md: 351 },
         height: { xs: "auto", sm: 331, md: 331 },
         minHeight: { xs: 260, sm: 331, md: 331 },
         px: 3, // ALL cards get same inner width
@@ -136,7 +136,7 @@ const MissionVision = () => {
             spacing={{ xs: 3, sm: 6, md: "80px" }}
             alignItems={{ xs: "center", sm: "stretch" }}
             justifyContent="center"
-            sx={{ 
+            sx={{
               width: "100%",
               px: { xs: 2, sm: 0 }, // Add horizontal padding on mobile
             }}
