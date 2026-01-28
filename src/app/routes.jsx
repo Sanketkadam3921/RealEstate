@@ -9,7 +9,8 @@ import AdminLayout from "../layouts/AdminLayout";
 import Login from "../features/auth/Login";
 import Home from "../pages/user/Home";
 import Dashboard from "../pages/admin/Dashboard";
-
+import AboutHero from "../features/about/HeroSection";
+import About from "../pages/user/About";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
     ],
   },
