@@ -100,7 +100,7 @@ export default function Header() {
                   key={item.label}
                   sx={{
                     fontSize: "17px",
-                    fontWeight: isActive ? 700 : 500,
+                    fontWeight: isActive ? 700 : 400,
                     textTransform: "none",
                     justifyContent: "flex-start",
                     color: "#0F2A44",
