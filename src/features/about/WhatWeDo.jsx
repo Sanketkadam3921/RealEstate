@@ -39,16 +39,17 @@ const Item = ({ number, title, text }) => {
 
 const WhatWeDo = () => {
   return (
-    <Box sx={{ backgroundColor: "#ffffff", py: 10 }}>
+    <Box sx={{ backgroundColor: "#ffffff", py: { xs: 6, md: 10 } }}>
       <Container
         maxWidth="false"
         sx={{
           maxWidth: 1440,
         }}
       >
+        {/* DESKTOP / TABLET LAYOUT */}
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", md: "flex" },
             gap: "70px",
             alignItems: "flex-start",
           }}
@@ -181,6 +182,67 @@ const WhatWeDo = () => {
               </Box>
             </Box>
           </Box>
+        </Box>
+
+        {/* MOBILE LAYOUT */}
+        <Box
+          sx={{
+            display: { xs: "block", md: "none" },
+          }}
+        >
+          <Stack spacing={4}>
+            {/* IMAGE */}
+            <Box
+              component="img"
+              src={WhatWeDoImg}
+              alt="What we do"
+              sx={{
+                width: "100%",
+                height: { xs: 260, sm: 320 },
+                objectFit: "cover",
+                borderRadius: "9px",
+              }}
+            />
+
+            {/* TITLE */}
+            <Typography
+              sx={{
+                fontSize: { xs: "22px", sm: "24px" },
+                fontWeight: 600,
+                color: "#1f2a44",
+                textAlign: "center",
+              }}
+            >
+              What We Do
+            </Typography>
+
+            {/* ITEMS STACKED */}
+            <Stack spacing={4}>
+              <Item
+                number="01"
+                title="Residential Property Sales & Rentals"
+                text="We help you buy or rent residential properties with ease. All listings are verified and suited to different budgets. Our team supports you at every step of the process."
+              />
+
+              <Item
+                number="02"
+                title="Commercial Property Solutions"
+                text="Find office spaces, shops, and commercial properties easily. Solutions are tailored to meet business requirements. We ensure transparency and reliable support."
+              />
+
+              <Item
+                number="03"
+                title="Real Estate Consulting"
+                text="Get expert advice for buying, selling, or investing. We provide market insights and clear guidance. Make confident property decisions with our support."
+              />
+
+              <Item
+                number="04"
+                title="Property Management Support"
+                text="We manage properties efficiently on your behalf. Support includes maintenance and coordination services. Ensuring a smooth and hassle-free experience."
+              />
+            </Stack>
+          </Stack>
         </Box>
       </Container>
     </Box>

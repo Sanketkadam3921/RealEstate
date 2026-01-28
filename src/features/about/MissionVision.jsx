@@ -1,19 +1,21 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
-import TargetIcon from "@mui/icons-material/GpsFixed";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 
-// background image
+// Background image
 import BgImage from "../../assets/images/missionvision.png";
+
+// Custom SVG icons
+import MissionIcon from "../../assets/icons/mission.svg";
+import VisionIcon from "../../assets/icons/vision.svg";
 
 const Card = ({ icon, title, text }) => {
   return (
     <Stack
-      spacing={2}
-      alignItems="center"
       sx={{
-        width: "351px",
-        height: "331px",
-        padding: "19px 26px",
+        alignItems: "center",
+        width: { xs: "100%", sm: 320, md: 351 },
+        minHeight: 260,
+        px: 3, // ALL cards get same inner width
+        py: 2.5, // ALL cards get same inner height
         borderRadius: "19px",
         background:
           "linear-gradient(180deg, #ECF1FF 0%, #DADDF6 50%, #D5D5D5 100%)",
@@ -21,23 +23,36 @@ const Card = ({ icon, title, text }) => {
         textAlign: "center",
       }}
     >
+      {/* TOP GROUP */}
+      <Stack spacing={2} alignItems="center">
+        <Typography
+          sx={{
+            fontSize: "24px",
+            fontWeight: 600,
+            color: "#2c2c2c",
+          }}
+        >
+          {title}
+        </Typography>
+
+        <Box
+          component="img"
+          src={icon}
+          alt={title}
+          sx={{ width: 87, height: 87, pt: 4 }}
+        />
+      </Stack>
+
+      {/* FLEX PUSH */}
+      <Box sx={{ flexGrow: 1 }} />
+
+      {/* BOTTOM TEXT */}
       <Typography
         sx={{
-          fontSize: "24px",
-          fontWeight: 600,
-          color: "#2c2c2c",
-        }}
-      >
-        {title}
-      </Typography>
-
-      <Box sx={{ color: "#9b59ff", fontSize: "48px" }}>{icon}</Box>
-
-      <Typography
-        sx={{
-          fontSize: "17px",
+          fontSize: "20px",
           color: "#5f5f5f",
           lineHeight: 1.6,
+          pb: 1, // breathing room from bottom
         }}
       >
         {text}
@@ -51,7 +66,7 @@ const MissionVision = () => {
     <Box
       sx={{
         position: "relative",
-        height: "599px",
+        height: { xs: "auto", md: "599px" },
         width: "100%",
         overflow: "hidden",
       }}
@@ -87,37 +102,45 @@ const MissionVision = () => {
         sx={{
           position: "relative",
           zIndex: 2,
-          height: "100%",
+          height: { xs: "auto", md: "100%" },
+          py: { xs: 6, md: 0 },
         }}
       >
         <Stack
-          spacing={6}
+          spacing={{ xs: 4, md: 6 }}
           alignItems="center"
           justifyContent="center"
-          sx={{ height: "100%" }}
+          sx={{ height: { xs: "auto", md: "100%" } }}
         >
           {/* Heading */}
           <Typography
             sx={{
               color: "#ffffff",
-              fontSize: "36px",
+              fontSize: { xs: "24px", sm: "30px", md: "36px" },
               fontWeight: 600,
+              textAlign: "center",
             }}
           >
             Our Mission & Vision
           </Typography>
 
           {/* Cards */}
-          <Stack direction="row" spacing="273px" alignItems="center">
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            spacing={{ xs: 3, md: "80px" }}
+            alignItems="center"
+            justifyContent="center"
+            sx={{ width: "100%" }}
+          >
             <Card
               title="Mission"
-              icon={<TargetIcon fontSize="inherit" />}
+              icon={MissionIcon}
               text="To make property buying, renting, and investing simple, transparent, and reliable for everyone."
             />
 
             <Card
               title="Vision"
-              icon={<VisibilityIcon fontSize="inherit" />}
+              icon={VisionIcon}
               text="To become a trusted real estate destination known for honesty, quality listings, and customer-first service."
             />
           </Stack>

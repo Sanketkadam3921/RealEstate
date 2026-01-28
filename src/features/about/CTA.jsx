@@ -5,7 +5,8 @@ const CTASection = () => {
     <Box
       sx={{
         width: "100%",
-        height: "294px",
+        height: { xs: "auto", md: "294px" },
+        py: { xs: 6, md: 0 },
         background:
           "linear-gradient(90deg, #D4E0F9 0%, #DCDBF5 50%, #E3D8F5 100%)",
         display: "flex",
@@ -14,16 +15,15 @@ const CTASection = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Stack spacing={3} alignItems="center">
+        <Stack spacing={3} alignItems="center" textAlign="center">
           {/* Heading */}
           <Typography
             sx={{
               fontFamily: "Montserrat",
               fontWeight: 600,
-              fontSize: "36px",
+              fontSize: { xs: "24px", sm: "30px", md: "36px" },
               lineHeight: "160%",
               color: "#24364E",
-              textAlign: "center",
               maxWidth: "677px",
             }}
           >
@@ -33,20 +33,23 @@ const CTASection = () => {
           {/* Subtitle */}
           <Typography
             sx={{
-              fontSize: "14px",
+              fontSize: { xs: "15px", md: "17px" },
               color: "#5f6c7b",
-              textAlign: "center",
             }}
           >
             Explore verified listings or get in touch with our experts today.
           </Typography>
 
           {/* Buttons */}
-          <Stack direction="row" spacing={2}>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
+            sx={{ width: "100%", justifyContent: "center" }}
+          >
             <Button
               variant="contained"
               sx={{
-                width: "282px",
+                width: { xs: "100%", sm: "240px", md: "282px" },
                 height: "46px",
                 backgroundColor: "#8f3cff",
                 borderRadius: "8px",
@@ -65,7 +68,7 @@ const CTASection = () => {
             <Button
               variant="outlined"
               sx={{
-                width: "282px",
+                width: { xs: "100%", sm: "240px", md: "282px" },
                 height: "46px",
                 borderRadius: "8px",
                 fontSize: "14px",
