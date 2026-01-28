@@ -14,8 +14,8 @@ const InfoCard = ({ icon, title, description, sx }) => {
     <Box
       sx={{
         width: { xs: "100%", sm: "100%", md: "400px" },
-        p: 3,
-        borderRadius: "30px",
+        p: { xs: 2.5, sm: 3 },
+        borderRadius: { xs: "20px", sm: "30px" },
         backgroundColor: "#ffffff",
         boxShadow: "0px 10px 30px rgba(0,0,0,0.06)",
         display: "flex",
@@ -28,15 +28,20 @@ const InfoCard = ({ icon, title, description, sx }) => {
         component="img"
         src={icon}
         alt={title}
-        sx={{ width: 47, height: 47 }}
+        sx={{
+          width: { xs: 40, sm: 47 },
+          height: { xs: 40, sm: 47 },
+          flexShrink: 0,
+        }}
       />
 
       <Stack spacing={0.5}>
         <Typography
           sx={{
-            fontSize: "20px",
+            fontSize: { xs: "18px", sm: "20px" },
             fontWeight: 500,
             color: "#9b59ff",
+            lineHeight: 1.3,
           }}
         >
           {title}
@@ -44,8 +49,9 @@ const InfoCard = ({ icon, title, description, sx }) => {
 
         <Typography
           sx={{
-            fontSize: "16px",
+            fontSize: { xs: "14px", sm: "16px" },
             color: "#7a7a7a",
+            lineHeight: 1.5,
           }}
         >
           {description}
@@ -57,22 +63,22 @@ const InfoCard = ({ icon, title, description, sx }) => {
 
 const ExclusivePropertySection = () => {
   return (
-    <Box sx={{ backgroundColor: "#F6F6F6", py: { xs: 6, md: 10 } }}>
+    <Box sx={{ backgroundColor: "#F6F6F6", py: { xs: 5, sm: 7, md: 10 } }}>
       <Container maxWidth="lg">
         {/* MAIN ROW */}
         <Box
           sx={{
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
-            gap: { xs: 4, md: 6 },
+            gap: { xs: 4, sm: 5, md: 6 },
             alignItems: { xs: "flex-start", md: "center" },
           }}
         >
           {/* LEFT CONTENT */}
-          <Stack spacing={3} sx={{ flex: 1 }}>
+          <Stack spacing={{ xs: 2.5, sm: 3 }} sx={{ flex: 1 }}>
             <Typography
               sx={{
-                fontSize: { xs: "24px", sm: "30px", md: "36px" },
+                fontSize: { xs: "28px", sm: "32px", md: "36px" },
                 fontWeight: 600,
                 color: "#1f2a44",
                 lineHeight: 1.2,
@@ -84,11 +90,11 @@ const ExclusivePropertySection = () => {
 
             <Typography
               sx={{
-                fontWeight: "300px",
-                fontSize: { xs: "16px", md: "20px" },
+                fontWeight: 300,
+                fontSize: { xs: "15px", sm: "17px", md: "20px" },
                 color: "#6f6f6f",
                 maxWidth: "658px",
-                lineHeight: 1.6, // ✅ 160%
+                lineHeight: 1.6,
               }}
             >
               Zonix Realty is a professional real estate platform offering
@@ -98,9 +104,9 @@ const ExclusivePropertySection = () => {
             </Typography>
 
             <Stack
-              spacing={3}
-              mt={2}
+              spacing={{ xs: 2, sm: 2.5, md: 3 }}
               sx={{
+                mt: { xs: 1, sm: 2 },
                 alignItems: { xs: "stretch", md: "flex-start" },
               }}
             >
@@ -126,7 +132,7 @@ const ExclusivePropertySection = () => {
             <Box
               sx={{
                 display: "flex",
-                flexDirection: { xs: "column", md: "row" },
+                flexDirection: "row",
                 gap: 2,
               }}
             >
@@ -136,18 +142,23 @@ const ExclusivePropertySection = () => {
                 src={BuildingImg}
                 alt="Building"
                 sx={{
-                  width: { xs: "100%", md: "62%" },
-                  height: { xs: "260px", sm: "320px", md: "557px" },
+                  width: { xs: "100%", sm: "62%" },
+                  height: {
+                    xs: "400px",
+                    sm: "450px",
+                    md: "557px",
+                  },
                   objectFit: "cover",
-                  borderRadius: "7px",
+                  borderRadius: { xs: "10px", sm: "7px" },
                 }}
               />
 
-              {/* Two stacked images */}
+              {/* Two stacked images - Hidden on mobile, visible from sm up */}
               <Stack
                 spacing={2}
                 sx={{
-                  width: { xs: "100%", md: "38%" },
+                  width: "38%",
+                  display: { xs: "none", sm: "flex" },
                 }}
               >
                 <Box
@@ -156,7 +167,7 @@ const ExclusivePropertySection = () => {
                   alt="Villa"
                   sx={{
                     width: "100%",
-                    height: { xs: "220px", sm: "260px", md: "268px" },
+                    height: { sm: "219px", md: "268px" },
                     objectFit: "cover",
                     borderRadius: "7px",
                   }}
@@ -168,7 +179,7 @@ const ExclusivePropertySection = () => {
                   alt="Interior"
                   sx={{
                     width: "100%",
-                    height: { xs: "220px", sm: "260px", md: "268px" },
+                    height: { sm: "219px", md: "268px" },
                     objectFit: "cover",
                     borderRadius: "7px",
                   }}

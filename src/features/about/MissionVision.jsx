@@ -12,7 +12,8 @@ const Card = ({ icon, title, text }) => {
     <Stack
       sx={{
         alignItems: "center",
-        width: { xs: "100%", sm: 320, md: 351 },
+        // Slightly reduce width on small tablets so both cards fit side‑by‑side
+        width: { xs: "100%", sm: 300, md: 351 },
         minHeight: 260,
         px: 3, // ALL cards get same inner width
         py: 2.5, // ALL cards get same inner height
@@ -126,8 +127,9 @@ const MissionVision = () => {
 
           {/* Cards */}
           <Stack
-            direction={{ xs: "column", md: "row" }}
-            spacing={{ xs: 3, md: "80px" }}
+            // Show cards left/right from small tablet (~600px) upwards
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 3, sm: 6, md: "80px" }}
             alignItems="center"
             justifyContent="center"
             sx={{ width: "100%" }}

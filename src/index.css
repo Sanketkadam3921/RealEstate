@@ -1,6 +1,10 @@
 body {
   margin: 0;
 }
+html,
+body {
+  overflow-x: hidden;
+}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
