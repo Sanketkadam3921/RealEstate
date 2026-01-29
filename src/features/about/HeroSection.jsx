@@ -9,7 +9,7 @@ const AboutHero = () => {
       sx={{
         position: "relative",
         width: "100%",
-        height: { xs: "420px", md: "674px" },
+        height: { xs: "420px", md: "574px" },
         overflow: "hidden",
       }}
     >
