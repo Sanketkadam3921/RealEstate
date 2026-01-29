@@ -23,7 +23,7 @@ const Item = ({ number, title, text }) => {
       <Typography
         sx={{
           fontFamily: "Montserrat, sans-serif",
-          fontSize: "18px",
+          fontSize: { md: "15px", lg: "18px" },
           fontWeight: 600,
           color: "#000000",
         }}
@@ -34,7 +34,7 @@ const Item = ({ number, title, text }) => {
       <Typography
         sx={{
           fontFamily: "Montserrat, sans-serif",
-          fontSize: "16px",
+          fontSize: { md: "14px", lg: "16px" },
           color: "#24364E",
           lineHeight: 1.6,
         }}

@@ -63,7 +63,13 @@ const AboutHero = () => {
               position: "absolute",
               width: "360px",
               height: "260px",
-              left: { xs: "50%", md: "38%" }, // pushes frame left
+              left: {
+                xs: "45%",
+                sm: "33%",
+                md: "38%",
+                lg: "36%",
+                xl: "34%",
+              },
               transform: "translateX(-50%)",
               borderLeft: "24px solid #ffffff",
               borderTop: "24px solid #ffffff",
