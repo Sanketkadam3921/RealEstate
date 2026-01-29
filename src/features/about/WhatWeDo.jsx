@@ -184,9 +184,9 @@ const WhatWeDo = () => {
               <Typography
                 sx={{
                   fontFamily: "Montserrat, sans-serif",
-                  fontSize: "24px",
+                  fontSize: "36px",
                   fontWeight: 600,
-                  color: "#1f2a44",
+                  color: "#24364E",
                   textAlign: "center",
                   width: "100%",
                   position: "absolute",
