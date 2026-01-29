@@ -49,6 +49,8 @@ export default function HeroSection() {
       <Box
         sx={{
           display: { xs: "none", md: "block" },
+          mr: 5,
+          ml: 2,
         }}
       >
         <HeroDesktopLayout
