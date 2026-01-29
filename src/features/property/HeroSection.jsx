@@ -1,5 +1,5 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import HeroImage from "../../assets/images/y.png"; // replace with your image
+import HeroImage from "../../assets/images/y.png";
 
 const HeroSection = () => {
   return (
@@ -16,6 +16,7 @@ const HeroSection = () => {
           justifyContent="space-between"
           spacing={{ xs: 4, md: 6 }}
           py={{ xs: 6, md: 10 }}
+          // ❌ REMOVED: sx={{ mr: 3 }}
         >
           {/* LEFT CONTENT */}
           <Stack
@@ -29,12 +30,12 @@ const HeroSection = () => {
               variant="h3"
               sx={{
                 fontWeight: 700,
-                color: "#1F2937",
+                color: "#24364E",
                 lineHeight: 1.2,
                 fontSize: {
                   xs: "28px",
                   sm: "34px",
-                  md: "40px",
+                  md: "48px",
                 },
               }}
             >
@@ -46,9 +47,10 @@ const HeroSection = () => {
 
             <Typography
               sx={{
-                color: "#6B7280",
+                color: "#24364E",
                 fontSize: "16px",
                 lineHeight: 1.7,
+                fontWidth: 500,
               }}
             >
               Explore a wide range of verified residential and commercial
@@ -61,17 +63,17 @@ const HeroSection = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  px: 4,
-                  py: 1.2,
+                  mt: 7,
+                  width: 282,
+                  height: 50,
                   borderRadius: "8px",
                   textTransform: "none",
                   fontWeight: 500,
+                  fontSize: "16px",
                   borderColor: "#8B5CF6",
                   color: "#8B5CF6",
-                  "&:hover": {
-                    backgroundColor: "#8B5CF6",
-                    color: "#fff",
-                  },
+
+                  bgcolor: "#ffffff",
                 }}
               >
                 Contact Us
@@ -82,6 +84,7 @@ const HeroSection = () => {
           {/* RIGHT IMAGE */}
           <Box
             sx={{
+              // ❌ REMOVED: mr: 3
               width: { xs: "100%", md: "660px" },
               height: { xs: "240px", sm: "360px", md: "460px" },
               borderRadius: "20px",

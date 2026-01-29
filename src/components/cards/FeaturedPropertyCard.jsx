@@ -1,5 +1,3 @@
-// src/components/FeaturedPropertyCard.jsx
-
 import { Box, Stack, Typography, Button } from "@mui/material";
 
 export default function FeaturedPropertyCard({
@@ -8,45 +6,80 @@ export default function FeaturedPropertyCard({
   location,
   type,
   area,
+  tag,
 }) {
   return (
     <Stack
       sx={{
         maxWidth: { xs: "350px", sm: 330, md: 380, lg: 398 },
-
         height: { xs: "360px", sm: 401, md: 401, lg: 401 },
         overflow: "hidden",
-
         backgroundColor: "#ffffff",
         borderRadius: "14px",
         border: "1px solid #B7B7B7",
-
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between", // ✅ KEY FIX
-
+        justifyContent: "space-between",
         pt: 2,
         px: { xs: 2.5, sm: 3 },
         pb: 3,
       }}
     >
-      {/* Top Section (Image + Text) */}
+      {/* TOP */}
       <Stack>
-        {/* Image */}
+        {/* IMAGE + TAG */}
         <Box
-          component="img"
-          src={image}
-          alt={title}
           sx={{
+            position: "relative",
             width: "100%",
             height: { xs: 180, sm: 206 },
-            objectFit: "cover",
-            borderRadius: "11px",
             mb: 2,
           }}
-        />
+        >
+          {tag && (
+            <Box
+              sx={{
+                height: 40,
+                maxWidth: 110,
+                minWidth: 43,
+                position: "absolute",
+                bottom: 10,
+                left: 10,
+                pr: 2,
+                pl: 2,
+                display: "flex", // ✅ KEY
+                alignItems: "center", // ✅ vertical center
+                justifyContent: "center", // ✅ horizontal center
+                border: "1px solid #A237FF", // ✅ purple border
 
-        {/* Text Content */}
+                borderRadius: "8px",
+                backgroundColor: "#FFFFFF",
+                color: "#A237FF",
+                fontSize: "14px", // ✅ exact UI/UX size
+                fontWeight: 600,
+                lineHeight: 1, // ✅ prevents optical shift
+                zIndex: 2,
+                boxShadow: "0px 4px 12px rgba(0,0,0,0.12)",
+              }}
+            >
+              {tag}
+            </Box>
+          )}
+
+          <Box
+            component="img"
+            src={image}
+            alt={title}
+            sx={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "11px",
+            }}
+          />
+        </Box>
+
+        {/* TEXT */}
         <Stack spacing={1}>
           <Typography
             fontWeight={400}
@@ -57,16 +90,14 @@ export default function FeaturedPropertyCard({
 
           <Typography
             variant="body2"
-            color="text.secondary"
-            sx={{ fontSize: { xs: "13px", sm: "14px" } }}
+            sx={{ fontSize: { xs: "13px", sm: "14px" }, color: "#6B7280" }}
           >
             Location : {location}
           </Typography>
 
           <Typography
             variant="body2"
-            color="text.secondary"
-            sx={{ fontSize: { xs: "13px", sm: "14px" } }}
+            sx={{ fontSize: { xs: "13px", sm: "14px" }, color: "#6B7280" }}
           >
             Type ({type})
           </Typography>
@@ -81,7 +112,7 @@ export default function FeaturedPropertyCard({
         </Stack>
       </Stack>
 
-      {/* Button at bottom */}
+      {/* BUTTON */}
       <Button
         variant="contained"
         fullWidth
@@ -90,7 +121,7 @@ export default function FeaturedPropertyCard({
           borderRadius: "8px",
           textTransform: "none",
           fontWeight: 600,
-          fontSize: { xs: "14px", sm: "14px" },
+          fontSize: "14px",
           backgroundColor: "#9b5cff",
           "&:hover": {
             backgroundColor: "#8a4ef0",

@@ -4,7 +4,7 @@ import { Box, Container, Stack, Typography, Button } from "@mui/material";
 import FeaturedPropertyCard from "../../components/cards/FeaturedPropertyCard";
 import HeroSearchBar from "../home/HeroSearchBar";
 
-// Images (replace paths if needed)
+// Images
 import img1 from "../../assets/images/p1.png";
 import img2 from "../../assets/images/p2.png";
 import img3 from "../../assets/images/p3.png";
@@ -22,6 +22,7 @@ const properties = [
     location: "Baner, Pune",
     type: "Apartment / Villa",
     area: "1200 sq.ft",
+    tag: "Buy",
   },
   {
     image: img2,
@@ -29,6 +30,7 @@ const properties = [
     location: "Pune",
     type: "Villa",
     area: "3000 sq.ft",
+    tag: "Rent",
   },
   {
     image: img3,
@@ -36,6 +38,7 @@ const properties = [
     location: "Baner, Pune",
     type: "Villa",
     area: "3000 sq.ft",
+    tag: "Commercial",
   },
   {
     image: img4,
@@ -43,6 +46,7 @@ const properties = [
     location: "Baner, Pune",
     type: "Villa",
     area: "1500 sq.ft",
+    tag: "Buy",
   },
   {
     image: img5,
@@ -50,13 +54,15 @@ const properties = [
     location: "Hinjewadi, Pune",
     type: "Plot",
     area: "5000 sq.ft",
+    tag: "Commercial",
   },
   {
     image: img6,
     title: "Contemporary 3 BHK Apartment",
     location: "Maharashtra",
-    type: "Plot",
+    type: "Apartment",
     area: "1300 sq.ft",
+    tag: "Rent",
   },
   {
     image: img7,
@@ -64,6 +70,7 @@ const properties = [
     location: "Goa",
     type: "Villa",
     area: "5000 sq.ft",
+    tag: "Buy",
   },
   {
     image: img8,
@@ -71,6 +78,7 @@ const properties = [
     location: "Mahabaleshwar",
     type: "Plot",
     area: "3500 sq.ft",
+    tag: "Buy",
   },
   {
     image: img9,
@@ -78,26 +86,26 @@ const properties = [
     location: "Baner, Pune",
     type: "Office",
     area: "2500 sq.ft",
+    tag: "Commercial",
   },
 ];
 
 export default function PropertiesSection() {
   return (
-    <Box sx={{ backgroundColor: "#F9FAFB", py: { xs: 6, md: 10 } }}>
-      <Container maxWidth="false" sx={{ maxWidth: 1440 }}>
+    <Box sx={{ backgroundColor: "#ffffff", py: { xs: 6, md: 10 } }}>
+      <Container maxWidth={false} sx={{ maxWidth: 1440 }}>
         {/* Header */}
         <Stack spacing={1} alignItems="center" mb={4}>
           <Typography
             variant="h4"
-            fontWeight={700}
-            sx={{ fontSize: { xs: "26px", md: "32px" } }}
+            fontWeight={500}
+            sx={{ fontSize: { xs: "26px", md: "36px" }, color: "#24364E" }}
           >
             Properties
           </Typography>
 
           <Typography
-            color="text.secondary"
-            sx={{ fontSize: "14px", textAlign: "center" }}
+            sx={{ fontSize: "16px", textAlign: "center", color: "#24364E" }}
           >
             Explore some of the best properties available right now
           </Typography>
@@ -126,7 +134,7 @@ export default function PropertiesSection() {
           ))}
         </Box>
 
-        {/* Explore More Button */}
+        {/* Explore More */}
         <Stack alignItems="center" mt={6}>
           <Button
             variant="contained"
