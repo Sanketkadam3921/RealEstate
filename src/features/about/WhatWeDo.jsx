@@ -35,7 +35,7 @@ const Item = ({ number, title, text }) => {
         sx={{
           fontFamily: "Montserrat, sans-serif",
           fontSize: "16px",
-          color: "#6f6f6f",
+          color: "#24364E",
           lineHeight: 1.6,
         }}
       >
@@ -156,8 +156,11 @@ const WhatWeDo = () => {
               alt="What we do"
               sx={{
                 width: {
-                  sm: "100%", // tablet full width
-                  md: "357px", // desktop+
+                  xs: "100%", // mobile
+                  sm: "100%", // tablets
+                  md: "357px", // small laptops
+                  lg: "500px", // desktops
+                  xl: "557px", // large screens
                 },
                 height: {
                   sm: 360, // small tablets

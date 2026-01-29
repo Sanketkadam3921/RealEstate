@@ -33,9 +33,10 @@ const CTASection = () => {
           {/* Subtitle */}
           <Typography
             sx={{
+              fontWeight: 600,
               fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "15px", md: "17px" },
-              color: "#5f6c7b",
+              color: "#24364E",
             }}
           >
             Explore verified listings or get in touch with our experts today.
@@ -51,7 +52,7 @@ const CTASection = () => {
               variant="contained"
               sx={{
                 width: { xs: "100%", sm: "240px", md: "282px" },
-                height: "46px",
+                height: "50px",
                 backgroundColor: "#8f3cff",
                 borderRadius: "8px",
                 fontSize: "14px",
