@@ -92,7 +92,7 @@ const properties = [
 
 export default function PropertiesSection() {
   return (
-    <Box sx={{ backgroundColor: "#ffffff", py: { xs: 6, md: 10 } }}>
+    <Box sx={{ backgroundColor: "#ffffff", py: { xs: 6, md: 5 } }}>
       <Container maxWidth={false} sx={{ maxWidth: 1440 }}>
         {/* Header */}
         <Stack spacing={1} alignItems="center" mb={4}>
@@ -112,7 +112,7 @@ export default function PropertiesSection() {
         </Stack>
 
         {/* Search Bar */}
-        <Box mb={{ xs: 4, md: 6 }}>
+        <Box mb={{ xs: 4, md: 9 }}>
           <HeroSearchBar />
         </Box>
 
@@ -125,7 +125,8 @@ export default function PropertiesSection() {
               sm: "repeat(2, 1fr)",
               md: "repeat(3, 1fr)",
             },
-            gap: { xs: 3, md: 4 },
+            rowGap: { xs: 3, md: 4 },
+            columnGap: { xs: 2, md: 0 }, // smaller horizontal gap
             justifyItems: "center",
           }}
         >
