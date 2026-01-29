@@ -96,7 +96,7 @@ const ExclusivePropertySection = () => {
                 fontFamily: "Montserrat, sans-serif",
                 fontWeight: 300,
                 fontSize: { xs: "15px", sm: "17px", md: "20px" },
-                color: "#6f6f6f",
+                color: "#000000",
                 maxWidth: "658px",
                 lineHeight: 1.6,
               }}
