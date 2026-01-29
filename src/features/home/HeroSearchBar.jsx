@@ -18,7 +18,7 @@ export default function HeroSearchBar() {
         backgroundColor: "#fff",
         borderRadius: 3,
         p: { xs: 2, md: 2.5 },
-        boxShadow: "0px 20px 60px rgba(0,0,0,0.1)",
+        boxShadow: "7px 7px 43.6px rgba(0, 0, 0, 0.25)",
         maxWidth: "1400px",
         mx: "auto",
         border: `1px solid ${BORDER_COLOR}`, // ✅ OUTER BORDER
@@ -130,7 +130,7 @@ export default function HeroSearchBar() {
 const inputStyles = {
   "& .MuiOutlinedInput-root": {
     borderRadius: 2,
-    backgroundColor: "#fff",
+    backgroundColor: "#F2F3F3",
     "& fieldset": {
       borderColor: "#A237FF", // ✅ DEFAULT
     },
