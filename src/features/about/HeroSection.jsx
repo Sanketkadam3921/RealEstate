@@ -61,8 +61,21 @@ const AboutHero = () => {
           <Box
             sx={{
               position: "absolute",
-              width: "360px",
-              height: "260px",
+              width: {
+                xs: "320px",
+                sm: "250px",
+                md: "360px",
+                lg: "360px",
+                xl: "360px",
+              },
+
+              height: {
+                xs: "240px",
+                sm: "240px",
+                md: "260px",
+                lg: "260px",
+                xl: "260px",
+              },
               left: {
                 xs: "45%",
                 sm: "33%",
@@ -71,9 +84,29 @@ const AboutHero = () => {
                 xl: "34%",
               },
               transform: "translateX(-50%)",
-              borderLeft: "24px solid #ffffff",
-              borderTop: "24px solid #ffffff",
-              borderBottom: "24px solid #ffffff",
+              borderLeft: {
+                xs: "14px solid #ffffff",
+                sm: "14px solid #ffffff",
+                md: "24px solid #ffffff",
+                lg: "24px solid #ffffff",
+                xl: "24px solid #ffffff",
+              },
+
+              borderTop: {
+                xs: "14px solid #ffffff",
+                sm: "14px solid #ffffff",
+                md: "24px solid #ffffff",
+                lg: "24px solid #ffffff",
+                xl: "24px solid #ffffff",
+              },
+
+              borderBottom: {
+                xs: "14px solid #ffffff",
+                sm: "14px solid #ffffff",
+                md: "24px solid #ffffff",
+                lg: "24px solid #ffffff",
+                xl: "24px solid #ffffff",
+              },
             }}
           />
 
