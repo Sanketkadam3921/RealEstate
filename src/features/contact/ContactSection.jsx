@@ -32,8 +32,10 @@ const InfoRow = ({ icon, title, value }) => (
     </Box>
 
     <Stack spacing={0.5}>
-      <Typography fontWeight={600}>{title}</Typography>
-      <Typography color="#475569">{value}</Typography>
+      <Typography fontWeight={600} sx={{ fontSize: 16 }}>
+        {title}
+      </Typography>
+      <Typography color="#0F2A44">{value}</Typography>
     </Stack>
   </Stack>
 );
@@ -41,10 +43,15 @@ const InfoRow = ({ icon, title, value }) => (
 const ContactSection = () => {
   return (
     <Box sx={{ backgroundColor: "#F6F6F6", py: { xs: 6, md: 10 } }}>
-      <Container maxWidth="lg">
+      <Container
+        maxWidth="false"
+        sx={{
+          maxWidth: 1440,
+        }}
+      >
         <Stack
           direction={{ xs: "column", md: "row" }}
-          spacing={{ xs: 4, md: 6 }}
+          spacing={{ xs: 4, md: 9 }}
           justifyContent="center"
           alignItems="stretch"
         >
@@ -52,18 +59,18 @@ const ContactSection = () => {
           <Box
             sx={{
               width: {
-                xs: "100%",
+                xs: "90%",
                 md: "549px",
               },
               backgroundColor: "#ffffff",
               borderRadius: "17px",
-              border: "1px solid #E5E7EB",
+              border: "1px solid #B0B2B3",
               p: { xs: 3, sm: 4 },
             }}
           >
             <Stack spacing={3}>
               <Stack spacing={1}>
-                <Typography fontSize="20px" fontWeight={600}>
+                <Typography fontSize="19px" fontWeight={600}>
                   Contact Information
                 </Typography>
                 <Typography color="#6B7280">
@@ -103,12 +110,12 @@ const ContactSection = () => {
           <Box
             sx={{
               width: {
-                xs: "100%",
+                xs: "90%",
                 md: "531px",
               },
               backgroundColor: "#ffffff",
               borderRadius: "17px",
-              border: "1px solid #E5E7EB",
+              border: "1px solid #B0B2B3",
               p: { xs: 3, sm: 4 },
             }}
           >
