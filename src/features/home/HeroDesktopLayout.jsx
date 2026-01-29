@@ -121,13 +121,22 @@ export default function HeroDesktopLayout({
                 sx={{
                   position: "absolute",
                   top: "50%",
-                  left: -20,
+                  left: -25,
                   transform: "translateY(-50%)",
-                  backgroundColor: "rgba(255,255,255,0.9)",
+                  boxShadow: "4px 10px 30px rgba(0, 0, 0, 0.10)", // ✅ Figma shadow
+
+                  width: 55, // ✅
+                  height: 55, // ✅
+                  borderRadius: "50%", // ✅ perfect circle
+
+                  backgroundColor: "#ffffff",
                   zIndex: 10,
+                  "&:hover": {
+                    backgroundColor: "#ffffff",
+                  },
                 }}
               >
-                <ArrowBackIosIcon sx={{ fontSize: "1.2rem" }} />
+                <ArrowBackIosIcon sx={{ fontSize: "20px" }} />
               </IconButton>
 
               {/* Next */}
@@ -136,13 +145,22 @@ export default function HeroDesktopLayout({
                 sx={{
                   position: "absolute",
                   top: "50%",
-                  right: -15,
+                  right: -27,
                   transform: "translateY(-50%)",
-                  backgroundColor: "rgba(255,255,255,0.9)",
+                  boxShadow: "4px 10px 30px rgba(0, 0, 0, 0.10)", // ✅ Figma shadow
+
+                  width: 55, // ✅
+                  height: 55, // ✅
+                  borderRadius: "50%",
+
+                  backgroundColor: "#ffffff",
                   zIndex: 10,
+                  "&:hover": {
+                    backgroundColor: "#ffffff",
+                  },
                 }}
               >
-                <ArrowForwardIosIcon sx={{ fontSize: "1.2rem" }} />
+                <ArrowForwardIosIcon sx={{ fontSize: "18px" }} />
               </IconButton>
 
               {/* Image */}
