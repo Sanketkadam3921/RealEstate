@@ -126,7 +126,7 @@ export default function PropertiesSection() {
               md: "repeat(3, 1fr)",
             },
             rowGap: { xs: 3, md: 4 },
-            columnGap: { xs: 2, md: 0 }, // smaller horizontal gap
+            columnGap: { xs: 2, md: 3 }, // smaller horizontal gap
             justifyItems: "center",
           }}
         >
