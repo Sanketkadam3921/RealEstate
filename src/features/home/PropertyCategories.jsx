@@ -18,13 +18,20 @@ export default function PropertyCategories() {
     >
       <Container maxWidth="false" sx={{ maxWidth: 1440 }}>
         {/* Heading */}
-        <Stack spacing={2} alignItems="center" mb={{ xs: 4, sm: 6, md: 8 }}>
+        <Stack
+          spacing={2}
+          alignItems="center"
+          mb={{ xs: 4, sm: 6, md: 8 }}
+          sx={{
+            pt: 4,
+          }}
+        >
           <Typography
             variant="h4"
             sx={{
               fontSize: { xs: "24px", sm: "28px", md: "35px" },
               fontWeight: 500,
-              color: "#1f2a44",
+              color: "#24364E",
               fontFamily: "Montserrat, sans-serif",
               textAlign: "center",
             }}
@@ -37,7 +44,7 @@ export default function PropertyCategories() {
             sx={{
               fontSize: { xs: "14px", sm: "15px", md: "16px" },
               fontFamily: "Montserrat, sans-serif",
-              color: "#6b7280",
+              color: "#24364E",
               maxWidth: 820,
               textAlign: "center",
               px: { xs: 2, sm: 0 },
@@ -54,7 +61,7 @@ export default function PropertyCategories() {
           justifyContent="center"
           alignItems="center"
           gap={{ xs: 4, sm: 3, md: 3, lg: "80px", xl: "120px" }}
-          sx={{ flexWrap: { sm: "wrap" } }}
+          sx={{ flexWrap: { sm: "wrap" }, pb: 4 }}
         >
           <PropertyCategoryCard image={BuyImg} label="Buy" />
           <PropertyCategoryCard image={RentImg} label="Rent" />

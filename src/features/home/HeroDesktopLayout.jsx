@@ -77,7 +77,7 @@ export default function HeroDesktopLayout({
                 mb: 3,
                 lineHeight: 1.2,
                 fontSize: { md: "40px", lg: "48px", xl: "45px" },
-                color: "#1a1a1a",
+                color: "#24364E",
               }}
             >
               Discover Your Dream Home
@@ -87,7 +87,7 @@ export default function HeroDesktopLayout({
               sx={{
                 fontFamily: "Montserrat, sans-serif",
                 pl: 5,
-                color: "#666",
+                color: "#24364E",
                 fontSize: { md: "0.95rem", lg: "1rem" },
                 lineHeight: 1.7,
                 maxWidth: 480,

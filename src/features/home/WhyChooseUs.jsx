@@ -29,12 +29,12 @@ export default function WhyChooseZonix() {
           </Typography>{" "}
           <Typography
             variant="subtitle2"
-            color="text.secondary"
             fontWeight={500}
             sx={{
               fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "14px", sm: "16px" },
               textAlign: "center",
+              color: "#24364E", // ✅ custom color
             }}
           >
             {" "}
@@ -44,12 +44,12 @@ export default function WhyChooseZonix() {
             variant="body2"
             align="center"
             maxWidth={800}
-            color="text.secondary"
             fontWeight={500}
             sx={{
               fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "13px", sm: "16px" },
               px: { xs: 2, sm: 0 },
+              color: "#24364E", // ✅ custom color
             }}
           >
             {" "}
@@ -181,9 +181,9 @@ export default function WhyChooseZonix() {
             {/* Text */}{" "}
             <Typography
               color="text.secondary"
-              sx={{ 
+              sx={{
                 fontFamily: "Montserrat, sans-serif",
-                fontSize: { sm: 18 } 
+                fontSize: { sm: 18 },
               }}
               fontWeight={500}
             >

@@ -13,7 +13,7 @@ export default function Testimonials() {
         width: "100%",
         py: { xs: 6, sm: 8, md: 10 },
         background:
-          "linear-gradient(180deg, #FCE2FC 0%, #DEDDF5 50%, #E5D7F5 100%)",
+          "linear-gradient(180deg, #FCE2FC 0%, #DEDDF5 55%, #E5D7F5 100%)",
       }}
     >
       <Container maxWidth="lg">

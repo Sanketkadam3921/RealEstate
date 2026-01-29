@@ -34,7 +34,7 @@ export default function FeaturedProperties() {
           <Typography
             variant="h4"
             fontWeight={500}
-            color="#1f2a44"
+            color="#24364E"
             sx={{
               fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "24px", sm: "28px", md: "36px" },
@@ -46,12 +46,13 @@ export default function FeaturedProperties() {
 
           <Typography
             variant="body1"
-            color="#6b7280"
+            color="#24364E"
             textAlign="center"
             sx={{
               fontFamily: "Montserrat, sans-serif",
               fontSize: { xs: "14px", sm: "15px", md: "16px" },
               px: { xs: 2, sm: 0 },
+              pb: 5,
             }}
           >
             Explore some of the best properties available right now.
