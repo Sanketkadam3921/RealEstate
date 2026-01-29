@@ -62,14 +62,28 @@ const ContactSection = () => {
                 xs: "90%",
                 md: "549px",
               },
+              height: {
+                xs: "auto",
+                md: "549px",
+              },
+              minHeight: {
+                xs: "auto",
+                md: "549px",
+              },
               backgroundColor: "#ffffff",
               borderRadius: "17px",
               border: "1px solid #B0B2B3",
               p: { xs: 3, sm: 4 },
+              display: "flex",
+              overflow: "hidden",
+              boxSizing: "border-box",
             }}
           >
-            <Stack spacing={3}>
-              <Stack spacing={1}>
+            <Stack
+              spacing={4}
+              sx={{ flex: 1, justifyContent: "space-between" }}
+            >
+              <Stack spacing={1.5}>
                 <Typography fontSize="19px" fontWeight={600}>
                   Contact Information
                 </Typography>
@@ -78,7 +92,7 @@ const ContactSection = () => {
                 </Typography>
               </Stack>
 
-              <Stack spacing={3}>
+              <Stack spacing={7}>
                 <InfoRow
                   icon={<LocationOnOutlinedIcon />}
                   title="Office Address"
@@ -113,10 +127,20 @@ const ContactSection = () => {
                 xs: "90%",
                 md: "531px",
               },
+              height: {
+                xs: "auto",
+                md: "549px",
+              },
+              minHeight: {
+                xs: "auto",
+                md: "549px",
+              },
               backgroundColor: "#ffffff",
               borderRadius: "17px",
               border: "1px solid #B0B2B3",
               p: { xs: 3, sm: 4 },
+              overflow: "hidden",
+              boxSizing: "border-box",
             }}
           >
             <Stack spacing={3}>
