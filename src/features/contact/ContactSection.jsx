@@ -64,7 +64,7 @@ const ContactSection = () => {
               },
               height: {
                 xs: "auto",
-                md: "549px",
+                md: "559px",
               },
               minHeight: {
                 xs: "auto",
@@ -127,13 +127,14 @@ const ContactSection = () => {
                 xs: "90%",
                 md: "531px",
               },
+
               height: {
                 xs: "auto",
                 md: "549px",
               },
               minHeight: {
                 xs: "auto",
-                md: "549px",
+                md: "559px",
               },
               backgroundColor: "#ffffff",
               borderRadius: "17px",
@@ -186,6 +187,7 @@ const ContactSection = () => {
                   borderRadius: "10px",
                   fontWeight: 600,
                   textTransform: "none",
+                  mb: 3,
                   "&:hover": {
                     backgroundColor: "#7C3AED",
                   },
