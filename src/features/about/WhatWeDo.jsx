@@ -50,9 +50,11 @@ const WhatWeDoMobile = () => {
   return (
     <Box sx={{ backgroundColor: "#ffffff", py: 6 }}>
       <Container
-        maxWidth="false"
+        maxWidth={false}
         sx={{
           maxWidth: 1440,
+          mx: "auto",
+          px: { xs: 2, sm: 3 },
         }}
       >
         <Stack spacing={4}>
@@ -131,9 +133,11 @@ const WhatWeDo = () => {
         }}
       >
         <Container
-          maxWidth="false"
+          maxWidth={false}
           sx={{
             maxWidth: 1440,
+            mx: "auto",
+            px: { sm: 3, md: 6 },
           }}
         >
           <Box
@@ -142,6 +146,7 @@ const WhatWeDo = () => {
               flexDirection: { sm: "column", md: "row" },
               gap: { sm: 4, md: "70px" },
               alignItems: "flex-start",
+              justifyContent: { md: "center" }, // center the whole section on desktop
             }}
           >
             {/* LEFT IMAGE */}
