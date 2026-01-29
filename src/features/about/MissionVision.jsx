@@ -132,7 +132,7 @@ const MissionVision = () => {
           {/* Cards */}
           <Stack
             direction={{ xs: "column", sm: "row" }}
-            columnGap={{ xs: "24px", sm: "48px", md: "280px" }}
+            columnGap={{ xs: "24px", sm: "48px", md: "80px", lg: "280px" }}
             rowGap={{ xs: "24px", sm: "24px" }}
             alignItems={{ xs: "center", sm: "stretch" }}
             justifyContent="center"
