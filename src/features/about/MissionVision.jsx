@@ -70,7 +70,7 @@ const MissionVision = () => {
     <Box
       sx={{
         position: "relative",
-        height: { xs: "auto", md: "599px" },
+        height: { xs: "auto", md: "654px" },
         width: "100%",
         overflow: "hidden",
       }}
@@ -131,9 +131,9 @@ const MissionVision = () => {
 
           {/* Cards */}
           <Stack
-            // Show cards left/right from small tablet (~600px) upwards
             direction={{ xs: "column", sm: "row" }}
-            spacing={{ xs: 3, sm: 6, md: "80px" }}
+            columnGap={{ xs: "24px", sm: "48px", md: "280px" }}
+            rowGap={{ xs: "24px", sm: "24px" }}
             alignItems={{ xs: "center", sm: "stretch" }}
             justifyContent="center"
             sx={{
