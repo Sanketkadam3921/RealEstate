@@ -12,6 +12,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import AboutHero from "../features/about/HeroSection";
 import About from "../pages/user/About";
 import Property from "../pages/user/Properties";
+import Contact from "../pages/user/Contact";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/property",
         element: <Property />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },
