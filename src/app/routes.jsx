@@ -11,6 +11,7 @@ import Home from "../pages/user/Home";
 import Dashboard from "../pages/admin/Dashboard";
 import AboutHero from "../features/about/HeroSection";
 import About from "../pages/user/About";
+import Property from "../pages/user/Properties";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/property",
+        element: <Property />,
       },
     ],
   },
