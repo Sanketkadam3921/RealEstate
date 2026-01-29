@@ -24,7 +24,7 @@ const CTASection = () => {
               fontSize: { xs: "24px", sm: "30px", md: "36px" },
               lineHeight: "160%",
               color: "#24364E",
-              maxWidth: "677px",
+              maxWidth: "877px",
             }}
           >
             Ready to find your perfect property?
@@ -69,18 +69,17 @@ const CTASection = () => {
             <Button
               variant="outlined"
               sx={{
-                width: { xs: "100%", sm: "240px", md: "282px" },
-                height: "46px",
+                mt: 7,
+                width: 282,
+                height: 50,
                 borderRadius: "8px",
-                fontSize: "14px",
-                fontWeight: 500,
                 textTransform: "none",
-                color: "#8f3cff",
-                borderColor: "#8f3cff",
-                "&:hover": {
-                  borderColor: "#7a2fe0",
-                  backgroundColor: "rgba(143,60,255,0.05)",
-                },
+                fontWeight: 500,
+                fontSize: "16px",
+                borderColor: "#8B5CF6",
+                color: "#8B5CF6",
+
+                bgcolor: "#ffffff",
               }}
             >
               Contact Us
