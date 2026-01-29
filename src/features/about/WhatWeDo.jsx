@@ -130,6 +130,7 @@ const WhatWeDo = () => {
           display: { xs: "none", sm: "block" },
           backgroundColor: "#ffffff",
           py: { sm: 6, md: 10 },
+          mt: 8,
         }}
       >
         <Container
