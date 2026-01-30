@@ -40,7 +40,13 @@ export default function HeroSearchBar() {
               </InputAdornment>
             ),
           }}
-          sx={inputStyles}
+          sx={{
+            ...inputStyles,
+            "& .MuiInputBase-input::placeholder": {
+              color: "#000000",
+              opacity: 1, // very important or it will look grey
+            },
+          }}
         />
 
         {/* Location */}
