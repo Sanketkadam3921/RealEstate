@@ -1,39 +1,47 @@
-/* Embla Carousel */
-.embla {
-  overflow: hidden;
-  width: 100%;
-  touch-action: pan-y;
+/* ========== Global Reset (safe) ========== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  scroll-behavior: smooth;
 }
 
+/* ========== Embla Root ========== */
+.embla {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+  /* Critical for Edge + touch devices */
+  touch-action: pan-y;
+  overscroll-behavior: contain; /* IMPORTANT: only here */
+}
+
+/* ========== Embla Track ========== */
 .embla__container {
   display: flex;
   will-change: transform;
 }
 
+/* ========== Slides ========== */
 .embla__slide {
   flex: 0 0 100%;
   min-width: 100%;
+  position: relative;
 }
 
-body {
-  margin: 0;
-}
-html,
-body {
-  overflow-x: hidden;
-  overscroll-behavior: none;
-}
-html {
-  overflow-y: scroll;
+/* Optional: If slides contain images */
+.embla__slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none; /* prevents drag conflict */
 }
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ========== Optional: prevent text/image selection while dragging ========== */
+.embla,
+.embla * {
+  user-select: none;
+  -webkit-user-drag: none;
 }
