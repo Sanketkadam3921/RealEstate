@@ -116,12 +116,27 @@ export default function Header() {
                   onClick={() => setOpen(false)}
                   sx={{
                     fontSize: "17px",
-                    fontWeight: isActive ? 700 : 400,
+                    fontWeight: isActive ? 700 : 500,
                     textTransform: "none",
                     justifyContent: "flex-start",
                     color: "#0F2A44",
+
+                    border: "1px solid #E0E3EB",
+                    borderRadius: "10px",
+                    padding: "12px 16px",
+                    backgroundColor: "#fff",
+
+                    transition: "all 0.2s ease",
+
+                    "&:hover": {
+                      backgroundColor: "#F5F7FF",
+                      borderColor: "#C9D2FF",
+                    },
+
                     "&.active": {
                       fontWeight: 700,
+                      borderColor: "#5B6CFF",
+                      backgroundColor: "#EEF1FF",
                     },
                   }}
                 >
