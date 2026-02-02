@@ -1,9 +1,27 @@
+/* Embla Carousel */
+.embla {
+  overflow: hidden;
+  width: 100%;
+  touch-action: pan-y;
+}
+
+.embla__container {
+  display: flex;
+  will-change: transform;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+}
+
 body {
   margin: 0;
 }
 html,
 body {
   overflow-x: hidden;
+  overscroll-behavior: none;
 }
 html {
   overflow-y: scroll;
