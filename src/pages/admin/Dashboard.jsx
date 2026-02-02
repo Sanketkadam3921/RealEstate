@@ -576,55 +576,65 @@ const Dashboard = () => {
       </div>
 
       {/* Recent Inquiries */}
-      <div style={styles.tableCard}>
-        <div style={styles.tableTitle}>Recent Inquiries</div>
-        {recentInquiries.length > 0 ? (
-          <table style={styles.table}>
-            <thead>
-              <tr>
-                <th style={{ ...styles.th, borderRadius: "10px 0 0 10px" }}>
-                  Name
-                </th>
-                <th style={styles.th}>Properties</th>
-                <th style={{ ...styles.th, borderRadius: "0 10px 10px 0" }}>
-                  Status
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentInquiries.map((row, index) => (
-                <tr key={row.id}>
-                  <td
-                    style={{
-                      ...styles.td,
-                      borderTopLeftRadius: index === 0 ? "10px" : "0",
-                      borderBottomLeftRadius:
-                        index === recentInquiries.length - 1 ? "10px" : "0",
-                    }}
-                  >
-                    {row.name}
-                  </td>
-                  <td style={styles.td}>{row.property}</td>
-                  <td
-                    style={{
-                      ...styles.td,
-                      borderTopRightRadius: index === 0 ? "10px" : "0",
-                      borderBottomRightRadius:
-                        index === recentInquiries.length - 1 ? "10px" : "0",
-                    }}
-                  >
-                    <span style={styles.inquiryStatusButton(row.status)}>
-                      {row.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <div style={styles.emptyState}>No inquiries yet</div>
-        )}
-      </div>
+      {/* Recent Inquiries */}
+<div style={styles.tableCard}>
+  <div style={styles.tableTitle}>Recent Inquiries</div>
+  {recentInquiries.length > 0 ? (
+    <table style={styles.table}>
+      <thead>
+        <tr>
+          <th style={{ ...styles.th, borderRadius: "10px 0 0 10px" }}>
+            Name
+          </th>
+          <th style={styles.th}>Properties</th>
+          <th style={{ ...styles.th, borderRadius: "0 10px 10px 0" }}>
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {recentInquiries.map((row, index) => (
+          <tr key={row.id}>
+            <td
+              style={{
+                ...styles.td,
+                borderTopLeftRadius: index === 0 ? "10px" : "0",
+                borderBottomLeftRadius:
+                  index === recentInquiries.length - 1 ? "10px" : "0",
+                borderBottom: index !== recentInquiries.length - 1 ? "1px solid #E0E0E0" : "none"
+              }}
+            >
+              {row.name}
+            </td>
+            <td 
+              style={{
+                ...styles.td,
+                borderBottom: index !== recentInquiries.length - 1 ? "1px solid #E0E0E0" : "none" // MISSING THIS LINE
+              }}
+            >
+              {row.property}
+            </td>
+            <td
+              style={{
+                ...styles.td,
+                borderTopRightRadius: index === 0 ? "10px" : "0",
+                borderBottomRightRadius:
+                  index === recentInquiries.length - 1 ? "10px" : "0",
+                borderBottom: index !== recentInquiries.length - 1 ? "1px solid #E0E0E0" : "none"
+              }}
+            >
+              <span style={styles.inquiryStatusButton(row.status)}>
+                {row.status}
+              </span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  ) : (
+    <div style={styles.emptyState}>No inquiries yet</div>
+  )}
+</div>
 
       {/* Recently Added Properties */}
       <div style={styles.tableCard}>
