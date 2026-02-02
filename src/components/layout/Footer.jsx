@@ -199,27 +199,35 @@ export default function Footer() {
                   mt: 0.5,
                 }}
               />
+              <Link
+                href="https://www.google.com/maps/search/?api=1&query=Zonixtec+IT+Services+Private+Limited+Pune+Maharashtra"
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="none"
+                color="inherit"
+                sx={{ textDecoration: "none" }}
+              >
+                <Stack spacing={0.5}>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: 600, fontSize: 16 }}
+                  >
+                    Office Address
+                  </Typography>
 
-              <Stack spacing={0.5}>
-                <Typography
-                  variant="body2"
-                  sx={{ fontWeight: 600, fontSize: 16 }}
-                >
-                  Office Address
-                </Typography>
-
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontWeight: 500,
-                    color: "text.secondary",
-                    fontSize: 16,
-                  }}
-                >
-                  Address : 101, Business Park, Pune
-                  <br /> Maharashtra, India{" "}
-                </Typography>
-              </Stack>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: 500,
+                      color: "text.secondary",
+                      fontSize: 16,
+                    }}
+                  >
+                    Address : 101, Business Park, Pune
+                    <br /> Maharashtra, India
+                  </Typography>
+                </Stack>
+              </Link>
             </Stack>
 
             <Stack direction="row" spacing={2}>
@@ -235,26 +243,32 @@ export default function Footer() {
                   mt: 0.5,
                 }}
               />
+              <Link
+                href="tel:+919000000000"
+                underline="none"
+                color="inherit"
+                sx={{ textDecoration: "none" }}
+              >
+                <Stack spacing={0.5}>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: 600, fontSize: 16 }}
+                  >
+                    Phone
+                  </Typography>
 
-              <Stack spacing={0.5}>
-                <Typography
-                  variant="body2"
-                  sx={{ fontWeight: 600, fontSize: 16 }}
-                >
-                  Phone
-                </Typography>
-
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontWeight: 500,
-                    color: "text.secondary",
-                    fontSize: 16,
-                  }}
-                >
-                  +91 90000 00000
-                </Typography>
-              </Stack>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: 500,
+                      color: "text.secondary",
+                      fontSize: 16,
+                    }}
+                  >
+                    +91 90000 00000
+                  </Typography>
+                </Stack>
+              </Link>
             </Stack>
 
             <Stack direction="row" spacing={2}>
@@ -271,25 +285,32 @@ export default function Footer() {
                 }}
               />
 
-              <Stack spacing={0.5}>
-                <Typography
-                  variant="body2"
-                  sx={{ fontWeight: 600, fontSize: 16 }}
-                >
-                  Email
-                </Typography>
+              <Link
+                href="mailto:info@esquarerealty.com"
+                underline="none"
+                color="inherit"
+                sx={{ textDecoration: "none" }}
+              >
+                <Stack spacing={0.5}>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: 600, fontSize: 16 }}
+                  >
+                    Email
+                  </Typography>
 
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontWeight: 500,
-                    color: "text.secondary",
-                    fontSize: 16,
-                  }}
-                >
-                  info@esquarerealty.com
-                </Typography>
-              </Stack>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: 500,
+                      color: "text.secondary",
+                      fontSize: 16,
+                    }}
+                  >
+                    info@esquarerealty.com
+                  </Typography>
+                </Stack>
+              </Link>
             </Stack>
           </Stack>
         </Stack>
