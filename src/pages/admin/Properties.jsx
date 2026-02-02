@@ -500,7 +500,7 @@ const handleCloseViewModal = () => {
       fontFamily: 'Montserrat',
     },
     whiteSection: {
-      width: '100%',
+      // width: '100%',
       maxWidth: '1111px',
       backgroundColor: 'white',
       borderRadius: '11px',
