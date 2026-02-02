@@ -76,18 +76,26 @@ const Dashboard = () => {
         id: contact.id,
         name: contact.fullName,
         email: contact.email,
-        propertyInterested: "Contact Form Inquiry",
+        propertyInterested:
+          contact.propertyInterested || "Contact Form Inquiry",
         phone: contact.phone,
-        inquiryDate: formatTimestampToDate(contact.timestamp),
+        inquiryDate: formatTimestampToDate(contact.timestamp), // For display
+        timestamp: contact.timestamp, // Keep original ISO timestamp for sorting
         status: contact.status || "New",
         message: contact.message,
         source: "contact-form",
       }));
 
-      // Merge all inquiries
+      // Add timestamp to regular inquiries if they don't have it
+      const regularInquiriesWithTimestamp = regularInquiries.map((inq) => ({
+        ...inq,
+        timestamp: inq.timestamp || null, // Regular inquiries might not have timestamp
+      }));
+
+      // Merge all inquiries - contact form first since they're likely newer
       const allInquiries = [
         ...transformedContactInquiries,
-        ...regularInquiries,
+        ...regularInquiriesWithTimestamp,
       ];
 
       // Calculate stats
@@ -142,12 +150,12 @@ const Dashboard = () => {
         },
       ]);
 
-      // Sort and get recent properties (top 3)
+      // Sort and get recent properties (top 3 most recent)
       const sortedProperties = [...properties]
         .sort((a, b) => {
           const dateA = parseDate(a.addedDate);
           const dateB = parseDate(b.addedDate);
-          return dateB - dateA;
+          return dateB - dateA; // Most recent first (descending order)
         })
         .slice(0, 3);
 
@@ -155,18 +163,28 @@ const Dashboard = () => {
         sortedProperties.map((prop) => ({
           id: prop.id,
           name: prop.name,
+          location: prop.location,
           date: prop.addedDate,
           price: prop.price,
+          details: prop.details,
           status: prop.status,
         })),
       );
 
-      // Sort and get recent inquiries (top 3)
+      // Sort and get recent inquiries (top 3 most recent)
       const sortedInquiries = [...allInquiries]
         .sort((a, b) => {
+          // Use timestamp if available (contact form entries have ISO timestamp)
+          if (a.timestamp && b.timestamp) {
+            return new Date(b.timestamp) - new Date(a.timestamp);
+          }
+          // If only one has timestamp, prioritize it
+          if (a.timestamp) return -1;
+          if (b.timestamp) return 1;
+          // Otherwise parse inquiryDate
           const dateA = parseDate(a.inquiryDate);
           const dateB = parseDate(b.inquiryDate);
-          return dateB - dateA;
+          return dateB - dateA; // Most recent first (descending order)
         })
         .slice(0, 3);
 
@@ -183,18 +201,54 @@ const Dashboard = () => {
     }
   };
 
-  // Helper function to parse date (handles DD-MM-YYYY format)
+  // Helper function to parse date (handles DD-MM-YYYY, DD/MM/YYYY formats and ISO timestamps)
   const parseDate = (dateString) => {
     if (!dateString) return new Date(0);
 
-    // Handle DD-MM-YYYY format
-    if (dateString.includes("-")) {
-      const [day, month, year] = dateString.split("-");
-      return new Date(year, month - 1, day);
+    // Handle DD-MM-YYYY format (from manual entries)
+    if (typeof dateString === "string" && dateString.includes("-")) {
+      const parts = dateString.split("-");
+      if (parts.length === 3 && parts[0].length <= 2) {
+        // This is DD-MM-YYYY format
+        const [day, month, year] = parts;
+        // Create date at noon to avoid timezone issues
+        return new Date(
+          parseInt(year),
+          parseInt(month) - 1,
+          parseInt(day),
+          12,
+          0,
+          0,
+        );
+      }
     }
 
-    // Fallback to native parsing
-    return new Date(dateString);
+    // Handle DD/MM/YYYY format (alternative format)
+    if (typeof dateString === "string" && dateString.includes("/")) {
+      const parts = dateString.split("/");
+      if (parts.length === 3 && parts[0].length <= 2) {
+        // This is DD/MM/YYYY format
+        const [day, month, year] = parts;
+        // Create date at noon to avoid timezone issues
+        return new Date(
+          parseInt(year),
+          parseInt(month) - 1,
+          parseInt(day),
+          12,
+          0,
+          0,
+        );
+      }
+    }
+
+    // Handle ISO timestamp (from contact form submissions)
+    const timestamp = new Date(dateString);
+    if (!isNaN(timestamp.getTime())) {
+      return timestamp;
+    }
+
+    // Fallback
+    return new Date(0);
   };
 
   // Helper function to format ISO timestamp to DD-MM-YYYY
@@ -395,6 +449,20 @@ const Dashboard = () => {
         windowWidth < 640 ? "13px" : windowWidth < 768 ? "14px" : "16px",
       marginBottom: "4px",
       fontFamily: "Montserrat",
+      color: "#1E293B",
+    },
+    propertyLocation: {
+      fontSize:
+        windowWidth < 640 ? "11px" : windowWidth < 768 ? "12px" : "13px",
+      color: "#64748B",
+      fontFamily: "Montserrat",
+      marginBottom: "2px",
+    },
+    propertyDetails: {
+      fontSize:
+        windowWidth < 640 ? "11px" : windowWidth < 768 ? "12px" : "13px",
+      color: "#64748B",
+      fontFamily: "Montserrat",
     },
     propertyDate: {
       fontSize:
@@ -411,11 +479,12 @@ const Dashboard = () => {
       justifyContent: windowWidth < 640 ? "space-between" : "flex-start",
     },
     propertyPrice: {
-      fontWeight: "500",
+      fontWeight: "600",
       fontSize:
-        windowWidth < 640 ? "13px" : windowWidth < 768 ? "14px" : "16px",
+        windowWidth < 640 ? "14px" : windowWidth < 768 ? "15px" : "16px",
       whiteSpace: "nowrap",
       fontFamily: "Montserrat",
+      color: "#1E293B",
     },
     statusButton: (status) => ({
       display: "inline-flex",
@@ -569,7 +638,8 @@ const Dashboard = () => {
               <div key={row.id} style={styles.propertyCard}>
                 <div style={styles.propertyInfo}>
                   <div style={styles.propertyName}>{row.name}</div>
-                  <div style={styles.propertyDate}>{row.date}</div>
+                  <div style={styles.propertyLocation}>{row.location}</div>
+                  <div style={styles.propertyDetails}>{row.details}</div>
                 </div>
                 <div style={styles.propertyPriceStatus}>
                   <div style={styles.propertyPrice}>{row.price}</div>
