@@ -169,7 +169,7 @@ const ContactSection = () => {
           direction={{ xs: "column", md: "row" }}
           spacing={{ xs: 4, md: 9 }}
           justifyContent="center"
-          alignItems="stretch"
+          alignItems={{ xs: "center", md: "stretch" }}
         >
           {/* LEFT CARD – CONTACT INFO */}
           <Box
@@ -259,11 +259,11 @@ const ContactSection = () => {
               borderRadius: "17px",
               border: "1px solid #B0B2B3",
               p: { xs: 3, sm: 4 },
-              overflow: "hidden",
+              overflow: "auto",
               boxSizing: "border-box",
             }}
           >
-            <Stack spacing={3}>
+            <Stack spacing={2.5}>
               <Typography fontSize="20px" fontWeight={600}>
                 Send Message
               </Typography>
@@ -337,7 +337,6 @@ const ContactSection = () => {
                   borderRadius: "10px",
                   fontWeight: 600,
                   textTransform: "none",
-                  mb: 3,
                   "&:hover": {
                     backgroundColor: "#7C3AED",
                   },
@@ -348,7 +347,7 @@ const ContactSection = () => {
 
               {/* Display submitted forms count */}
               {submissionCount > 0 && (
-                <Typography fontSize="12px" color="#6B7280" sx={{ mt: 2 }}>
+                <Typography fontSize="12px" color="#6B7280">
                   Total submissions: {submissionCount}
                 </Typography>
               )}
