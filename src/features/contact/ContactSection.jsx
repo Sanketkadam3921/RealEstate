@@ -15,27 +15,59 @@ import PhoneIcon from "../../assets/icons/Footer/Phone.svg";
 import EmailIcon from "../../assets/icons/Footer/Email.svg";
 import TimeIcon from "../../assets/icons/Footer/Time.svg";
 
-const InfoRow = ({ iconSrc, iconAlt, title, value }) => (
-  <Stack direction="row" spacing={2} alignItems="flex-start">
-    <Box
-      component="img"
-      src={iconSrc}
-      alt={iconAlt}
-      sx={{
-        width: 44,
-        height: 44,
-        flexShrink: 0,
-        mt: 0.5,
-      }}
-    />
-    <Stack spacing={0.5}>
-      <Typography fontWeight={600} sx={{ fontSize: 16 }}>
-        {title}
-      </Typography>
-      <Typography color="#0F2A44">{value}</Typography>
+const InfoRow = ({ iconSrc, iconAlt, title, value, link, linkType }) => {
+  const content = (
+    <Stack direction="row" spacing={2} alignItems="flex-start">
+      <Box
+        component="img"
+        src={iconSrc}
+        alt={iconAlt}
+        sx={{
+          width: 44,
+          height: 44,
+          flexShrink: 0,
+          mt: 0.5,
+        }}
+      />
+      <Stack spacing={0.5}>
+        <Typography fontWeight={600} sx={{ fontSize: 16 }}>
+          {title}
+        </Typography>
+        <Typography color="#0F2A44">{value}</Typography>
+      </Stack>
     </Stack>
-  </Stack>
-);
+  );
+
+  if (link) {
+    return (
+      <Box
+        component="a"
+        href={link}
+        target={linkType === "map" ? "_blank" : undefined}
+        rel={linkType === "map" ? "noopener noreferrer" : undefined}
+        sx={{
+          textDecoration: "none",
+          color: "inherit",
+          display: "block",
+          cursor: "pointer",
+          transition: "all 0.2s ease",
+          "&:hover": {
+            "& img": {
+              transform: "scale(1.05)",
+            },
+            "& .MuiTypography-root": {
+              color: "#8B5CF6",
+            },
+          },
+        }}
+      >
+        {content}
+      </Box>
+    );
+  }
+
+  return content;
+};
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -180,7 +212,7 @@ const ContactSection = () => {
               },
               height: {
                 xs: "auto",
-                md: "559px",
+                md: "579px",
               },
               minHeight: {
                 xs: "auto",
@@ -214,6 +246,8 @@ const ContactSection = () => {
                   iconAlt="Location"
                   title="Office Address"
                   value="Address : 101, Business Park, Pune, Maharashtra, India"
+                  link="https://www.google.com/maps/search/?api=1&query=Zonixtecit+service"
+                  linkType="map"
                 />
 
                 <InfoRow
@@ -221,6 +255,8 @@ const ContactSection = () => {
                   iconAlt="Phone"
                   title="Phone"
                   value="+91 90000 00000"
+                  link="tel:+919000000000"
+                  linkType="phone"
                 />
 
                 <InfoRow
@@ -228,6 +264,8 @@ const ContactSection = () => {
                   iconAlt="Email"
                   title="Email"
                   value="info@esquarerealty.com"
+                  link="mailto:info@esquarerealty.com"
+                  linkType="email"
                 />
 
                 <InfoRow
@@ -249,7 +287,7 @@ const ContactSection = () => {
               },
               height: {
                 xs: "auto",
-                md: "549px",
+                md: "579px",
               },
               minHeight: {
                 xs: "auto",
@@ -345,12 +383,12 @@ const ContactSection = () => {
                 Send Message
               </Button>
 
-              {/* Display submitted forms count */}
+              {/* Display submitted forms count
               {submissionCount > 0 && (
                 <Typography fontSize="12px" color="#6B7280">
                   Total submissions: {submissionCount}
                 </Typography>
-              )}
+              )} */}
             </Stack>
           </Box>
         </Stack>
