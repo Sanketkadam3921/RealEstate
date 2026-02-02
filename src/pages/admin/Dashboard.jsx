@@ -144,7 +144,7 @@ const Dashboard = () => {
           value: activeLeads,
           change: `${activeLeads} leads pending follow-up`,
           icon: ActiveLeadsIcon,
-          bgColor: "#B4FFD9",
+          bgColor: "#F7B4FF",
         },
       ]);
 
@@ -420,7 +420,7 @@ const Dashboard = () => {
       verticalAlign: "middle",
       wordBreak: "break-word",
     },
-    
+
     /* Properties Card */
     propertyCard: {
       background: "#EBF2FF",
