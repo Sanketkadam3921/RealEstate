@@ -151,13 +151,20 @@ const Dashboard = () => {
       ]);
 
       // Sort and get recent properties (top 3 most recent)
+      console.log("All properties:", properties);
+
       const sortedProperties = [...properties]
         .sort((a, b) => {
           const dateA = parseDate(a.addedDate);
           const dateB = parseDate(b.addedDate);
+          console.log(
+            `Comparing: ${a.name} (${a.addedDate}) = ${dateA} vs ${b.name} (${b.addedDate}) = ${dateB}`,
+          );
           return dateB - dateA; // Most recent first (descending order)
         })
         .slice(0, 3);
+
+      console.log("Sorted properties (top 3):", sortedProperties);
 
       setRecentProperties(
         sortedProperties.map((prop) => ({
