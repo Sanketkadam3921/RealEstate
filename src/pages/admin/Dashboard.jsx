@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-// Icons
 import TotalPropertiesIcon from "../../assets/icons/Total Properties1.svg";
 import TotalInquiriesIcon from "../../assets/icons/Total Inquiries1.svg";
 import AvailablePropertiesIcon from "../../assets/icons/Available Properties1.svg";
-import ActiveLeadsIcon from "../../assets/icons/Active Leads1.svg";
+import ActiveLeadsIcon from "../../assets/icons/Vector.svg";
 
 const Dashboard = () => {
   const [stats, setStats] = useState([
@@ -38,7 +37,7 @@ const Dashboard = () => {
       value: 0,
       change: "Pending follow-up",
       icon: ActiveLeadsIcon,
-      bgColor: "#B4FFD9",
+      bgColor: "#F7B4FF",
     },
   ]);
 
@@ -79,20 +78,19 @@ const Dashboard = () => {
         propertyInterested:
           contact.propertyInterested || "Contact Form Inquiry",
         phone: contact.phone,
-        inquiryDate: formatTimestampToDate(contact.timestamp), // For display
-        timestamp: contact.timestamp, // Keep original ISO timestamp for sorting
+        inquiryDate: formatTimestampToDate(contact.timestamp), 
+        timestamp: contact.timestamp,
         status: contact.status || "New",
         message: contact.message,
         source: "contact-form",
       }));
 
-      // Add timestamp to regular inquiries if they don't have it
+      
       const regularInquiriesWithTimestamp = regularInquiries.map((inq) => ({
         ...inq,
-        timestamp: inq.timestamp || null, // Regular inquiries might not have timestamp
+        timestamp: inq.timestamp || null, 
       }));
 
-      // Merge all inquiries - contact form first since they're likely newer
       const allInquiries = [
         ...transformedContactInquiries,
         ...regularInquiriesWithTimestamp,
@@ -338,6 +336,7 @@ const Dashboard = () => {
       boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
       minHeight: windowWidth < 640 ? "100px" : "120px",
       boxSizing: "border-box",
+      border: "1px solid #CCCCCC",
     },
     statIconBox: {
       width: windowWidth < 640 ? "40px" : "48px",

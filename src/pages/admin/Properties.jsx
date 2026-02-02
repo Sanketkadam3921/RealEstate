@@ -14,7 +14,7 @@ import DescendingIcon from '../../assets/icons/ChevronRight.svg';
 import DeleteActionIcon from '../../assets/icons/Button (1).svg';
 import CloseIcon from '../../assets/icons/close.svg'; 
 
-// Sample property data with all required fields
+
 const INITIAL_PROPERTIES = [
   {
     id: 1,
@@ -23,7 +23,11 @@ const INITIAL_PROPERTIES = [
     price: '₹ 70 Lakh',
     details: '3,000 sq ft 3 BHK Villa',
     status: 'Available',
-    addedDate: '11-02-2026'
+    addedDate: '11-02-2026',
+    bedrooms: '3',
+    area: '3000',
+    description: 'Beautiful luxury villa with modern amenities...',
+    uploadedImages: [] 
   },
   {
     id: 2,
@@ -96,6 +100,9 @@ const Properties = () => {
   });
 
   const [showModal, setShowModal] = useState(false);
+  // Add these states near your other state declarations:
+const [showViewModal, setShowViewModal] = useState(false);
+const [selectedProperty, setSelectedProperty] = useState(null);
   const [modalType, setModalType] = useState('add');
   const [editingProperty, setEditingProperty] = useState(null);
   const [formData, setFormData] = useState({
@@ -212,6 +219,17 @@ const Properties = () => {
     }
   };
 
+  // Add this function near your other handler functions:
+const handleViewProperty = (property) => {
+  setSelectedProperty(property);
+  setShowViewModal(true);
+};
+
+const handleCloseViewModal = () => {
+  setShowViewModal(false);
+  setSelectedProperty(null);
+};
+
   // Handle delete single property
   const handleDeleteSingle = (id) => {
     if (window.confirm('Are you sure you want to delete this property?')) {
@@ -287,20 +305,31 @@ const Properties = () => {
   };
 
   const handleEditPropertyClick = (property) => {
-    setModalType('edit');
-    setEditingProperty(property);
-    setFormData({
-      name: property.name,
-      price: property.price.replace('₹ ', ''),
-      location: property.location,
-      bedrooms: '',
-      area: property.details.split(' sq ft')[0],
-      status: property.status,
-      description: ''
-    });
+  setModalType('edit');
+  setEditingProperty(property);
+
+  const detailsParts = property.details.split(' ');
+  const bedrooms = detailsParts[3] || ''; 
+  
+  setFormData({
+    name: property.name,
+    price: property.price.replace('₹ ', ''),
+    location: property.location,
+    bedrooms: bedrooms.replace('BHK', ''),
+    area: property.area || property.details.split(' sq ft')[0],
+    status: property.status,
+    description: property.description || ''
+  });
+  
+  // Set uploaded files if property has images
+  if (property.uploadedImages && property.uploadedImages.length > 0) {
+    setUploadedFiles(property.uploadedImages);
+  } else {
     setUploadedFiles([]);
-    setShowModal(true);
-  };
+  }
+  
+  setShowModal(true);
+};
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -308,6 +337,7 @@ const Properties = () => {
     setUploadedFiles([]);
   };
 
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -317,39 +347,49 @@ const Properties = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  
+  console.log('Uploaded files:', uploadedFiles);
+  
+  if (modalType === 'add') {
+    const newProperty = {
+      id: properties.length + 1,
+      name: formData.name,
+      location: formData.location,
+      price: `₹ ${formData.price}`,
+      details: `${formData.area} sq ft ${formData.bedrooms} BHK Villa`,
+      status: formData.status,
+      addedDate: new Date().toLocaleDateString('en-GB'),
+      bedrooms: formData.bedrooms,
+      area: formData.area,
+      description: formData.description,
+      uploadedImages: uploadedFiles // Make sure this saves the uploaded files
+    };
     
-    console.log('Uploaded files:', uploadedFiles);
-    
-    if (modalType === 'add') {
-      const newProperty = {
-        id: properties.length + 1,
-        name: formData.name,
-        location: formData.location,
-        price: `₹ ${formData.price}`,
-        details: `${formData.area} sq ft ${formData.bedrooms} BHK Villa`,
-        status: formData.status,
-        addedDate: new Date().toLocaleDateString('en-GB')
-      };
-      
-      setProperties(prev => [...prev, newProperty]);
-    } else {
-      setProperties(prev => prev.map(property => 
-        property.id === editingProperty.id 
-          ? {
-              ...property,
-              name: formData.name,
-              location: formData.location,
-              price: `₹ ${formData.price}`,
-              details: `${formData.area} sq ft ${formData.bedrooms} BHK Villa`,
-              status: formData.status
-            }
-          : property
-      ));
-    }
-    
-    handleCloseModal();
-  };
+    setProperties(prev => [...prev, newProperty]);
+  } else {
+    setProperties(prev => prev.map(property => 
+      property.id === editingProperty.id 
+        ? {
+            ...property,
+            name: formData.name,
+            location: formData.location,
+            price: `₹ ${formData.price}`,
+            details: `${formData.area} sq ft ${formData.bedrooms} BHK Villa`,
+            status: formData.status,
+            bedrooms: formData.bedrooms,
+            area: formData.area,
+            description: formData.description,
+            uploadedImages: uploadedFiles // Make sure this updates the uploaded files
+          }
+        : property
+    ));
+  }
+  
+  handleCloseModal();
+};
+
+
 
   // Get status button styles based on status
   const getStatusButtonStyle = (status) => {
@@ -967,6 +1007,22 @@ const Properties = () => {
       fontFamily: 'Montserrat',
       boxSizing: 'border-box',
     },
+
+    // Add this to your styles object if not already there:
+fieldValue: {
+  fontSize: windowWidth < 640 ? '14px' : '16px',
+  color: '#1F2937',
+  fontFamily: 'Montserrat',
+  padding: windowWidth < 640 ? '10px 12px' : '12px 16px',
+  backgroundColor: '#F9FAFB',
+  border: '1px solid #E5E7EB',
+  borderRadius: '8px',
+  minHeight: windowWidth < 640 ? '14px' : '16px',
+  display: 'flex',
+  alignItems: 'center',
+  wordBreak: 'break-word',
+},
+
     modalFooter: {
       padding: windowWidth < 640 ? '12px 20px 16px' : '16px 32px 24px',
       borderTop: '1px solid #E5E7EB',
@@ -1024,6 +1080,36 @@ const Properties = () => {
       flex: 1,
       width: windowWidth < 640 ? '100%' : 'auto',
     },
+
+    // View Modal styles (similar to Inquiries page)
+viewModalOverlay: {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 1000,
+  padding: windowWidth < 640 ? '8px' : '20px',
+},
+viewModalContent: {
+  backgroundColor: 'white',
+  borderRadius: windowWidth < 640 ? '12px' : '20px',
+  width: '100%',
+  maxWidth: windowWidth < 640 ? '95%' : windowWidth < 768 ? '90%' : '781px',
+  maxHeight: windowWidth < 640 ? '90vh' : 'none',
+  position: 'relative',
+  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+  border: '1px solid #E5E7EB',
+  padding: windowWidth < 640 ? '12px 20px' : '15px 35px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: windowWidth < 640 ? '12px' : '15px',
+  overflowY: 'auto',
+},
     // Upload section styles
     uploadSection: {
       marginBottom: '20px',
@@ -1078,8 +1164,8 @@ const Properties = () => {
     },
     // Responsive icons
     responsiveIcon: {
-      width: windowWidth < 640 ? '14px' : '16px',
-      height: windowWidth < 640 ? '14px' : '16px',
+      width: windowWidth < 640 ? '16px' : '26px',
+      height: windowWidth < 640 ? '16px' : '26px',
     },
   };
 
@@ -1457,6 +1543,27 @@ const Properties = () => {
                     {/* Actions Cell */}
                     <td style={styles.actionsCell}>
                       <div style={styles.actionsContainer}>
+                        {/* Add View Button */}
+    <button 
+      style={{ ...styles.actionButton, ...styles.viewButton }}
+      onClick={() => handleViewProperty(property)}
+      aria-label="View property"
+      onMouseEnter={(e) => e.target.style.backgroundColor = '#EFF6FF'}
+      onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+    >
+      <img 
+        src={ViewIcon} 
+        alt="View" 
+        style={styles.responsiveIcon}
+        onError={(e) => {
+          e.target.style.display = 'none';
+          const span = document.createElement('span');
+          span.textContent = '👁️';
+          e.target.parentNode.appendChild(span);
+        }}
+      />
+    </button>
+    
                         <button 
                           style={{ ...styles.actionButton, ...styles.editButton }}
                           onMouseEnter={(e) => e.target.style.backgroundColor = '#EFF6FF'}
@@ -1822,10 +1929,227 @@ const Properties = () => {
                   {modalType === 'add' ? 'Add Property' : 'Update Property'}
                 </button>
               </div>
+
             </form>
           </div>
         </div>
+        
       )}
+      {/* View Property Modal - Use same structure as add/edit modal */}
+{showViewModal && selectedProperty && (
+  <div style={styles.modalOverlay} onClick={handleCloseViewModal}>
+    <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+      <div style={styles.modalHeader}>
+        <h2 style={styles.modalTitle}>Property Details</h2>
+        <button 
+          style={styles.closeButton}
+          onClick={handleCloseViewModal}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#F3F4F6'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+          aria-label="Close modal"
+        >
+          <img 
+            src={CloseIcon} 
+            alt="Close" 
+            style={styles.responsiveIcon}
+          />
+        </button>
+      </div>
+      
+      <div style={styles.modalBody}>
+        {/* Property Name */}
+        <div style={styles.formGroup}>
+          <label style={styles.formLabel}>Property Name</label>
+          <div style={styles.fieldValue}>{selectedProperty.name}</div>
+        </div>
+        
+        {/* Price and Location */}
+        <div style={styles.row}>
+          <div style={styles.col}>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Price</label>
+              <div style={styles.fieldValue}>{selectedProperty.price}</div>
+            </div>
+          </div>
+          <div style={styles.col}>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Location</label>
+              <div style={styles.fieldValue}>{selectedProperty.location}</div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Bedrooms and Area */}
+        <div style={styles.row}>
+          <div style={styles.col}>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Bedrooms</label>
+              <div style={styles.fieldValue}>
+                {selectedProperty.bedrooms || selectedProperty.details?.split(' ')[3]?.replace('BHK', '') || 'N/A'} BHK
+              </div>
+            </div>
+          </div>
+          <div style={styles.col}>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Area (sq ft)</label>
+              <div style={styles.fieldValue}>
+                {selectedProperty.area || selectedProperty.details?.split(' sq ft')[0] || 'N/A'} sq ft
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Status and Added Date */}
+        <div style={styles.row}>
+          <div style={styles.col}>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Status</label>
+              <div style={styles.fieldValue}>
+                <div 
+                  style={{
+                    ...styles.statusButton,
+                    ...getStatusButtonStyle(selectedProperty.status),
+                    justifyContent: 'center',
+                    cursor: 'default',
+                  }}
+                >
+                  {selectedProperty.status}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style={styles.col}>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Added Date</label>
+              <div style={styles.fieldValue}>{selectedProperty.addedDate}</div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Details */}
+        <div style={styles.formGroup}>
+          <label style={styles.formLabel}>Details</label>
+          <div style={styles.fieldValue}>{selectedProperty.details}</div>
+        </div>
+        
+        {/* Uploaded Images */}
+        <div style={styles.formGroup}>
+          <label style={styles.formLabel}>Uploaded Images</label>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '10px',
+            marginTop: '8px'
+          }}>
+            {selectedProperty.uploadedImages && selectedProperty.uploadedImages.length > 0 ? (
+              selectedProperty.uploadedImages.map((file, index) => (
+                <div key={index} style={{
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '8px',
+                  padding: '8px',
+                  minWidth: '100px',
+                  backgroundColor: '#F9FAFB',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  {file.type && file.type.startsWith('image/') ? (
+                    <div style={{
+                      width: '80px',
+                      height: '80px',
+                      backgroundColor: '#E5E7EB',
+                      borderRadius: '4px',
+                      marginBottom: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      overflow: 'hidden'
+                    }}>
+                      <img 
+                        src={URL.createObjectURL(file)} 
+                        alt={file.name}
+                        style={{
+                          maxWidth: '100%',
+                          maxHeight: '100%',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div style={{
+                      width: '80px',
+                      height: '80px',
+                      backgroundColor: '#E5E7EB',
+                      borderRadius: '4px',
+                      marginBottom: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <span style={{ fontSize: '12px', color: '#6B7280' }}>📄</span>
+                    </div>
+                  )}
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#374151',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '100px',
+                    textAlign: 'center'
+                  }}>
+                    {file.name}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div style={{
+                padding: '12px',
+                backgroundColor: '#F9FAFB',
+                borderRadius: '8px',
+                border: '1px dashed #E5E7EB',
+                width: '100%',
+                textAlign: 'center',
+                color: '#6B7280',
+                fontFamily: 'Montserrat'
+              }}>
+                No images uploaded
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {/* Description */}
+        <div style={styles.formGroup}>
+          <label style={styles.formLabel}>Description</label>
+          <div style={{
+            ...styles.fieldValue,
+            minHeight: '100px',
+            whiteSpace: 'pre-wrap',
+            lineHeight: '1.5',
+            padding: '12px 16px'
+          }}>
+            {selectedProperty.description || 'No description provided'}
+          </div>
+        </div>
+        
+        {/* Modal Footer with Close Button */}
+        <div style={styles.modalFooter}>
+          <button
+            type="button"
+            style={styles.cancelButton}
+            onClick={handleCloseViewModal}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#F3F4F6'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };

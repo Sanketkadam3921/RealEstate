@@ -1019,8 +1019,8 @@ const Inquiries = () => {
     },
     // Responsive icons
     responsiveIcon: {
-      width: windowWidth < 640 ? '14px' : '16px',
-      height: windowWidth < 640 ? '14px' : '16px',
+      width: windowWidth < 640 ? '16px' : '26px',
+      height: windowWidth < 640 ? '16px' : '26px',
     },
   };
 
