@@ -212,7 +212,7 @@ const ContactSection = () => {
               },
               height: {
                 xs: "auto",
-                md: "559px",
+                md: "579px",
               },
               minHeight: {
                 xs: "auto",
@@ -287,7 +287,7 @@ const ContactSection = () => {
               },
               height: {
                 xs: "auto",
-                md: "549px",
+                md: "579px",
               },
               minHeight: {
                 xs: "auto",
@@ -383,12 +383,12 @@ const ContactSection = () => {
                 Send Message
               </Button>
 
-              {/* Display submitted forms count */}
+              {/* Display submitted forms count
               {submissionCount > 0 && (
                 <Typography fontSize="12px" color="#6B7280">
                   Total submissions: {submissionCount}
                 </Typography>
-              )}
+              )} */}
             </Stack>
           </Box>
         </Stack>
