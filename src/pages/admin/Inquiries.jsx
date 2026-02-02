@@ -831,6 +831,7 @@ const Inquiries = () => {
       fontFamily: 'Montserrat',
     },
     // Modal styles - Responsive
+        // Modal styles - Responsive (same as Properties page)
     modalOverlay: {
       position: 'fixed',
       top: 0,
@@ -846,27 +847,20 @@ const Inquiries = () => {
     },
     modalContent: {
       backgroundColor: 'white',
-      borderRadius: windowWidth < 640 ? '12px' : '20px',
+      borderRadius: '12px',
       width: '100%',
-      maxWidth: windowWidth < 640 ? '95%' : windowWidth < 768 ? '90%' : '781px',
-      minHeight: windowWidth < 640 ? 'auto' : '655px',
-      maxHeight: windowWidth < 640 ? '90vh' : 'none',
+      maxWidth: windowWidth < 640 ? '95%' : windowWidth < 768 ? '90%' : '600px',
+      maxHeight: '90vh',
+      overflowY: 'auto',
       position: 'relative',
       boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
-      border: '1px solid #E5E7EB',
-      padding: windowWidth < 640 ? '12px 20px' : '15px 35px',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: windowWidth < 640 ? '12px' : '15px',
-      overflowY: 'auto',
     },
     modalHeader: {
-      padding: '0',
-      borderBottom: 'none',
+      padding: windowWidth < 640 ? '16px 20px' : '24px 32px 16px',
+      borderBottom: '1px solid #E5E7EB',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: '10px',
       position: 'sticky',
       top: 0,
       backgroundColor: 'white',
@@ -874,7 +868,7 @@ const Inquiries = () => {
     },
     modalTitle: {
       fontSize: windowWidth < 640 ? '20px' : '24px',
-      fontWeight: 700,
+      fontWeight: 600,
       color: '#1E293B',
       margin: 0,
       fontFamily: 'Montserrat',
@@ -891,92 +885,65 @@ const Inquiries = () => {
       transition: 'background-color 0.3s ease',
     },
     modalBody: {
-      padding: 0,
-      flex: 1,
+      padding: windowWidth < 640 ? '16px 20px' : '24px 32px',
+    },
+    modalFooter: {
+      padding: windowWidth < 640 ? '12px 20px 16px' : '16px 32px 24px',
+      borderTop: '1px solid #E5E7EB',
       display: 'flex',
-      flexDirection: 'column',
-      gap: windowWidth < 640 ? '12px' : '20px',
+      flexDirection: windowWidth < 640 ? 'column-reverse' : 'row',
+      justifyContent: 'flex-end',
+      gap: '12px',
     },
-    twoColumnGrid: {
-      display: 'grid',
-      gridTemplateColumns: windowWidth < 640 ? '1fr' : '1fr 1fr',
-      gap: windowWidth < 640 ? '12px' : '20px',
-      marginBottom: windowWidth < 640 ? '12px' : '20px',
+    cancelButton: {
+      padding: windowWidth < 640 ? '10px 16px' : '12px 24px',
+      backgroundColor: 'white',
+      color: '#374151',
+      border: '1px solid #D1D5DB',
+      borderRadius: '8px',
+      fontSize: windowWidth < 640 ? '14px' : '16px',
+      fontWeight: 600,
+      cursor: 'pointer',
+      fontFamily: 'Montserrat',
+      transition: 'all 0.3s ease',
+      width: windowWidth < 640 ? '100%' : 'auto',
     },
-    singleColumnGrid: {
-      display: 'grid',
-      gridTemplateColumns: '1fr',
-      gap: '20px',
+    // Add these form styles (same as Properties page)
+    formGroup: {
       marginBottom: '20px',
     },
-    fieldGroup: {
-      marginBottom: 0,
-    },
-    fieldLabel: {
-      fontSize: windowWidth < 640 ? '13px' : '14px',
-      fontWeight: 600,
-      color: '#6B7280',
-      marginBottom: '6px',
-      fontFamily: 'Montserrat',
+    formLabel: {
       display: 'block',
+      fontSize: windowWidth < 640 ? '13px' : '14px',
+      fontWeight: 500,
+      color: '#374151',
+      marginBottom: '8px',
+      fontFamily: 'Montserrat',
     },
     fieldValue: {
       fontSize: windowWidth < 640 ? '14px' : '16px',
       color: '#1F2937',
       fontFamily: 'Montserrat',
-      padding: windowWidth < 640 ? '10px 12px' : '12px 16px',
+      padding: windowWidth < 640 ? '10px 12px' : '12px 5px',
       backgroundColor: '#F9FAFB',
       border: '1px solid #E5E7EB',
       borderRadius: '8px',
-      minHeight: windowWidth < 640 ? '40px' : '44px',
+      minHeight: windowWidth < 640 ? '14px' : '16px',
       display: 'flex',
       alignItems: 'center',
       wordBreak: 'break-word',
     },
-    modalStatusButton: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      border: 'none',
-      borderRadius: '9px',
-      fontSize: windowWidth < 640 ? '14px' : '16px',
-      fontWeight: 500,
-      cursor: 'pointer',
-      fontFamily: 'Montserrat',
-      padding: windowWidth < 640 ? '10px 12px' : '12px 16px',
-      width: '100%',
-      minHeight: windowWidth < 640 ? '40px' : '44px',
-    },
-    messageSection: {
-      marginTop: windowWidth < 640 ? '8px' : '10px',
-    },
-    sectionTitle: {
-      fontSize: windowWidth < 640 ? '16px' : '18px',
-      fontWeight: 600,
-      color: '#1E293B',
-      margin: '0 0 8px 0',
-      fontFamily: 'Montserrat',
-    },
-    messageBox: {
-      backgroundColor: '#F9FAFB',
-      border: '1px solid #E5E7EB',
-      borderRadius: '8px',
-      padding: windowWidth < 640 ? '12px' : '16px',
-      fontSize: windowWidth < 640 ? '14px' : '16px',
-      color: '#1F2937',
-      fontFamily: 'Montserrat',
-      lineHeight: '1.5',
-      minHeight: windowWidth < 640 ? '80px' : '120px',
-      flex: 1,
-      wordBreak: 'break-word',
-    },
-    actionButtonsGroup: {
+    row: {
       display: 'flex',
       flexDirection: windowWidth < 640 ? 'column' : 'row',
-      gap: windowWidth < 640 ? '12px' : '16px',
-      marginTop: windowWidth < 640 ? '16px' : '24px',
-      justifyContent: 'center',
+      gap: '16px',
+      marginBottom: '20px',
     },
+    col: {
+      flex: 1,
+      width: windowWidth < 640 ? '100%' : 'auto',
+    },
+    // Keep your existing button styles but make sure they match
     callButton: {
       width: windowWidth < 640 ? '100%' : '230px',
       height: windowWidth < 640 ? '42px' : '46px',
@@ -1013,6 +980,14 @@ const Inquiries = () => {
       gap: '10px',
       transition: 'background-color 0.3s ease',
     },
+    actionButtonsGroup: {
+      display: 'flex',
+      flexDirection: windowWidth < 640 ? 'column' : 'row',
+      gap: windowWidth < 640 ? '12px' : '16px',
+      marginTop: windowWidth < 640 ? '16px' : '24px',
+      justifyContent: 'center',
+    },
+
     // Mobile table row styles for better touch
     mobileTableRow: {
       cursor: 'pointer',
@@ -1415,7 +1390,7 @@ const Inquiries = () => {
         </div>
       </div>
 
-      {/* Modal for View Inquiry Details */}
+            {/* Modal for View Inquiry Details */}
       {showModal && selectedInquiry && (
         <div style={styles.modalOverlay} onClick={handleCloseModal}>
           <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
@@ -1444,46 +1419,55 @@ const Inquiries = () => {
             </div>
             
             <div style={styles.modalBody}>
-              {/* First row with Customer Name and Property Interested */}
-              <div style={styles.twoColumnGrid}>
-                <div style={styles.fieldGroup}>
-                  <label style={styles.fieldLabel}>Customer Name</label>
-                  <div style={styles.fieldValue}>{selectedInquiry.name}</div>
+              {/* Customer Name */}
+              <div style={styles.formGroup}>
+                <label style={styles.formLabel}>Customer Name</label>
+                <div style={styles.fieldValue}>{selectedInquiry.name}</div>
+              </div>
+              
+              {/* Property Interested and Email */}
+              <div style={styles.row}>
+                <div style={styles.col}>
+                  <div style={styles.formGroup}>
+                    <label style={styles.formLabel}>Property Interested</label>
+                    <div style={styles.fieldValue}>{selectedInquiry.propertyInterested}</div>
+                  </div>
                 </div>
-                
-                <div style={styles.fieldGroup}>
-                  <label style={styles.fieldLabel}>Property Interested</label>
-                  <div style={styles.fieldValue}>{selectedInquiry.propertyInterested}</div>
+                <div style={styles.col}>
+                  <div style={styles.formGroup}>
+                    <label style={styles.formLabel}>Email ID</label>
+                    <div style={styles.fieldValue}>{selectedInquiry.email}</div>
+                  </div>
                 </div>
               </div>
               
-              {/* Second row with Email ID and Phone Number */}
-              <div style={styles.twoColumnGrid}>
-                <div style={styles.fieldGroup}>
-                  <label style={styles.fieldLabel}>Email ID</label>
-                  <div style={styles.fieldValue}>{selectedInquiry.email}</div>
+              {/* Phone and Inquiry Date */}
+              <div style={styles.row}>
+                <div style={styles.col}>
+                  <div style={styles.formGroup}>
+                    <label style={styles.formLabel}>Phone Number</label>
+                    <div style={styles.fieldValue}>{selectedInquiry.phone}</div>
+                  </div>
                 </div>
-                
-                <div style={styles.fieldGroup}>
-                  <label style={styles.fieldLabel}>Phone Number</label>
-                  <div style={styles.fieldValue}>{selectedInquiry.phone}</div>
+                <div style={styles.col}>
+                  <div style={styles.formGroup}>
+                    <label style={styles.formLabel}>Inquiry Date</label>
+                    <div style={styles.fieldValue}>{formatDate(selectedInquiry.inquiryDate)}</div>
+                  </div>
                 </div>
               </div>
               
-              {/* Third row with Inquiry Date and Status */}
-              <div style={styles.twoColumnGrid}>
-                <div style={styles.fieldGroup}>
-                  <label style={styles.fieldLabel}>Inquiry Date</label>
-                  <div style={styles.fieldValue}>{formatDate(selectedInquiry.inquiryDate)}</div>
-                </div>
-                
-                <div style={styles.fieldGroup}>
-                  <label style={styles.fieldLabel}>Status</label>
+              {/* Status */}
+              <div style={styles.formGroup}>
+                <label style={styles.formLabel}>Status</label>
+                <div style={styles.fieldValue}>
                   <button 
                     style={{
-                      ...styles.modalStatusButton,
+                      ...styles.statusButton,
                       ...getStatusButtonStyle(selectedInquiry.status),
                       justifyContent: 'space-between',
+                      width: '100%',
+                      cursor: 'pointer',
                     }}
                     onClick={() => {
                       const statuses = ['New', 'Contacted', 'Closed', 'Converted'];
@@ -1498,11 +1482,17 @@ const Inquiries = () => {
                   </button>
                 </div>
               </div>
-
-              {/* Message section - single column */}
-              <div style={styles.messageSection}>
-                <h3 style={styles.sectionTitle}>Message</h3>
-                <div style={styles.messageBox}>
+              
+              {/* Message */}
+              <div style={styles.formGroup}>
+                <label style={styles.formLabel}>Message</label>
+                <div style={{
+                  ...styles.fieldValue,
+                  minHeight: '100px',
+                  whiteSpace: 'pre-wrap',
+                  lineHeight: '1.5',
+                  padding: '12px 16px'
+                }}>
                   {selectedInquiry.message}
                 </div>
               </div>

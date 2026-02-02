@@ -375,10 +375,11 @@ const Dashboard = () => {
     },
 
     /* Tables */
+    /* Tables */
     tableCard: {
       background: "#fff",
       borderRadius: "15px",
-      padding: windowWidth < 640 ? "15px" : windowWidth < 768 ? "20px" : "30px",
+      padding: "clamp(20px, 3vw, 30px)",
       border: "1px solid #E0E0E0",
       marginBottom: "30px",
       width: "100%",
@@ -386,48 +387,40 @@ const Dashboard = () => {
       boxSizing: "border-box",
     },
     tableTitle: {
-      fontSize:
-        windowWidth < 640 ? "14px" : windowWidth < 768 ? "15px" : "16px",
+      fontSize: "clamp(14px, 3vw, 16px)",
       fontWeight: 600,
       marginBottom: "20px",
-      fontFamily: "Montserrat",
     },
     table: {
       width: "100%",
       borderCollapse: "separate",
       borderSpacing: "0",
-      minWidth: windowWidth < 640 ? "500px" : "600px",
+      minWidth: "600px",
     },
     th: {
-      padding:
-        windowWidth < 640
-          ? "10px 12px"
-          : windowWidth < 768
-            ? "12px 15px"
-            : "14px 20px",
-      fontSize:
-        windowWidth < 640 ? "10px" : windowWidth < 768 ? "11px" : "12px",
-      fontWeight: 600,
+      padding: "clamp(12px, 3vw, 14px) clamp(15px, 3vw, 20px)",
+
+      // 👇 Responsive font size
+      fontSize: "clamp(14px, 1.5vw, 18px)",
+
+      // Design spec
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 500, // Medium
+      lineHeight: "145%",
+      letterSpacing: "0px",
+
       background: "#EBF2FF",
       color: "#666",
       textAlign: "left",
       whiteSpace: "nowrap",
-      fontFamily: "Montserrat",
     },
     td: {
-      padding:
-        windowWidth < 640
-          ? "10px 12px"
-          : windowWidth < 768
-            ? "12px 15px"
-            : "14px 20px",
-      fontSize:
-        windowWidth < 640 ? "12px" : windowWidth < 768 ? "13px" : "14px",
+      padding: "clamp(12px, 3vw, 14px) clamp(15px, 3vw, 20px)",
+      fontSize: "clamp(13px, 2.5vw, 14px)",
       verticalAlign: "middle",
       wordBreak: "break-word",
-      fontFamily: "Montserrat",
     },
-
+    
     /* Properties Card */
     propertyCard: {
       background: "#EBF2FF",
