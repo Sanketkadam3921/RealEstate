@@ -11,6 +11,7 @@ import {
 import InstagramIcon from "../../assets/icons/Instagram.svg";
 import FacebookIcon from "../../assets/icons/Facebook.svg";
 import LinkedInIcon from "../../assets/icons/LinkedIn.svg";
+import { Link as RouterLink } from "react-router-dom";
 
 // Contact Icons
 import LocationIcon from "../../assets/icons/Footer/Location.svg";
@@ -124,17 +125,25 @@ export default function Footer() {
             }}
           >
             <Typography fontWeight={600}>Quick Links</Typography>
-            {["Home", "Properties", "About Us", "Contact"].map((item) => (
+            {[
+              { label: "Home", path: "/home" },
+              { label: "Properties", path: "/property" },
+              { label: "About Us", path: "/about" },
+              { label: "Contact", path: "/contact" },
+            ].map((item) => (
               <Link
-                key={item}
+                key={item.label}
+                component={RouterLink}
+                to={item.path}
                 underline="hover"
                 color="text.secondary"
                 sx={{
                   fontWeight: 500,
                   fontSize: 16,
+                  cursor: "pointer",
                 }}
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </Stack>
