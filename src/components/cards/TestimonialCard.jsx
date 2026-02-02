@@ -26,6 +26,7 @@ export default function TestimonialCard({
         position: "relative",
         display: "flex",
         flexDirection: "column",
+        mt: 4,
       }}
     >
       {/* Avatar */}
