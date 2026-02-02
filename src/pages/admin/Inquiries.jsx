@@ -16,7 +16,7 @@ import CallIcon from '../../assets/icons/call.svg';
 import EmailIcon from '../../assets/icons/email.svg';
 import StatusIcon from '../../assets/icons/ChevronRight.svg';
 
-// Sample inquiry data
+// Sample inquiry data - will be replaced by contact form submissions
 const INITIAL_INQUIRIES = [
   {
     id: 1,
@@ -76,11 +76,49 @@ const INITIAL_INQUIRIES = [
 ];
 
 const Inquiries = () => {
-  // Initialize state from localStorage or use defaults
-  const [inquiries, setInquiries] = useState(() => {
+  // Function to load and merge contact form submissions
+  const loadInquiries = () => {
+    // Load contact form submissions
+    const contactSubmissions = localStorage.getItem('contactFormSubmissions');
+    const contactInquiries = contactSubmissions ? JSON.parse(contactSubmissions) : [];
+    
+    // Transform contact submissions to match inquiry format
+    const transformedContactInquiries = contactInquiries.map(contact => ({
+      id: contact.id,
+      name: contact.fullName,
+      email: contact.email,
+      propertyInterested: 'Contact Form Inquiry', // Default since contact form doesn't have property field
+      phone: contact.phone,
+      inquiryDate: formatTimestampToDate(contact.timestamp),
+      status: 'New', // Default status for new contact submissions
+      message: contact.message,
+      deleteDate: formatTimestampToDate(contact.timestamp),
+      source: 'contact-form' // Add source identifier
+    }));
+
+    // Load existing inquiries
     const savedInquiries = localStorage.getItem('inquiries');
-    return savedInquiries ? JSON.parse(savedInquiries) : INITIAL_INQUIRIES;
-  });
+    const existingInquiries = savedInquiries ? JSON.parse(savedInquiries) : INITIAL_INQUIRIES;
+    
+    // Filter out existing inquiries that came from contact form to avoid duplicates
+    const nonContactInquiries = existingInquiries.filter(inq => inq.source !== 'contact-form');
+    
+    // Merge both arrays, with contact form submissions first (most recent)
+    return [...transformedContactInquiries, ...nonContactInquiries];
+  };
+
+  // Helper function to format ISO timestamp to DD-MM-YYYY
+  const formatTimestampToDate = (timestamp) => {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
+  // Initialize state from localStorage or use defaults
+  const [inquiries, setInquiries] = useState(() => loadInquiries());
 
   const [searchTerm, setSearchTerm] = useState(() => {
     const savedSearchTerm = localStorage.getItem('inquiriesSearchTerm');
@@ -108,12 +146,35 @@ const Inquiries = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(() => {
     const savedStatus = localStorage.getItem('selectedStatus');
-    return savedStatus || 'New';
+    return savedStatus || 'All';
   });
 
-  // Save to localStorage whenever state changes
+  // Reload inquiries when component mounts or when localStorage changes
   useEffect(() => {
-    localStorage.setItem('inquiries', JSON.stringify(inquiries));
+    const handleStorageChange = () => {
+      setInquiries(loadInquiries());
+    };
+
+    // Listen for storage events (changes from other tabs)
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Set up interval to check for new submissions every 2 seconds
+    const interval = setInterval(() => {
+      const updatedInquiries = loadInquiries();
+      setInquiries(updatedInquiries);
+    }, 2000);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, []);
+
+  // Save to localStorage whenever inquiries change
+  useEffect(() => {
+    // Only save non-contact-form inquiries to avoid conflicts
+    const nonContactInquiries = inquiries.filter(inq => inq.source !== 'contact-form');
+    localStorage.setItem('inquiries', JSON.stringify(nonContactInquiries));
   }, [inquiries]);
 
   useEffect(() => {
@@ -172,9 +233,12 @@ const Inquiries = () => {
   const filteredInquiries = sortedInquiries.filter(inquiry => {
     const matchesSearch = inquiry.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          inquiry.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         inquiry.propertyInterested.toLowerCase().includes(searchTerm.toLowerCase());
+                         inquiry.propertyInterested.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         inquiry.message.toLowerCase().includes(searchTerm.toLowerCase());
     
-    return matchesSearch;
+    const matchesStatus = selectedStatus === 'All' || inquiry.status === selectedStatus;
+    
+    return matchesSearch && matchesStatus;
   });
 
   // Pagination logic
@@ -183,11 +247,6 @@ const Inquiries = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentInquiries = filteredInquiries.slice(startIndex, endIndex);
   const totalInquiries = filteredInquiries.length;
-
-  // Reset page when filters change
-  // useEffect(() => {
-  //   setCurrentPage(1);
-  // }, [searchTerm, selectedStatus]);
 
   // Handle inquiry selection
   const handleSelectInquiry = (id) => {
@@ -212,6 +271,21 @@ const Inquiries = () => {
     if (selectedInquiries.length === 0) return;
     
     if (window.confirm(`Are you sure you want to delete ${selectedInquiries.length} inquiry(ies)?`)) {
+      // Separate contact form and regular inquiries
+      const inquiriesToDelete = inquiries.filter(inquiry => selectedInquiries.includes(inquiry.id));
+      const contactFormIds = inquiriesToDelete.filter(inq => inq.source === 'contact-form').map(inq => inq.id);
+      
+      // Delete from contact form submissions
+      if (contactFormIds.length > 0) {
+        const contactSubmissions = localStorage.getItem('contactFormSubmissions');
+        if (contactSubmissions) {
+          const submissions = JSON.parse(contactSubmissions);
+          const updatedSubmissions = submissions.filter(sub => !contactFormIds.includes(sub.id));
+          localStorage.setItem('contactFormSubmissions', JSON.stringify(updatedSubmissions));
+        }
+      }
+      
+      // Update state
       setInquiries(prev => prev.filter(inquiry => !selectedInquiries.includes(inquiry.id)));
       setSelectedInquiries([]);
     }
@@ -220,6 +294,18 @@ const Inquiries = () => {
   // Handle delete single inquiry
   const handleDeleteSingle = (id) => {
     if (window.confirm('Are you sure you want to delete this inquiry?')) {
+      const inquiryToDelete = inquiries.find(inq => inq.id === id);
+      
+      // If it's from contact form, delete from contactFormSubmissions
+      if (inquiryToDelete && inquiryToDelete.source === 'contact-form') {
+        const contactSubmissions = localStorage.getItem('contactFormSubmissions');
+        if (contactSubmissions) {
+          const submissions = JSON.parse(contactSubmissions);
+          const updatedSubmissions = submissions.filter(sub => sub.id !== id);
+          localStorage.setItem('contactFormSubmissions', JSON.stringify(updatedSubmissions));
+        }
+      }
+      
       setInquiries(prev => prev.filter(inquiry => inquiry.id !== id));
     }
   };
@@ -260,6 +346,19 @@ const Inquiries = () => {
     );
     setInquiries(updatedInquiries);
     
+    // If it's a contact form inquiry, update it in contactFormSubmissions too
+    const inquiry = inquiries.find(inq => inq.id === inquiryId);
+    if (inquiry && inquiry.source === 'contact-form') {
+      const contactSubmissions = localStorage.getItem('contactFormSubmissions');
+      if (contactSubmissions) {
+        const submissions = JSON.parse(contactSubmissions);
+        const updatedSubmissions = submissions.map(sub => 
+          sub.id === inquiryId ? { ...sub, status: newStatus } : sub
+        );
+        localStorage.setItem('contactFormSubmissions', JSON.stringify(updatedSubmissions));
+      }
+    }
+    
     // Update selected inquiry if it's the same one
     if (selectedInquiry && selectedInquiry.id === inquiryId) {
       setSelectedInquiry({...selectedInquiry, status: newStatus});
@@ -299,6 +398,7 @@ const Inquiries = () => {
 
   // Status options
   const statusOptions = [
+    'All',
     'New',
     'Contacted',
     'Closed',
@@ -999,7 +1099,7 @@ const Inquiries = () => {
                     style={styles.responsiveIcon}
                     onError={(e) => e.target.style.display = 'none'}
                   /> 
-                  <span>Filter by Status</span>
+                  <span>{selectedStatus === 'All' ? 'Filter by Status' : selectedStatus}</span>
                 </div>
                 <img 
                   src={DescendingIcon} 
@@ -1026,6 +1126,7 @@ const Inquiries = () => {
                       onClick={() => {
                         setSelectedStatus(status);
                         setShowFilter(false);
+                        setCurrentPage(1); // Reset to first page when filtering
                       }}
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#F3F4F6'}
                       onMouseLeave={(e) => e.target.style.backgroundColor = status === selectedStatus ? '#F3F4F6' : 'white'}
