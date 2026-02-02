@@ -6,217 +6,224 @@ import TotalInquiriesIcon from "../../assets/icons/Total Inquiries1.svg";
 import AvailablePropertiesIcon from "../../assets/icons/Available Properties1.svg";
 import ActiveLeadsIcon from "../../assets/icons/Active Leads1.svg";
 
-// Sample data
-const SAMPLE_STATS = [
-  {
-    id: 1,
-    title: "Total Properties",
-    value: 21,
-    change: "+12% from last month",
-    icon: TotalPropertiesIcon,
-    bgColor: "#B4F8FF",
-  },
-  {
-    id: 2,
-    title: "Total Inquiries",
-    value: 12,
-    change: "+8% from last month",
-    icon: TotalInquiriesIcon,
-    bgColor: "#B4FFD9",
-  },
-  {
-    id: 3,
-    title: "Available Properties",
-    value: 15,
-    change: "6 properties",
-    icon: AvailablePropertiesIcon,
-    bgColor: "#FFE8B4",
-  },
-  {
-    id: 4,
-    title: "Active Leads",
-    value: 10,
-    change: "Pending follow-up",
-    icon: ActiveLeadsIcon,
-    bgColor: "#B4FFD9",
-  },
-];
-
-const SAMPLE_RECENT_INQUIRIES = [
-  {
-    id: 1,
-    name: "Rahul Jagtap",
-    property: "Luxury Villa in Beverly Hills",
-    status: "Contacted",
-  },
-  {
-    id: 2,
-    name: "Ganesh Sharma",
-    property: "Modern Downtown Apartment",
-    status: "New",
-  },
-  {
-    id: 3,
-    name: "Ajay Gupta",
-    property: "Suburban Family Home",
-    status: "Closed",
-  },
-];
-
-const SAMPLE_RECENT_PROPERTIES = [
-  {
-    id: 1,
-    name: "Luxury Villa in Beverly Hills",
-    date: "Jan 15, 2026",
-    price: "₹2 Crore",
-    status: "Available",
-  },
-  {
-    id: 2,
-    name: "Modern Downtown Apartment",
-    date: "Jan 14, 2026",
-    price: "₹85 Lakh",
-    status: "Available",
-  },
-  {
-    id: 3,
-    name: "Contemporary 3 BHK Apartment",
-    date: "Jan 12, 2026",
-    price: "₹18k",
-    status: "Rented",
-  },
-];
-
 const Dashboard = () => {
-  // Initialize state from localStorage or use defaults
-  const [stats, setStats] = useState(() => {
-    const savedStats = localStorage.getItem("dashboardStats");
-    return savedStats ? JSON.parse(savedStats) : SAMPLE_STATS;
-  });
+  const [stats, setStats] = useState([
+    {
+      id: 1,
+      title: "Total Properties",
+      value: 0,
+      change: "No data",
+      icon: TotalPropertiesIcon,
+      bgColor: "#B4F8FF",
+    },
+    {
+      id: 2,
+      title: "Total Inquiries",
+      value: 0,
+      change: "No data",
+      icon: TotalInquiriesIcon,
+      bgColor: "#B4FFD9",
+    },
+    {
+      id: 3,
+      title: "Available Properties",
+      value: 0,
+      change: "0 properties",
+      icon: AvailablePropertiesIcon,
+      bgColor: "#FFE8B4",
+    },
+    {
+      id: 4,
+      title: "Active Leads",
+      value: 0,
+      change: "Pending follow-up",
+      icon: ActiveLeadsIcon,
+      bgColor: "#B4FFD9",
+    },
+  ]);
 
-  const [recentInquiries, setRecentInquiries] = useState(() => {
-    const savedInquiries = localStorage.getItem("dashboardRecentInquiries");
-    return savedInquiries
-      ? JSON.parse(savedInquiries)
-      : SAMPLE_RECENT_INQUIRIES;
-  });
+  const [recentInquiries, setRecentInquiries] = useState([]);
+  const [recentProperties, setRecentProperties] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const [recentProperties, setRecentProperties] = useState(() => {
-    const savedProperties = localStorage.getItem("dashboardRecentProperties");
-    return savedProperties
-      ? JSON.parse(savedProperties)
-      : SAMPLE_RECENT_PROPERTIES;
-  });
-
-  // Calculate stats from actual data in localStorage
+  // Handle window resize
   useEffect(() => {
-    const updateDashboardData = () => {
-      try {
-        // Get properties data from localStorage
-        const propertiesData = localStorage.getItem("properties");
-        const inquiriesData = localStorage.getItem("inquiries");
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-        let calculatedStats = [...stats];
-        let calculatedRecentInquiries = [...recentInquiries];
-        let calculatedRecentProperties = [...recentProperties];
+  // Load and calculate dashboard data
+  const loadDashboardData = () => {
+    try {
+      // Get properties data
+      const propertiesData = localStorage.getItem("properties");
+      const properties = propertiesData ? JSON.parse(propertiesData) : [];
 
-        // Update stats based on actual data
-        if (propertiesData) {
-          const properties = JSON.parse(propertiesData);
+      // Get inquiries data - combine regular inquiries and contact form submissions
+      const inquiriesData = localStorage.getItem("inquiries");
+      const contactSubmissionsData = localStorage.getItem(
+        "contactFormSubmissions",
+      );
 
-          // Total Properties
-          calculatedStats[0].value = properties.length;
-          calculatedStats[0].change = `+${properties.length - SAMPLE_STATS[0].value} from sample`;
+      const regularInquiries = inquiriesData ? JSON.parse(inquiriesData) : [];
+      const contactSubmissions = contactSubmissionsData
+        ? JSON.parse(contactSubmissionsData)
+        : [];
 
-          // Available Properties
-          const availableProperties = properties.filter(
-            (p) => p.status === "Available",
-          );
-          calculatedStats[2].value = availableProperties.length;
-          calculatedStats[2].change = `${availableProperties.length} properties`;
+      // Transform contact submissions to inquiry format
+      const transformedContactInquiries = contactSubmissions.map((contact) => ({
+        id: contact.id,
+        name: contact.fullName,
+        email: contact.email,
+        propertyInterested: "Contact Form Inquiry",
+        phone: contact.phone,
+        inquiryDate: formatTimestampToDate(contact.timestamp),
+        status: contact.status || "New",
+        message: contact.message,
+        source: "contact-form",
+      }));
 
-          // Update recent properties from actual data
-          const sortedProperties = [...properties]
-            .sort(
-              (a, b) =>
-                new Date(b.addedDate.split("-").reverse().join("-")) -
-                new Date(a.addedDate.split("-").reverse().join("-")),
-            )
-            .slice(0, 3);
+      // Merge all inquiries
+      const allInquiries = [
+        ...transformedContactInquiries,
+        ...regularInquiries,
+      ];
 
-          calculatedRecentProperties = sortedProperties.map((prop, index) => ({
-            id: prop.id || index + 1,
-            name: prop.name,
-            date: prop.addedDate,
-            price: prop.price,
-            status: prop.status,
-          }));
+      // Calculate stats
+      const totalProperties = properties.length;
+      const availableProperties = properties.filter(
+        (p) => p.status === "Available",
+      ).length;
+      const totalInquiries = allInquiries.length;
+      const activeLeads = allInquiries.filter(
+        (i) => i.status === "New" || i.status === "Contacted",
+      ).length;
 
-          setRecentProperties(calculatedRecentProperties);
-        }
+      // Update stats
+      setStats([
+        {
+          id: 1,
+          title: "Total Properties",
+          value: totalProperties,
+          change:
+            totalProperties > 0
+              ? `${totalProperties} total properties`
+              : "No properties yet",
+          icon: TotalPropertiesIcon,
+          bgColor: "#B4F8FF",
+        },
+        {
+          id: 2,
+          title: "Total Inquiries",
+          value: totalInquiries,
+          change:
+            totalInquiries > 0
+              ? `${totalInquiries} total inquiries`
+              : "No inquiries yet",
+          icon: TotalInquiriesIcon,
+          bgColor: "#B4FFD9",
+        },
+        {
+          id: 3,
+          title: "Available Properties",
+          value: availableProperties,
+          change: `${availableProperties} properties available`,
+          icon: AvailablePropertiesIcon,
+          bgColor: "#FFE8B4",
+        },
+        {
+          id: 4,
+          title: "Active Leads",
+          value: activeLeads,
+          change: `${activeLeads} leads pending follow-up`,
+          icon: ActiveLeadsIcon,
+          bgColor: "#B4FFD9",
+        },
+      ]);
 
-        if (inquiriesData) {
-          const inquiries = JSON.parse(inquiriesData);
+      // Sort and get recent properties (top 3)
+      const sortedProperties = [...properties]
+        .sort((a, b) => {
+          const dateA = parseDate(a.addedDate);
+          const dateB = parseDate(b.addedDate);
+          return dateB - dateA;
+        })
+        .slice(0, 3);
 
-          // Total Inquiries
-          calculatedStats[1].value = inquiries.length;
-          calculatedStats[1].change = `+${inquiries.length - SAMPLE_STATS[1].value} from sample`;
+      setRecentProperties(
+        sortedProperties.map((prop) => ({
+          id: prop.id,
+          name: prop.name,
+          date: prop.addedDate,
+          price: prop.price,
+          status: prop.status,
+        })),
+      );
 
-          // Active Leads (New + Contacted inquiries)
-          const activeLeads = inquiries.filter(
-            (i) => i.status === "New" || i.status === "Contacted",
-          );
-          calculatedStats[3].value = activeLeads.length;
-          calculatedStats[3].change = `${activeLeads.length} leads`;
+      // Sort and get recent inquiries (top 3)
+      const sortedInquiries = [...allInquiries]
+        .sort((a, b) => {
+          const dateA = parseDate(a.inquiryDate);
+          const dateB = parseDate(b.inquiryDate);
+          return dateB - dateA;
+        })
+        .slice(0, 3);
 
-          // Update recent inquiries from actual data
-          const sortedInquiries = [...inquiries]
-            .sort(
-              (a, b) =>
-                new Date(b.inquiryDate.split("-").reverse().join("-")) -
-                new Date(a.inquiryDate.split("-").reverse().join("-")),
-            )
-            .slice(0, 3);
+      setRecentInquiries(
+        sortedInquiries.map((inq) => ({
+          id: inq.id,
+          name: inq.name,
+          property: inq.propertyInterested,
+          status: inq.status,
+        })),
+      );
+    } catch (error) {
+      console.error("Error loading dashboard data:", error);
+    }
+  };
 
-          calculatedRecentInquiries = sortedInquiries.map((inq, index) => ({
-            id: inq.id || index + 1,
-            name: inq.name,
-            property: inq.propertyInterested,
-            status: inq.status,
-          }));
+  // Helper function to parse date (handles DD-MM-YYYY format)
+  const parseDate = (dateString) => {
+    if (!dateString) return new Date(0);
 
-          setRecentInquiries(calculatedRecentInquiries);
-        }
+    // Handle DD-MM-YYYY format
+    if (dateString.includes("-")) {
+      const [day, month, year] = dateString.split("-");
+      return new Date(year, month - 1, day);
+    }
 
-        setStats(calculatedStats);
+    // Fallback to native parsing
+    return new Date(dateString);
+  };
 
-        // Save updated data to localStorage
-        localStorage.setItem("dashboardStats", JSON.stringify(calculatedStats));
-        localStorage.setItem(
-          "dashboardRecentInquiries",
-          JSON.stringify(calculatedRecentInquiries),
-        );
-        localStorage.setItem(
-          "dashboardRecentProperties",
-          JSON.stringify(calculatedRecentProperties),
-        );
-      } catch (error) {
-        console.error("Error updating dashboard data:", error);
-      }
+  // Helper function to format ISO timestamp to DD-MM-YYYY
+  const formatTimestampToDate = (timestamp) => {
+    if (!timestamp)
+      return new Date().toLocaleDateString("en-GB").replace(/\//g, "-");
+    const date = new Date(timestamp);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
+  // Load data on mount
+  useEffect(() => {
+    loadDashboardData();
+  }, []);
+
+  // Refresh data periodically and on storage changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      loadDashboardData();
     };
 
-    updateDashboardData();
-
-    // Listen for changes in properties and inquiries
-    const handleStorageChange = (e) => {
-      if (e.key === "properties" || e.key === "inquiries") {
-        updateDashboardData();
-      }
-    };
-
+    // Listen for storage events
     window.addEventListener("storage", handleStorageChange);
 
-    const intervalId = setInterval(updateDashboardData, 5000); // Update every 5 seconds
+    // Refresh every 3 seconds to catch same-tab updates
+    const intervalId = setInterval(loadDashboardData, 3000);
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
@@ -224,65 +231,56 @@ const Dashboard = () => {
     };
   }, []);
 
-  // Save to localStorage whenever state changes
-  useEffect(() => {
-    localStorage.setItem("dashboardStats", JSON.stringify(stats));
-  }, [stats]);
-
-  useEffect(() => {
-    localStorage.setItem(
-      "dashboardRecentInquiries",
-      JSON.stringify(recentInquiries),
-    );
-  }, [recentInquiries]);
-
-  useEffect(() => {
-    localStorage.setItem(
-      "dashboardRecentProperties",
-      JSON.stringify(recentProperties),
-    );
-  }, [recentProperties]);
-
   const styles = {
     container: {
-      padding: "20px",
+      padding: windowWidth < 640 ? "16px" : "20px",
       maxWidth: "100%",
       overflowX: "hidden",
       boxSizing: "border-box",
+      fontFamily: "Montserrat, Arial, sans-serif",
     },
 
     /* Welcome */
     welcomeTitle: {
-      fontSize: "clamp(20px, 5vw, 24px)",
+      fontSize:
+        windowWidth < 640 ? "20px" : windowWidth < 768 ? "22px" : "24px",
       fontWeight: 700,
       marginBottom: "8px",
+      fontFamily: "Montserrat",
     },
     welcomeSubtitle: {
-      fontSize: "clamp(12px, 3vw, 14px)",
+      fontSize:
+        windowWidth < 640 ? "12px" : windowWidth < 768 ? "13px" : "14px",
       color: "#666",
       marginBottom: "30px",
+      fontFamily: "Montserrat",
     },
 
     /* Stats */
     statsGrid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-      gap: "20px",
+      gridTemplateColumns:
+        windowWidth < 640
+          ? "1fr"
+          : windowWidth < 1024
+            ? "repeat(2, 1fr)"
+            : "repeat(auto-fit, minmax(250px, 1fr))",
+      gap: windowWidth < 640 ? "15px" : "20px",
       marginBottom: "30px",
     },
     statCard: {
       background: "#fff",
       borderRadius: "15px",
-      padding: "20px",
+      padding: windowWidth < 640 ? "15px" : "20px",
       display: "flex",
       justifyContent: "space-between",
       boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-      minHeight: "120px",
+      minHeight: windowWidth < 640 ? "100px" : "120px",
       boxSizing: "border-box",
     },
     statIconBox: {
-      width: "48px",
-      height: "48px",
+      width: windowWidth < 640 ? "40px" : "48px",
+      height: windowWidth < 640 ? "40px" : "48px",
       borderRadius: "12px",
       background: "#F4F6FA",
       display: "flex",
@@ -296,25 +294,31 @@ const Dashboard = () => {
       minWidth: 0,
     },
     statTitle: {
-      fontSize: "clamp(12px, 2.5vw, 13px)",
+      fontSize:
+        windowWidth < 640 ? "11px" : windowWidth < 768 ? "12px" : "13px",
       color: "#666",
       marginBottom: "8px",
+      fontFamily: "Montserrat",
     },
     statValue: {
-      fontSize: "clamp(22px, 4vw, 28px)",
+      fontSize:
+        windowWidth < 640 ? "20px" : windowWidth < 768 ? "24px" : "28px",
       fontWeight: 700,
       marginBottom: "4px",
+      fontFamily: "Montserrat",
     },
     statChange: {
-      fontSize: "clamp(11px, 2.5vw, 12px)",
+      fontSize:
+        windowWidth < 640 ? "10px" : windowWidth < 768 ? "11px" : "12px",
       color: "#666",
+      fontFamily: "Montserrat",
     },
 
     /* Tables */
     tableCard: {
       background: "#fff",
       borderRadius: "15px",
-      padding: "clamp(20px, 3vw, 30px)",
+      padding: windowWidth < 640 ? "15px" : windowWidth < 768 ? "20px" : "30px",
       border: "1px solid #E0E0E0",
       marginBottom: "30px",
       width: "100%",
@@ -322,37 +326,58 @@ const Dashboard = () => {
       boxSizing: "border-box",
     },
     tableTitle: {
-      fontSize: "clamp(14px, 3vw, 16px)",
+      fontSize:
+        windowWidth < 640 ? "14px" : windowWidth < 768 ? "15px" : "16px",
       fontWeight: 600,
       marginBottom: "20px",
+      fontFamily: "Montserrat",
     },
     table: {
       width: "100%",
       borderCollapse: "separate",
       borderSpacing: "0",
-      minWidth: "600px",
+      minWidth: windowWidth < 640 ? "500px" : "600px",
     },
     th: {
-      padding: "clamp(12px, 3vw, 14px) clamp(15px, 3vw, 20px)",
-      fontSize: "clamp(11px, 2.5vw, 12px)",
+      padding:
+        windowWidth < 640
+          ? "10px 12px"
+          : windowWidth < 768
+            ? "12px 15px"
+            : "14px 20px",
+      fontSize:
+        windowWidth < 640 ? "10px" : windowWidth < 768 ? "11px" : "12px",
       fontWeight: 600,
       background: "#EBF2FF",
       color: "#666",
       textAlign: "left",
       whiteSpace: "nowrap",
+      fontFamily: "Montserrat",
     },
     td: {
-      padding: "clamp(12px, 3vw, 14px) clamp(15px, 3vw, 20px)",
-      fontSize: "clamp(13px, 2.5vw, 14px)",
+      padding:
+        windowWidth < 640
+          ? "10px 12px"
+          : windowWidth < 768
+            ? "12px 15px"
+            : "14px 20px",
+      fontSize:
+        windowWidth < 640 ? "12px" : windowWidth < 768 ? "13px" : "14px",
       verticalAlign: "middle",
       wordBreak: "break-word",
+      fontFamily: "Montserrat",
     },
 
     /* Properties Card */
     propertyCard: {
       background: "#EBF2FF",
       borderRadius: "10px",
-      padding: "clamp(12px, 3vw, 15px) clamp(15px, 3vw, 20px)",
+      padding:
+        windowWidth < 640
+          ? "12px 15px"
+          : windowWidth < 768
+            ? "14px 18px"
+            : "15px 20px",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
@@ -362,125 +387,88 @@ const Dashboard = () => {
     },
     propertyInfo: {
       flex: 1,
-      minWidth: "250px",
+      minWidth: windowWidth < 640 ? "100%" : "250px",
     },
     propertyName: {
       fontWeight: 600,
-      fontSize: "clamp(14px, 3vw, 16px)",
+      fontSize:
+        windowWidth < 640 ? "13px" : windowWidth < 768 ? "14px" : "16px",
       marginBottom: "4px",
+      fontFamily: "Montserrat",
     },
     propertyDate: {
-      fontSize: "clamp(11px, 2.5vw, 12px)",
+      fontSize:
+        windowWidth < 640 ? "10px" : windowWidth < 768 ? "11px" : "12px",
       color: "#6B7280",
+      fontFamily: "Montserrat",
     },
     propertyPriceStatus: {
       display: "flex",
       alignItems: "center",
-      gap: "clamp(15px, 4vw, 30px)",
+      gap: windowWidth < 640 ? "10px" : windowWidth < 768 ? "20px" : "30px",
       flexWrap: "wrap",
+      width: windowWidth < 640 ? "100%" : "auto",
+      justifyContent: windowWidth < 640 ? "space-between" : "flex-start",
     },
     propertyPrice: {
       fontWeight: "500",
-      fontSize: "clamp(14px, 3vw, 16px)",
+      fontSize:
+        windowWidth < 640 ? "13px" : windowWidth < 768 ? "14px" : "16px",
       whiteSpace: "nowrap",
+      fontFamily: "Montserrat",
     },
     statusButton: (status) => ({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      minWidth: "clamp(90px, 15vw, 110px)",
-      height: "clamp(35px, 8vw, 40px)",
+      minWidth:
+        windowWidth < 640 ? "80px" : windowWidth < 768 ? "95px" : "110px",
+      height: windowWidth < 640 ? "32px" : windowWidth < 768 ? "36px" : "40px",
       borderRadius: "8px",
-      padding: "0 clamp(15px, 3vw, 20px)",
-      background: status === "Available" ? "#C5FAC9" : "#C5D6FA",
+      padding:
+        windowWidth < 640 ? "0 12px" : windowWidth < 768 ? "0 15px" : "0 20px",
+      background:
+        status === "Available"
+          ? "#C5FAC9"
+          : status === "Rented"
+            ? "#C5D6FA"
+            : "#FFBBBB",
       fontWeight: 500,
-      fontSize: "clamp(13px, 2.5vw, 14px)",
+      fontSize:
+        windowWidth < 640 ? "12px" : windowWidth < 768 ? "13px" : "14px",
       whiteSpace: "nowrap",
+      fontFamily: "Montserrat",
     }),
     inquiryStatusButton: (status) => ({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      width: "clamp(90px, 15vw, 105px)",
-      height: "clamp(38px, 8vw, 43px)",
+      width: windowWidth < 640 ? "85px" : windowWidth < 768 ? "95px" : "105px",
+      height: windowWidth < 640 ? "35px" : windowWidth < 768 ? "40px" : "43px",
       borderRadius: "6px",
-      padding: "clamp(8px, 2vw, 10px)",
+      padding:
+        windowWidth < 640 ? "6px 8px" : windowWidth < 768 ? "8px 10px" : "10px",
       fontWeight: 500,
-      fontSize: "clamp(13px, 2.5vw, 14px)",
+      fontSize:
+        windowWidth < 640 ? "12px" : windowWidth < 768 ? "13px" : "14px",
       background:
         status === "Contacted"
           ? "#D4FFD4"
           : status === "New"
             ? "#E0ECFF"
-            : "#E5E5E5",
+            : status === "Converted"
+              ? "#D4EDDA"
+              : "#E5E5E5",
       whiteSpace: "nowrap",
+      fontFamily: "Montserrat",
     }),
 
-    /* Reset button */
-    resetButton: {
-      backgroundColor: "#f0f0f0",
-      color: "#333",
-      border: "1px solid #ddd",
-      borderRadius: "5px",
-      padding: "8px 16px",
-      marginBottom: "20px",
-      cursor: "pointer",
-      fontSize: "14px",
-      fontWeight: 500,
-      transition: "all 0.3s ease",
-    },
-
-    /* Refresh button */
-    refreshButton: {
-      backgroundColor: "#4CAF50",
-      color: "white",
-      border: "none",
-      borderRadius: "5px",
-      padding: "8px 16px",
-      marginBottom: "20px",
-      marginLeft: "10px",
-      cursor: "pointer",
-      fontSize: "14px",
-      fontWeight: 500,
-      transition: "all 0.3s ease",
-    },
-
-    /* Media query styles for mobile */
-    mobileStyles: {
-      "@media (max-width: 768px)": {
-        statsGrid: {
-          gridTemplateColumns: "1fr",
-          gap: "15px",
-        },
-        statCard: {
-          padding: "15px",
-          minHeight: "100px",
-        },
-        propertyCard: {
-          flexDirection: "column",
-          alignItems: "flex-start",
-          gap: "15px",
-        },
-        propertyInfo: {
-          minWidth: "100%",
-        },
-        propertyPriceStatus: {
-          width: "100%",
-          justifyContent: "space-between",
-        },
-      },
-      "@media (max-width: 480px)": {
-        container: {
-          padding: "15px",
-        },
-        tableCard: {
-          padding: "15px",
-          borderRadius: "12px",
-        },
-        propertyCard: {
-          padding: "12px 15px",
-        },
-      },
+    emptyState: {
+      textAlign: "center",
+      padding: windowWidth < 640 ? "30px 20px" : "40px 20px",
+      color: "#9CA3AF",
+      fontSize: windowWidth < 640 ? "13px" : "14px",
+      fontFamily: "Montserrat",
     },
   };
 
@@ -489,7 +477,7 @@ const Dashboard = () => {
       {/* Welcome */}
       <div style={styles.welcomeTitle}>Welcome Admin</div>
       <div style={styles.welcomeSubtitle}>
-        Here's a snapshot of your learning ecosystem today.
+        Here's a snapshot of your property management dashboard today.
       </div>
 
       {/* Stats */}
@@ -507,7 +495,13 @@ const Dashboard = () => {
                 background: s.bgColor,
               }}
             >
-              <img src={s.icon} alt="" width={24} height={24} />
+              <img
+                src={s.icon}
+                alt=""
+                width={windowWidth < 640 ? 20 : 24}
+                height={windowWidth < 640 ? 20 : 24}
+                onError={(e) => (e.target.style.display = "none")}
+              />
             </div>
           </div>
         ))}
@@ -516,69 +510,79 @@ const Dashboard = () => {
       {/* Recent Inquiries */}
       <div style={styles.tableCard}>
         <div style={styles.tableTitle}>Recent Inquiries</div>
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={{ ...styles.th, borderRadius: "10px 0 0 10px" }}>
-                Name
-              </th>
-              <th style={styles.th}>Properties</th>
-              <th style={{ ...styles.th, borderRadius: "0 10px 10px 0" }}>
-                Inquiries
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {recentInquiries.map((row, index) => (
-              <tr key={row.id}>
-                <td
-                  style={{
-                    ...styles.td,
-                    borderTopLeftRadius: index === 0 ? "10px" : "0",
-                    borderBottomLeftRadius:
-                      index === recentInquiries.length - 1 ? "10px" : "0",
-                  }}
-                >
-                  {row.name}
-                </td>
-                <td style={styles.td}>{row.property}</td>
-                <td
-                  style={{
-                    ...styles.td,
-                    borderTopRightRadius: index === 0 ? "10px" : "0",
-                    borderBottomRightRadius:
-                      index === recentInquiries.length - 1 ? "10px" : "0",
-                  }}
-                >
-                  <span style={styles.inquiryStatusButton(row.status)}>
-                    {row.status}
-                  </span>
-                </td>
+        {recentInquiries.length > 0 ? (
+          <table style={styles.table}>
+            <thead>
+              <tr>
+                <th style={{ ...styles.th, borderRadius: "10px 0 0 10px" }}>
+                  Name
+                </th>
+                <th style={styles.th}>Properties</th>
+                <th style={{ ...styles.th, borderRadius: "0 10px 10px 0" }}>
+                  Status
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {recentInquiries.map((row, index) => (
+                <tr key={row.id}>
+                  <td
+                    style={{
+                      ...styles.td,
+                      borderTopLeftRadius: index === 0 ? "10px" : "0",
+                      borderBottomLeftRadius:
+                        index === recentInquiries.length - 1 ? "10px" : "0",
+                    }}
+                  >
+                    {row.name}
+                  </td>
+                  <td style={styles.td}>{row.property}</td>
+                  <td
+                    style={{
+                      ...styles.td,
+                      borderTopRightRadius: index === 0 ? "10px" : "0",
+                      borderBottomRightRadius:
+                        index === recentInquiries.length - 1 ? "10px" : "0",
+                    }}
+                  >
+                    <span style={styles.inquiryStatusButton(row.status)}>
+                      {row.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div style={styles.emptyState}>No inquiries yet</div>
+        )}
       </div>
 
       {/* Recently Added Properties */}
       <div style={styles.tableCard}>
         <div style={styles.tableTitle}>Recently Added Properties</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          {recentProperties.map((row) => (
-            <div key={row.id} style={styles.propertyCard}>
-              <div style={styles.propertyInfo}>
-                <div style={styles.propertyName}>{row.name}</div>
-                <div style={styles.propertyDate}>{row.date}</div>
+        {recentProperties.length > 0 ? (
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+          >
+            {recentProperties.map((row) => (
+              <div key={row.id} style={styles.propertyCard}>
+                <div style={styles.propertyInfo}>
+                  <div style={styles.propertyName}>{row.name}</div>
+                  <div style={styles.propertyDate}>{row.date}</div>
+                </div>
+                <div style={styles.propertyPriceStatus}>
+                  <div style={styles.propertyPrice}>{row.price}</div>
+                  <span style={styles.statusButton(row.status)}>
+                    {row.status}
+                  </span>
+                </div>
               </div>
-              <div style={styles.propertyPriceStatus}>
-                <div style={styles.propertyPrice}>{row.price}</div>
-                <span style={styles.statusButton(row.status)}>
-                  {row.status}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div style={styles.emptyState}>No properties yet</div>
+        )}
       </div>
     </div>
   );
