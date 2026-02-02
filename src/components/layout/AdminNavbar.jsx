@@ -22,6 +22,7 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Responsive breakpoints
   const isMobile = windowWidth <= 768;
   const isTablet = windowWidth > 768 && windowWidth <= 1024;
   const isDesktop = windowWidth > 1024;
@@ -38,7 +39,7 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
       position: "sticky",
       top: 0,
       zIndex: 500,
-      boxShadow: isMobile ? "0 2px 8px rgba(0, 0, 0, 0.05)" : "none",
+      boxShadow: isMobile ? "0 2px 8px rgba(0,0,0,0.05)" : "none",
     },
     leftSection: {
       display: "flex",
@@ -61,6 +62,9 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
       border: "none",
       fontSize: isMobile ? "16px" : "18px",
       transition: "all 0.2s ease",
+      ":hover": {
+        backgroundColor: "#BA8FE6",
+      },
     },
     searchContainer: {
       position: "relative",
@@ -80,7 +84,7 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
       pointerEvents: "none",
     },
     searchInput: {
-      width: "100%",
+      width: "95%",
       height: isMobile ? "34px" : "38px",
       borderRadius: "8px",
       border: `1px solid ${isSearchFocused ? "#CDA1F8" : "#D9D9D9"}`,
@@ -89,6 +93,10 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
       outline: "none",
       backgroundColor: "#F9F9F9",
       transition: "all 0.2s ease",
+      ":focus": {
+        backgroundColor: "#FFFFFF",
+        boxShadow: "0 0 0 3px rgba(205, 161, 248, 0.1)",
+      },
     },
     rightSection: {
       display: "flex",
@@ -121,6 +129,9 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
       padding: "4px 8px",
       borderRadius: "8px",
       transition: "background-color 0.2s ease",
+      ":hover": {
+        backgroundColor: "#F5F5F5",
+      },
     },
     profileInfo: {
       display: "flex",
@@ -146,6 +157,7 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
       objectFit: "cover",
       border: "2px solid #F0F0F0",
     },
+    // Mobile search toggle (for very small screens)
     mobileSearchToggle: {
       display: windowWidth <= 480 ? "flex" : "none",
       width: "32px",
@@ -163,6 +175,7 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
     },
   };
 
+  // Handle mobile search toggle
   const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   if (isMobile && showMobileSearch) {
@@ -209,6 +222,7 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
   return (
     <nav style={styles.navbar}>
       <div style={styles.leftSection}>
+        {/* Toggle button for mobile and tablet */}
         {(isMobile || isTablet) && (
           <button
             style={styles.toggleButton}
@@ -219,15 +233,21 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
           </button>
         )}
 
+        {/* Mobile search toggle button (only on very small screens) */}
         {windowWidth <= 480 ? (
           <button
             style={styles.mobileSearchToggle}
             onClick={() => setShowMobileSearch(true)}
             aria-label="Search"
           >
-            <img src={SearchIcon} alt="Search" style={styles.mobileSearchIcon} />
+            <img
+              src={SearchIcon}
+              alt="Search"
+              style={styles.mobileSearchIcon}
+            />
           </button>
         ) : (
+          // Regular search bar for larger screens
           <form onSubmit={handleSearch} style={styles.searchContainer}>
             <img src={SearchIcon} alt="Search" style={styles.searchIcon} />
             <input
@@ -244,6 +264,7 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
       </div>
 
       <div style={styles.rightSection}>
+        {/* Notification icon with badge */}
         <div style={styles.notificationWrapper}>
           <img
             src={NotificationIcon}
@@ -253,6 +274,7 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
           <div style={styles.notificationBadge}></div>
         </div>
 
+        {/* Profile section */}
         <div style={styles.profileWrapper}>
           <div style={styles.profileInfo}>
             <span style={styles.profileName}>Rahul Jagtap</span>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import AdminLogo from "../../assets/icons/Admin-Logo.svg";
 import DashboardIcon from "../../assets/icons/Dashboard.svg";
@@ -8,36 +8,20 @@ import InquiryIcon from "../../assets/icons/Inquiry.svg";
 import LogoutIcon from "../../assets/icons/Logout.svg";
 
 const AdminSidebar = ({ isOpen, onClose }) => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isTablet, setIsTablet] = useState(
+    window.innerWidth > 768 && window.innerWidth <= 1024,
+  );
   const sidebarRef = useRef(null);
 
   // Device breakpoints
   const checkDeviceType = () => {
     const width = window.innerWidth;
-
-    // Mobile: <= 768px (iPhone, small Android)
-    // Tablet: 769px - 1024px (iPad, Surface Pro 7)
-    // Desktop: > 1024px
     const mobile = width <= 768;
     const tablet = width > 768 && width <= 1024;
 
     setIsMobile(mobile);
     setIsTablet(tablet);
-
-    // Auto-manage sidebar state based on device
-    if (mobile) {
-      // Mobile: close sidebar by default
-      onClose(false);
-    } else if (tablet) {
-      // Tablet: can be open or closed based on previous state
-      if (width <= 834) {
-        onClose(false);
-      }
-    } else {
-      // Desktop: always open
-      onClose(true);
-    }
   };
 
   // Close sidebar if clicked outside on mobile/tablet
@@ -53,10 +37,12 @@ const AdminSidebar = ({ isOpen, onClose }) => {
   };
 
   useEffect(() => {
+    // Add event listeners
     window.addEventListener("resize", checkDeviceType);
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("touchstart", handleClickOutside);
 
+    // Cleanup
     return () => {
       window.removeEventListener("resize", checkDeviceType);
       document.removeEventListener("mousedown", handleClickOutside);
@@ -64,20 +50,31 @@ const AdminSidebar = ({ isOpen, onClose }) => {
     };
   }, [isMobile, isTablet, isOpen]);
 
-  const navigate = useNavigate();
+  // Handle escape key press to close sidebar
+  useEffect(() => {
+    const handleEscapeKey = (event) => {
+      if (event.key === "Escape" && isOpen) {
+        onClose(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [isOpen, onClose]);
 
   const menuItems = [
     { id: 1, name: "Dashboard", path: "/admin/dashboard", icon: DashboardIcon },
     { id: 2, name: "Property", path: "/admin/properties", icon: PropertyIcon },
     { id: 3, name: "Inquiry", path: "/admin/inquiries", icon: InquiryIcon },
-    { id: 4, name: "Logout", path: "/admin/login", icon: LogoutIcon, isLogout: true },
+    { id: 4, name: "Logout", path: "/admin/login", icon: LogoutIcon },
   ];
 
-  const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    navigate("/admin/login");
-  };
-
+  // Responsive sidebar width based on device
   const getSidebarWidth = () => {
     if (isMobile) return "280px";
     if (isTablet) {
@@ -112,9 +109,12 @@ const AdminSidebar = ({ isOpen, onClose }) => {
       position: isMobile || isTablet ? "fixed" : "relative",
       top: 0,
       left: isMobile || isTablet ? (isOpen ? 0 : `-${getSidebarWidth()}`) : 0,
-      transition: isMobile || isTablet ? "left 0.3s ease" : "none",
+      transition: "left 0.3s ease",
       zIndex: 1000,
-      boxShadow: (isMobile || isTablet) && isOpen ? "2px 0 15px rgba(0,0,0,0.1)" : "none",
+      boxShadow:
+        (isMobile || isTablet) && isOpen
+          ? "2px 0 15px rgba(0,0,0,0.1)"
+          : "none",
     },
     logoSection: {
       height: isMobile ? "70px" : "80px",
@@ -126,7 +126,7 @@ const AdminSidebar = ({ isOpen, onClose }) => {
       padding: isMobile ? "0 20px" : "0",
     },
     logo: {
-      height: isMobile ? "36px" : "42px",
+      height: isMobile ? "36px" : "60px",
       objectFit: "contain",
       maxWidth: "100%",
     },
@@ -176,6 +176,7 @@ const AdminSidebar = ({ isOpen, onClose }) => {
 
   return (
     <>
+      {/* Overlay for mobile and tablet */}
       {(isMobile || isTablet) && isOpen && (
         <div
           style={styles.overlay}
@@ -188,52 +189,38 @@ const AdminSidebar = ({ isOpen, onClose }) => {
       )}
 
       <aside ref={sidebarRef} style={styles.sidebar}>
+        {/* LOGO */}
         <div style={styles.logoSection}>
           <img src={AdminLogo} alt="Admin Logo" style={styles.logo} />
         </div>
 
+        {/* MENU */}
         <div style={styles.menuSection}>
           <ul style={styles.menuList}>
-            {menuItems.map((item) =>
-              item.isLogout ? (
-                <li key={item.id} style={styles.menuItem}>
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    style={{
-                      ...styles.menuLink,
-                      width: "100%",
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      textAlign: "left",
-                      fontFamily: "inherit",
-                    }}
-                  >
-                    <img src={item.icon} alt={item.name} style={styles.menuIcon} />
-                    <span style={{ flex: 1 }}>{item.name}</span>
-                  </button>
-                </li>
-              ) : (
-                <li key={item.id} style={styles.menuItem}>
-                  <NavLink
-                    to={item.path}
-                    style={({ isActive }) => ({
-                      ...styles.menuLink,
-                      ...(isActive ? styles.activeMenuLink : {}),
-                    })}
-                    onClick={() => {
-                      if (isMobile || isTablet) {
-                        onClose(false);
-                      }
-                    }}
-                  >
-                    <img src={item.icon} alt={item.name} style={styles.menuIcon} />
-                    <span style={{ flex: 1 }}>{item.name}</span>
-                  </NavLink>
-                </li>
-              )
-            )}
+            {menuItems.map((item) => (
+              <li key={item.id} style={styles.menuItem}>
+                <NavLink
+                  to={item.path}
+                  style={({ isActive }) => ({
+                    ...styles.menuLink,
+                    ...(isActive ? styles.activeMenuLink : {}),
+                  })}
+                  onClick={() => {
+                    // Close sidebar on mobile/tablet when clicking a menu item
+                    if (isMobile || isTablet) {
+                      onClose(false);
+                    }
+                  }}
+                >
+                  <img
+                    src={item.icon}
+                    alt={item.name}
+                    style={styles.menuIcon}
+                  />
+                  <span style={{ flex: 1 }}>{item.name}</span>
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
       </aside>
