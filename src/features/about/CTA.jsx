@@ -1,6 +1,9 @@
 import { Box, Container, Stack, Typography, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CTASection = () => {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -50,6 +53,7 @@ const CTASection = () => {
           >
             <Button
               variant="contained"
+              onClick={() => navigate("/property")}
               sx={{
                 width: { xs: "100%", sm: "240px", md: "282px" },
                 height: "50px",
@@ -69,6 +73,7 @@ const CTASection = () => {
 
             <Button
               variant="outlined"
+              onClick={() => navigate("/contact")}
               sx={{
                 mt: 7,
                 width: 282,
@@ -79,7 +84,6 @@ const CTASection = () => {
                 fontSize: "16px",
                 borderColor: "#8B5CF6",
                 color: "#8B5CF6",
-
                 bgcolor: "#ffffff",
               }}
             >

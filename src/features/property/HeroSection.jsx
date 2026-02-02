@@ -1,7 +1,10 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import HeroImage from "../../assets/images/y.png";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ backgroundColor: "#F6F6F6" }}>
       <Container
@@ -62,6 +65,7 @@ const HeroSection = () => {
             <Box>
               <Button
                 variant="outlined"
+                onClick={() => navigate("/contact")}
                 sx={{
                   mt: 7,
                   width: 282,
@@ -72,7 +76,6 @@ const HeroSection = () => {
                   fontSize: "16px",
                   borderColor: "#8B5CF6",
                   color: "#8B5CF6",
-
                   bgcolor: "#ffffff",
                 }}
               >

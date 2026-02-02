@@ -43,32 +43,69 @@ const SAMPLE_STATS = [
 ];
 
 const SAMPLE_RECENT_INQUIRIES = [
-  { id: 1, name: "Rahul Jagtap", property: "Luxury Villa in Beverly Hills", status: "Contacted" },
-  { id: 2, name: "Ganesh Sharma", property: "Modern Downtown Apartment", status: "New" },
-  { id: 3, name: "Ajay Gupta", property: "Suburban Family Home", status: "Closed" },
+  {
+    id: 1,
+    name: "Rahul Jagtap",
+    property: "Luxury Villa in Beverly Hills",
+    status: "Contacted",
+  },
+  {
+    id: 2,
+    name: "Ganesh Sharma",
+    property: "Modern Downtown Apartment",
+    status: "New",
+  },
+  {
+    id: 3,
+    name: "Ajay Gupta",
+    property: "Suburban Family Home",
+    status: "Closed",
+  },
 ];
 
 const SAMPLE_RECENT_PROPERTIES = [
-  { id: 1, name: "Luxury Villa in Beverly Hills", date: "Jan 15, 2026", price: "₹2 Crore", status: "Available" },
-  { id: 2, name: "Modern Downtown Apartment", date: "Jan 14, 2026", price: "₹85 Lakh", status: "Available" },
-  { id: 3, name: "Contemporary 3 BHK Apartment", date: "Jan 12, 2026", price: "₹18k", status: "Rented" },
+  {
+    id: 1,
+    name: "Luxury Villa in Beverly Hills",
+    date: "Jan 15, 2026",
+    price: "₹2 Crore",
+    status: "Available",
+  },
+  {
+    id: 2,
+    name: "Modern Downtown Apartment",
+    date: "Jan 14, 2026",
+    price: "₹85 Lakh",
+    status: "Available",
+  },
+  {
+    id: 3,
+    name: "Contemporary 3 BHK Apartment",
+    date: "Jan 12, 2026",
+    price: "₹18k",
+    status: "Rented",
+  },
 ];
 
 const Dashboard = () => {
   // Initialize state from localStorage or use defaults
   const [stats, setStats] = useState(() => {
-    const savedStats = localStorage.getItem('dashboardStats');
+    const savedStats = localStorage.getItem("dashboardStats");
     return savedStats ? JSON.parse(savedStats) : SAMPLE_STATS;
   });
 
   const [recentInquiries, setRecentInquiries] = useState(() => {
-    const savedInquiries = localStorage.getItem('dashboardRecentInquiries');
-    return savedInquiries ? JSON.parse(savedInquiries) : SAMPLE_RECENT_INQUIRIES;
+    const savedInquiries = localStorage.getItem("dashboardRecentInquiries");
+    return savedInquiries
+      ? JSON.parse(savedInquiries)
+      : SAMPLE_RECENT_INQUIRIES;
   });
 
   const [recentProperties, setRecentProperties] = useState(() => {
-    const savedProperties = localStorage.getItem('dashboardRecentProperties');
-    return savedProperties ? JSON.parse(savedProperties) : SAMPLE_RECENT_PROPERTIES;
+    const savedProperties = localStorage.getItem("dashboardRecentProperties");
+    return savedProperties
+      ? JSON.parse(savedProperties)
+      : SAMPLE_RECENT_PROPERTIES;
   });
 
   // Calculate stats from actual data in localStorage
@@ -76,9 +113,9 @@ const Dashboard = () => {
     const updateDashboardData = () => {
       try {
         // Get properties data from localStorage
-        const propertiesData = localStorage.getItem('properties');
-        const inquiriesData = localStorage.getItem('inquiries');
-        
+        const propertiesData = localStorage.getItem("properties");
+        const inquiriesData = localStorage.getItem("inquiries");
+
         let calculatedStats = [...stats];
         let calculatedRecentInquiries = [...recentInquiries];
         let calculatedRecentProperties = [...recentProperties];
@@ -86,122 +123,144 @@ const Dashboard = () => {
         // Update stats based on actual data
         if (propertiesData) {
           const properties = JSON.parse(propertiesData);
-          
+
           // Total Properties
           calculatedStats[0].value = properties.length;
           calculatedStats[0].change = `+${properties.length - SAMPLE_STATS[0].value} from sample`;
-          
+
           // Available Properties
-          const availableProperties = properties.filter(p => p.status === 'Available');
+          const availableProperties = properties.filter(
+            (p) => p.status === "Available",
+          );
           calculatedStats[2].value = availableProperties.length;
           calculatedStats[2].change = `${availableProperties.length} properties`;
-          
+
           // Update recent properties from actual data
           const sortedProperties = [...properties]
-            .sort((a, b) => new Date(b.addedDate.split('-').reverse().join('-')) - new Date(a.addedDate.split('-').reverse().join('-')))
+            .sort(
+              (a, b) =>
+                new Date(b.addedDate.split("-").reverse().join("-")) -
+                new Date(a.addedDate.split("-").reverse().join("-")),
+            )
             .slice(0, 3);
-          
+
           calculatedRecentProperties = sortedProperties.map((prop, index) => ({
             id: prop.id || index + 1,
             name: prop.name,
             date: prop.addedDate,
             price: prop.price,
-            status: prop.status
+            status: prop.status,
           }));
-          
+
           setRecentProperties(calculatedRecentProperties);
         }
 
         if (inquiriesData) {
           const inquiries = JSON.parse(inquiriesData);
-          
+
           // Total Inquiries
           calculatedStats[1].value = inquiries.length;
           calculatedStats[1].change = `+${inquiries.length - SAMPLE_STATS[1].value} from sample`;
-          
+
           // Active Leads (New + Contacted inquiries)
-          const activeLeads = inquiries.filter(i => i.status === 'New' || i.status === 'Contacted');
+          const activeLeads = inquiries.filter(
+            (i) => i.status === "New" || i.status === "Contacted",
+          );
           calculatedStats[3].value = activeLeads.length;
           calculatedStats[3].change = `${activeLeads.length} leads`;
-          
+
           // Update recent inquiries from actual data
           const sortedInquiries = [...inquiries]
-            .sort((a, b) => new Date(b.inquiryDate.split('-').reverse().join('-')) - new Date(a.inquiryDate.split('-').reverse().join('-')))
+            .sort(
+              (a, b) =>
+                new Date(b.inquiryDate.split("-").reverse().join("-")) -
+                new Date(a.inquiryDate.split("-").reverse().join("-")),
+            )
             .slice(0, 3);
-          
+
           calculatedRecentInquiries = sortedInquiries.map((inq, index) => ({
             id: inq.id || index + 1,
             name: inq.name,
             property: inq.propertyInterested,
-            status: inq.status
+            status: inq.status,
           }));
-          
+
           setRecentInquiries(calculatedRecentInquiries);
         }
 
         setStats(calculatedStats);
-        
-        // Save updated data to localStorage
-        localStorage.setItem('dashboardStats', JSON.stringify(calculatedStats));
-        localStorage.setItem('dashboardRecentInquiries', JSON.stringify(calculatedRecentInquiries));
-        localStorage.setItem('dashboardRecentProperties', JSON.stringify(calculatedRecentProperties));
 
+        // Save updated data to localStorage
+        localStorage.setItem("dashboardStats", JSON.stringify(calculatedStats));
+        localStorage.setItem(
+          "dashboardRecentInquiries",
+          JSON.stringify(calculatedRecentInquiries),
+        );
+        localStorage.setItem(
+          "dashboardRecentProperties",
+          JSON.stringify(calculatedRecentProperties),
+        );
       } catch (error) {
-        console.error('Error updating dashboard data:', error);
+        console.error("Error updating dashboard data:", error);
       }
     };
 
     updateDashboardData();
-    
+
     // Listen for changes in properties and inquiries
     const handleStorageChange = (e) => {
-      if (e.key === 'properties' || e.key === 'inquiries') {
+      if (e.key === "properties" || e.key === "inquiries") {
         updateDashboardData();
       }
     };
-    
-    window.addEventListener('storage', handleStorageChange);
-    
-    
+
+    window.addEventListener("storage", handleStorageChange);
+
     const intervalId = setInterval(updateDashboardData, 5000); // Update every 5 seconds
-    
+
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
       clearInterval(intervalId);
     };
   }, []);
 
   // Save to localStorage whenever state changes
   useEffect(() => {
-    localStorage.setItem('dashboardStats', JSON.stringify(stats));
+    localStorage.setItem("dashboardStats", JSON.stringify(stats));
   }, [stats]);
 
   useEffect(() => {
-    localStorage.setItem('dashboardRecentInquiries', JSON.stringify(recentInquiries));
+    localStorage.setItem(
+      "dashboardRecentInquiries",
+      JSON.stringify(recentInquiries),
+    );
   }, [recentInquiries]);
 
   useEffect(() => {
-    localStorage.setItem('dashboardRecentProperties', JSON.stringify(recentProperties));
+    localStorage.setItem(
+      "dashboardRecentProperties",
+      JSON.stringify(recentProperties),
+    );
   }, [recentProperties]);
 
   const styles = {
-    container: { 
+    container: {
       padding: "20px",
       maxWidth: "100%",
       overflowX: "hidden",
-      boxSizing: "border-box"
+      boxSizing: "border-box",
     },
 
     /* Welcome */
-    welcomeTitle: { 
-      fontSize: "clamp(20px, 5vw, 24px)", 
+    welcomeTitle: {
+      fontSize: "clamp(20px, 5vw, 24px)",
       fontWeight: 700,
-      marginBottom: "8px"
+      marginBottom: "8px",
     },
-    welcomeSubtitle: { 
-      fontSize: "clamp(12px, 3vw, 14px)", 
-      color: "#666", 
-      marginBottom: "30px" 
+    welcomeSubtitle: {
+      fontSize: "clamp(12px, 3vw, 14px)",
+      color: "#666",
+      marginBottom: "30px",
     },
 
     /* Stats */
@@ -219,7 +278,7 @@ const Dashboard = () => {
       justifyContent: "space-between",
       boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
       minHeight: "120px",
-      boxSizing: "border-box"
+      boxSizing: "border-box",
     },
     statIconBox: {
       width: "48px",
@@ -230,25 +289,25 @@ const Dashboard = () => {
       alignItems: "center",
       justifyContent: "center",
       flexShrink: 0,
-      marginLeft: "15px"
+      marginLeft: "15px",
     },
     statContent: {
       flex: 1,
-      minWidth: 0
+      minWidth: 0,
     },
-    statTitle: { 
-      fontSize: "clamp(12px, 2.5vw, 13px)", 
+    statTitle: {
+      fontSize: "clamp(12px, 2.5vw, 13px)",
       color: "#666",
-      marginBottom: "8px"
+      marginBottom: "8px",
     },
-    statValue: { 
-      fontSize: "clamp(22px, 4vw, 28px)", 
+    statValue: {
+      fontSize: "clamp(22px, 4vw, 28px)",
       fontWeight: 700,
-      marginBottom: "4px"
+      marginBottom: "4px",
     },
-    statChange: { 
-      fontSize: "clamp(11px, 2.5vw, 12px)", 
-      color: "#666" 
+    statChange: {
+      fontSize: "clamp(11px, 2.5vw, 12px)",
+      color: "#666",
     },
 
     /* Tables */
@@ -260,12 +319,12 @@ const Dashboard = () => {
       marginBottom: "30px",
       width: "100%",
       overflowX: "auto",
-      boxSizing: "border-box"
+      boxSizing: "border-box",
     },
-    tableTitle: { 
-      fontSize: "clamp(14px, 3vw, 16px)", 
-      fontWeight: 600, 
-      marginBottom: "20px" 
+    tableTitle: {
+      fontSize: "clamp(14px, 3vw, 16px)",
+      fontWeight: 600,
+      marginBottom: "20px",
     },
     table: {
       width: "100%",
@@ -280,13 +339,13 @@ const Dashboard = () => {
       background: "#EBF2FF",
       color: "#666",
       textAlign: "left",
-      whiteSpace: "nowrap"
+      whiteSpace: "nowrap",
     },
     td: {
       padding: "clamp(12px, 3vw, 14px) clamp(15px, 3vw, 20px)",
       fontSize: "clamp(13px, 2.5vw, 14px)",
       verticalAlign: "middle",
-      wordBreak: "break-word"
+      wordBreak: "break-word",
     },
 
     /* Properties Card */
@@ -299,31 +358,31 @@ const Dashboard = () => {
       alignItems: "center",
       flexWrap: "wrap",
       gap: "15px",
-      marginBottom: "10px"
+      marginBottom: "10px",
     },
     propertyInfo: {
       flex: 1,
-      minWidth: "250px"
+      minWidth: "250px",
     },
-    propertyName: { 
-      fontWeight: 600, 
+    propertyName: {
+      fontWeight: 600,
       fontSize: "clamp(14px, 3vw, 16px)",
-      marginBottom: "4px"
+      marginBottom: "4px",
     },
-    propertyDate: { 
-      fontSize: "clamp(11px, 2.5vw, 12px)", 
-      color: "#6B7280" 
+    propertyDate: {
+      fontSize: "clamp(11px, 2.5vw, 12px)",
+      color: "#6B7280",
     },
     propertyPriceStatus: {
       display: "flex",
       alignItems: "center",
       gap: "clamp(15px, 4vw, 30px)",
-      flexWrap: "wrap"
+      flexWrap: "wrap",
     },
-    propertyPrice: { 
-      fontWeight: "500", 
+    propertyPrice: {
+      fontWeight: "500",
       fontSize: "clamp(14px, 3vw, 16px)",
-      whiteSpace: "nowrap"
+      whiteSpace: "nowrap",
     },
     statusButton: (status) => ({
       display: "inline-flex",
@@ -336,7 +395,7 @@ const Dashboard = () => {
       background: status === "Available" ? "#C5FAC9" : "#C5D6FA",
       fontWeight: 500,
       fontSize: "clamp(13px, 2.5vw, 14px)",
-      whiteSpace: "nowrap"
+      whiteSpace: "nowrap",
     }),
     inquiryStatusButton: (status) => ({
       display: "inline-flex",
@@ -348,37 +407,42 @@ const Dashboard = () => {
       padding: "clamp(8px, 2vw, 10px)",
       fontWeight: 500,
       fontSize: "clamp(13px, 2.5vw, 14px)",
-      background: status === "Contacted" ? "#D4FFD4" : status === "New" ? "#E0ECFF" : "#E5E5E5",
-      whiteSpace: "nowrap"
+      background:
+        status === "Contacted"
+          ? "#D4FFD4"
+          : status === "New"
+            ? "#E0ECFF"
+            : "#E5E5E5",
+      whiteSpace: "nowrap",
     }),
 
     /* Reset button */
     resetButton: {
-      backgroundColor: '#f0f0f0',
-      color: '#333',
-      border: '1px solid #ddd',
-      borderRadius: '5px',
-      padding: '8px 16px',
-      marginBottom: '20px',
-      cursor: 'pointer',
-      fontSize: '14px',
+      backgroundColor: "#f0f0f0",
+      color: "#333",
+      border: "1px solid #ddd",
+      borderRadius: "5px",
+      padding: "8px 16px",
+      marginBottom: "20px",
+      cursor: "pointer",
+      fontSize: "14px",
       fontWeight: 500,
-      transition: 'all 0.3s ease',
+      transition: "all 0.3s ease",
     },
 
     /* Refresh button */
     refreshButton: {
-      backgroundColor: '#4CAF50',
-      color: 'white',
-      border: 'none',
-      borderRadius: '5px',
-      padding: '8px 16px',
-      marginBottom: '20px',
-      marginLeft: '10px',
-      cursor: 'pointer',
-      fontSize: '14px',
+      backgroundColor: "#4CAF50",
+      color: "white",
+      border: "none",
+      borderRadius: "5px",
+      padding: "8px 16px",
+      marginBottom: "20px",
+      marginLeft: "10px",
+      cursor: "pointer",
+      fontSize: "14px",
       fontWeight: 500,
-      transition: 'all 0.3s ease',
+      transition: "all 0.3s ease",
     },
 
     /* Media query styles for mobile */
@@ -386,42 +450,39 @@ const Dashboard = () => {
       "@media (max-width: 768px)": {
         statsGrid: {
           gridTemplateColumns: "1fr",
-          gap: "15px"
+          gap: "15px",
         },
         statCard: {
           padding: "15px",
-          minHeight: "100px"
+          minHeight: "100px",
         },
         propertyCard: {
           flexDirection: "column",
           alignItems: "flex-start",
-          gap: "15px"
+          gap: "15px",
         },
         propertyInfo: {
-          minWidth: "100%"
+          minWidth: "100%",
         },
         propertyPriceStatus: {
           width: "100%",
-          justifyContent: "space-between"
-        }
+          justifyContent: "space-between",
+        },
       },
       "@media (max-width: 480px)": {
         container: {
-          padding: "15px"
+          padding: "15px",
         },
         tableCard: {
           padding: "15px",
-          borderRadius: "12px"
+          borderRadius: "12px",
         },
         propertyCard: {
-          padding: "12px 15px"
-        }
-      }
-    }
+          padding: "12px 15px",
+        },
+      },
+    },
   };
-
-
-  
 
   return (
     <div style={styles.container}>
@@ -458,29 +519,37 @@ const Dashboard = () => {
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={{ ...styles.th, borderRadius: "10px 0 0 10px" }}>Name</th>
+              <th style={{ ...styles.th, borderRadius: "10px 0 0 10px" }}>
+                Name
+              </th>
               <th style={styles.th}>Properties</th>
-              <th style={{ ...styles.th, borderRadius: "0 10px 10px 0" }}>Inquiries</th>
+              <th style={{ ...styles.th, borderRadius: "0 10px 10px 0" }}>
+                Inquiries
+              </th>
             </tr>
           </thead>
           <tbody>
             {recentInquiries.map((row, index) => (
               <tr key={row.id}>
-                <td style={{ 
-                  ...styles.td, 
-                  borderTopLeftRadius: index === 0 ? "10px" : "0",
-                  borderBottomLeftRadius: index === recentInquiries.length - 1 ? "10px" : "0"
-                }}>
+                <td
+                  style={{
+                    ...styles.td,
+                    borderTopLeftRadius: index === 0 ? "10px" : "0",
+                    borderBottomLeftRadius:
+                      index === recentInquiries.length - 1 ? "10px" : "0",
+                  }}
+                >
                   {row.name}
                 </td>
-                <td style={styles.td}>
-                  {row.property}
-                </td>
-                <td style={{ 
-                  ...styles.td, 
-                  borderTopRightRadius: index === 0 ? "10px" : "0",
-                  borderBottomRightRadius: index === recentInquiries.length - 1 ? "10px" : "0"
-                }}>
+                <td style={styles.td}>{row.property}</td>
+                <td
+                  style={{
+                    ...styles.td,
+                    borderTopRightRadius: index === 0 ? "10px" : "0",
+                    borderBottomRightRadius:
+                      index === recentInquiries.length - 1 ? "10px" : "0",
+                  }}
+                >
                   <span style={styles.inquiryStatusButton(row.status)}>
                     {row.status}
                   </span>
@@ -494,7 +563,7 @@ const Dashboard = () => {
       {/* Recently Added Properties */}
       <div style={styles.tableCard}>
         <div style={styles.tableTitle}>Recently Added Properties</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {recentProperties.map((row) => (
             <div key={row.id} style={styles.propertyCard}>
               <div style={styles.propertyInfo}>
@@ -502,9 +571,7 @@ const Dashboard = () => {
                 <div style={styles.propertyDate}>{row.date}</div>
               </div>
               <div style={styles.propertyPriceStatus}>
-                <div style={styles.propertyPrice}>
-                  {row.price}
-                </div>
+                <div style={styles.propertyPrice}>{row.price}</div>
                 <span style={styles.statusButton(row.status)}>
                   {row.status}
                 </span>
