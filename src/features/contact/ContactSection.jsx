@@ -190,7 +190,78 @@ const ContactSection = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#F6F6F6", py: { xs: 6, md: 10 } }}>
+    <Box
+      sx={{
+        backgroundColor: "#F6F6F6",
+        py: { xs: 6, md: 10 },
+        position: "relative",
+      }}
+    >
+      {/* Success/Error Alerts - Fixed to top right */}
+      {submitStatus === "success" && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: 24,
+            right: 24,
+            zIndex: 9999,
+            maxWidth: 400,
+            animation: "slideIn 0.3s ease-out",
+            "@keyframes slideIn": {
+              from: {
+                transform: "translateX(100%)",
+                opacity: 0,
+              },
+              to: {
+                transform: "translateX(0)",
+                opacity: 1,
+              },
+            },
+          }}
+        >
+          <Alert
+            severity="success"
+            sx={{
+              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+            }}
+          >
+            Message sent successfully! We'll get back to you within 24 hours.
+          </Alert>
+        </Box>
+      )}
+
+      {submitStatus === "error" && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: 24,
+            right: 24,
+            zIndex: 9999,
+            maxWidth: 400,
+            animation: "slideIn 0.3s ease-out",
+            "@keyframes slideIn": {
+              from: {
+                transform: "translateX(100%)",
+                opacity: 0,
+              },
+              to: {
+                transform: "translateX(0)",
+                opacity: 1,
+              },
+            },
+          }}
+        >
+          <Alert
+            severity="error"
+            sx={{
+              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+            }}
+          >
+            Please fix the errors below before submitting.
+          </Alert>
+        </Box>
+      )}
+
       <Container
         maxWidth="false"
         sx={{
@@ -306,19 +377,6 @@ const ContactSection = () => {
                 Send Message
               </Typography>
 
-              {submitStatus === "success" && (
-                <Alert severity="success">
-                  Message sent successfully! We'll get back to you within 24
-                  hours.
-                </Alert>
-              )}
-
-              {submitStatus === "error" && (
-                <Alert severity="error">
-                  Please fix the errors below before submitting.
-                </Alert>
-              )}
-
               <Stack spacing={2}>
                 <TextField
                   fullWidth
@@ -383,12 +441,7 @@ const ContactSection = () => {
                 Send Message
               </Button>
 
-              {/* Display submitted forms count
-              {submissionCount > 0 && (
-                <Typography fontSize="12px" color="#6B7280">
-                  Total submissions: {submissionCount}
-                </Typography>
-              )} */}
+              {/* Display submitted forms count */}
             </Stack>
           </Box>
         </Stack>
