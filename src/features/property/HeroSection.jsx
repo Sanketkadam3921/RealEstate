@@ -15,7 +15,7 @@ const HeroSection = () => {
       >
         <Stack
           direction={{ xs: "column", md: "row" }}
-          alignItems="center"
+          alignItems={{ xs: "center", md: "flex-start" }} // 👈 KEY CHANGE
           justifyContent="space-between"
           spacing={{ xs: 4, md: 6 }}
           py={{ xs: 6, md: 10 }}

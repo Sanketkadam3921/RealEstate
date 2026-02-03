@@ -76,7 +76,7 @@ const CTASection = () => {
               onClick={() => navigate("/contact")}
               sx={{
                 mt: 7,
-                width: 282,
+                width: { xs: "100%", sm: "240px", md: "282px" },
                 height: 50,
                 borderRadius: "8px",
                 textTransform: "none",
