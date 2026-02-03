@@ -91,14 +91,14 @@ export default function FeaturedPropertyCard({
 
           <Typography
             variant="body2"
-            sx={{ fontSize: { xs: "13px", sm: "14px" }, color: "#6B7280" }}
+            sx={{ fontSize: { xs: "13px", sm: "14px" }, color: "#000000" }}
           >
             Location : {location}
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ fontSize: { xs: "13px", sm: "14px" }, color: "#6B7280" }}
+            sx={{ fontSize: { xs: "13px", sm: "14px" }, color: "#000000" }}
           >
             Type ({type})
           </Typography>
@@ -126,14 +126,14 @@ export default function FeaturedPropertyCard({
               justifyContent: "center",
               borderRadius: "8px",
               border: "1px solid #A237FF",
-              backgroundColor: "#F9F5FF",
+              backgroundColor: "#ffffff",
             }}
           >
             <Typography
               sx={{
                 fontSize: "14px",
-                fontWeight: 600,
-                color: "#A237FF",
+                fontWeight: 400,
+                color: "#302F2F",
               }}
             >
               {price}
