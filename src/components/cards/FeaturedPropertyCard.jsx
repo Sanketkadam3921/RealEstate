@@ -7,6 +7,8 @@ export default function FeaturedPropertyCard({
   type,
   area,
   tag,
+  price,
+  showPrice = false,
 }) {
   return (
     <Stack
@@ -47,17 +49,16 @@ export default function FeaturedPropertyCard({
                 left: 10,
                 pr: 2,
                 pl: 2,
-                display: "flex", // ✅ KEY
-                alignItems: "center", // ✅ vertical center
-                justifyContent: "center", // ✅ horizontal center
-                border: "1px solid #A237FF", // ✅ purple border
-
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "1px solid #A237FF",
                 borderRadius: "8px",
                 backgroundColor: "#FFFFFF",
                 color: "#A237FF",
-                fontSize: "14px", // ✅ exact UI/UX size
+                fontSize: "14px",
                 fontWeight: 600,
-                lineHeight: 1, // ✅ prevents optical shift
+                lineHeight: 1,
                 zIndex: 2,
                 boxShadow: "0px 4px 12px rgba(0,0,0,0.12)",
               }}
@@ -112,24 +113,71 @@ export default function FeaturedPropertyCard({
         </Stack>
       </Stack>
 
-      {/* BUTTON */}
-      <Button
-        variant="contained"
-        fullWidth
-        sx={{
-          height: { xs: 40, sm: 44 },
-          borderRadius: "8px",
-          textTransform: "none",
-          fontWeight: 600,
-          fontSize: "14px",
-          backgroundColor: "#9b5cff",
-          "&:hover": {
-            backgroundColor: "#8a4ef0",
-          },
-        }}
-      >
-        View Details
-      </Button>
+      {/* BUTTON + PRICE (conditional layout) */}
+      {showPrice && price ? (
+        // Properties page layout: Price + Button side by side
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Box
+            sx={{
+              flex: 1,
+              height: { xs: 40, sm: 44 },
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "8px",
+              border: "1px solid #A237FF",
+              backgroundColor: "#F9F5FF",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "14px",
+                fontWeight: 600,
+                color: "#A237FF",
+              }}
+            >
+              {price}
+            </Typography>
+          </Box>
+
+          <Button
+            variant="contained"
+            sx={{
+              flex: 1,
+              height: { xs: 40, sm: 44 },
+              borderRadius: "8px",
+              textTransform: "none",
+              fontWeight: 600,
+              fontSize: "14px",
+              backgroundColor: "#9b5cff",
+              "&:hover": {
+                backgroundColor: "#8a4ef0",
+              },
+            }}
+          >
+            View Details
+          </Button>
+        </Stack>
+      ) : (
+        // Home page layout: Full-width button only
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{
+            height: { xs: 40, sm: 44 },
+            borderRadius: "8px",
+            textTransform: "none",
+            fontWeight: 600,
+            fontSize: "14px",
+            backgroundColor: "#9b5cff",
+            "&:hover": {
+              backgroundColor: "#8a4ef0",
+            },
+          }}
+        >
+          View Details
+        </Button>
+      )}
     </Stack>
   );
 }

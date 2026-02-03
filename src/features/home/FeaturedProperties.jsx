@@ -14,7 +14,6 @@ export default function FeaturedProperties() {
         width: "100%",
         pt: { xs: 6, sm: 8, md: 3 },
         pb: { xs: 6, sm: 8, md: 10 },
-
         background:
           "linear-gradient(180deg, #DDE2FC 0%, #DADCF5 50%, #E4D7F5 100%)",
       }}
@@ -68,10 +67,10 @@ export default function FeaturedProperties() {
             alignItems: "center",
             flexWrap: { sm: "wrap" },
             gap: { xs: 3, sm: 2, md: 4, lg: 4 },
-            maxWidth: { sm: "716px", md: "none" }, // Exactly 2 cards width: 350px + 16px gap + 350px = 716px
+            maxWidth: { sm: "716px", md: "none" },
             mx: "auto",
             "@media (min-width: 768px) and (max-width: 899px)": {
-              maxWidth: "716px", // Specific for iPad Mini (768px)
+              maxWidth: "716px",
             },
           }}
         >

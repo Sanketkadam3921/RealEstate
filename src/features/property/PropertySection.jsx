@@ -26,6 +26,7 @@ const staticProperties = [
     type: "Apartment / Villa",
     area: "1200 sq.ft",
     tag: "Buy",
+    price: "₹85 Lacs",
   },
   {
     image: img2,
@@ -34,6 +35,7 @@ const staticProperties = [
     type: "Villa",
     area: "3000 sq.ft",
     tag: "Rent",
+    price: "₹45K/mo",
   },
   {
     image: img3,
@@ -42,6 +44,7 @@ const staticProperties = [
     type: "Villa",
     area: "3000 sq.ft",
     tag: "Commercial",
+    price: "₹1.2 Cr",
   },
   {
     image: img4,
@@ -50,6 +53,7 @@ const staticProperties = [
     type: "Villa",
     area: "1500 sq.ft",
     tag: "Buy",
+    price: "₹95 Lacs",
   },
   {
     image: img5,
@@ -58,6 +62,7 @@ const staticProperties = [
     type: "Plot",
     area: "5000 sq.ft",
     tag: "Commercial",
+    price: "₹2.5 Cr",
   },
   {
     image: img6,
@@ -66,6 +71,7 @@ const staticProperties = [
     type: "Apartment",
     area: "1300 sq.ft",
     tag: "Rent",
+    price: "₹35K/mo",
   },
   {
     image: img7,
@@ -74,6 +80,7 @@ const staticProperties = [
     type: "Villa",
     area: "5000 sq.ft",
     tag: "Buy",
+    price: "₹3.5 Cr",
   },
   {
     image: img8,
@@ -82,6 +89,7 @@ const staticProperties = [
     type: "Plot",
     area: "3500 sq.ft",
     tag: "Buy",
+    price: "₹75 Lacs",
   },
   {
     image: img9,
@@ -90,6 +98,7 @@ const staticProperties = [
     type: "Office",
     area: "2500 sq.ft",
     tag: "Commercial",
+    price: "₹1.8 Cr",
   },
 ];
 
@@ -98,7 +107,6 @@ export default function PropertiesSection() {
   const [showAll, setShowAll] = useState(false);
   const [dynamicProperties, setDynamicProperties] = useState([]);
 
-  // 🔥 Search/filter states - initialize from URL params
   const [searchText, setSearchText] = useState(
     searchParams.get("search") || "",
   );
@@ -124,6 +132,7 @@ export default function PropertiesSection() {
       type: item.details,
       area: item.details.split(" ")[0] + " sq.ft",
       tag: item.status,
+      price: item.price || "₹ N/A", // Add price from localStorage or default
     }));
 
     localStorage.setItem("propertyImageMap", JSON.stringify(imageMap));
@@ -134,7 +143,6 @@ export default function PropertiesSection() {
     ? [...staticProperties, ...dynamicProperties]
     : staticProperties;
 
-  // 🔥 FILTER LOGIC
   const displayedProperties = useMemo(() => {
     return allProperties.filter((p) => {
       const matchSearch =
@@ -177,7 +185,6 @@ export default function PropertiesSection() {
           </Typography>
         </Stack>
 
-        {/* ✅ Pass props */}
         <Box mb={{ xs: 4, md: 9 }}>
           <HeroSearchBar
             searchText={searchText}
@@ -205,7 +212,7 @@ export default function PropertiesSection() {
           }}
         >
           {displayedProperties.map((item, index) => (
-            <FeaturedPropertyCard key={index} {...item} />
+            <FeaturedPropertyCard key={index} {...item} showPrice={true} />
           ))}
         </Box>
 
