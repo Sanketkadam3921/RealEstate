@@ -772,7 +772,7 @@ const styles = {
     cursor: 'default',
     fontFamily: 'Montserrat',
     padding: '6px 10px',
-    width: '100%',
+    width: '85%',
     height: '32px',
     whiteSpace: 'nowrap',
     overflow: 'hidden',

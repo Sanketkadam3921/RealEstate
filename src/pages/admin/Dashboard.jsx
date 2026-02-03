@@ -512,7 +512,7 @@ const Dashboard = () => {
       alignItems: "center",
       justifyContent: "center",
       width: windowWidth < 640 ? "85px" : windowWidth < 768 ? "95px" : "105px",
-      height: windowWidth < 640 ? "35px" : windowWidth < 768 ? "40px" : "43px",
+      height: windowWidth < 640 ? "35px" : windowWidth < 768 ? "40px" : "30px",
       borderRadius: "6px",
       padding:
         windowWidth < 640 ? "6px 8px" : windowWidth < 768 ? "8px 10px" : "10px",
