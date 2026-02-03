@@ -452,7 +452,7 @@ const Inquiries = () => {
       fontFamily: 'Montserrat',
     },
     whiteSection: {
-      width: '100%',
+      width: '95%',
       maxWidth: '1111px',
       backgroundColor: 'white',
       borderRadius: '11px',
@@ -482,7 +482,7 @@ const Inquiries = () => {
       height: '16px',
     },
     searchInput: {
-      width: windowWidth < 640 ? '100%' : '324px',
+      // width: windowWidth < 640 ? '100%' : '324px',
       height: '16px',
       border: '1px solid #E2E8F0',
       borderRadius: '6px',
@@ -785,20 +785,21 @@ const Inquiries = () => {
       order: windowWidth < 768 ? 1 : 2,
     },
     paginationButton: {
-      padding: windowWidth < 640 ? '6px 12px' : '8px 16px',
-      backgroundColor: 'white',
-      border: '1px solid #D1D5DB',
-      borderRadius: '6px',
-      fontSize: windowWidth < 640 ? '12px' : '14px',
-      color: '#374151',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-      transition: 'all 0.3s ease',
-      fontFamily: 'Montserrat',
-      whiteSpace: 'nowrap',
-    },
+  padding: windowWidth < 640 ? '6px 12px' : '8px 16px',
+  backgroundColor: 'white',
+  border: '1px solid #D1D5DB',
+  borderRadius: '6px',
+  fontSize: windowWidth < 640 ? '12px' : '14px',
+  color: '#374151',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '8px',
+  transition: 'all 0.3s ease',
+  fontFamily: 'Montserrat',
+  whiteSpace: 'nowrap',
+},
     disabledPaginationButton: {
       backgroundColor: '#F3F4F6',
       color: '#9CA3AF',
@@ -806,30 +807,33 @@ const Inquiries = () => {
       borderColor: '#E5E7EB',
     },
     pageNumberButton: {
-      minWidth: '28px',
-      height: '28px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'white',
-      border: '1px solid #D1D5DB',
-      borderRadius: '6px',
-      fontSize: windowWidth < 640 ? '12px' : '14px',
-      color: '#374151',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      fontFamily: 'Montserrat',
-    },
-    activePageNumber: {
-      backgroundColor: '#3B82F6',
-      color: 'white',
-      borderColor: '#3B82F6',
-    },
+  minWidth: '28px',
+  height: '28px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'white',
+  border: '1px solid #ffffff',
+  borderRadius: '6px',
+  fontSize: windowWidth < 640 ? '12px' : '14px',
+  color: '#374151',
+  cursor: 'pointer',
+  transition: 'all 0.3s ease',
+  fontFamily: 'Montserrat',
+},
+activePageNumber: {
+  backgroundColor: '#DBE7FF',
+  color: '#000000',
+},
     ellipsis: {
-      padding: '0 4px',
-      color: '#6B7280',
-      fontFamily: 'Montserrat',
-    },
+  padding: '0 4px',
+  color: '#6B7280',
+  fontFamily: 'Montserrat',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: windowWidth < 640 ? '12px' : '14px',
+},
     // Modal styles - Responsive
         // Modal styles - Responsive (same as Properties page)
     modalOverlay: {
@@ -999,35 +1003,6 @@ const Inquiries = () => {
     },
   };
 
-  // Generate page numbers for mobile
-  const getPageNumbers = () => {
-    const pageNumbers = [];
-    const maxVisiblePages = windowWidth < 640 ? 3 : 5;
-    
-    if (totalPages <= maxVisiblePages) {
-      for (let i = 1; i <= totalPages; i++) pageNumbers.push(i);
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 3; i++) pageNumbers.push(i);
-        pageNumbers.push('...');
-        pageNumbers.push(totalPages);
-      } else if (currentPage >= totalPages - 2) {
-        pageNumbers.push(1);
-        pageNumbers.push('...');
-        for (let i = totalPages - 2; i <= totalPages; i++) pageNumbers.push(i);
-      } else {
-        pageNumbers.push(1);
-        pageNumbers.push('...');
-        pageNumbers.push(currentPage - 1);
-        pageNumbers.push(currentPage);
-        pageNumbers.push(currentPage + 1);
-        pageNumbers.push('...');
-        pageNumbers.push(totalPages);
-      }
-    }
-    
-    return pageNumbers;
-  };
 
   return (
     <div style={styles.container}>
@@ -1297,97 +1272,185 @@ const Inquiries = () => {
           </table>
         </div>
 
-        {/* Pagination */}
-        <div style={styles.paginationContainer}>
-          <div style={styles.paginationInfo}>
-            Showing {startIndex + 1} - {Math.min(endIndex, totalInquiries)} out of {totalInquiries}
-          </div>
-          
-          <div style={styles.paginationControls}>
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              style={{
-                ...styles.paginationButton,
-                ...(currentPage === 1 && styles.disabledPaginationButton),
-              }}
-              onMouseEnter={(e) => {
-                if (currentPage !== 1) e.target.style.backgroundColor = '#F9FAFB';
-              }}
-              onMouseLeave={(e) => {
-                if (currentPage !== 1) e.target.style.backgroundColor = 'white';
-              }}
-              aria-label="Previous page"
-            >
-              <img 
-                src={PreviousIcon} 
-                alt="Previous" 
-                style={styles.responsiveIcon}
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  const span = document.createElement('span');
-                  span.textContent = '←';
-                  e.target.parentNode.appendChild(span);
-                }}
-              />
-              {windowWidth >= 640 && 'Previous'}
-            </button>
+       {/* Pagination */}
+<div style={styles.paginationContainer}>
+  <div style={styles.paginationInfo}>
+    Showing {startIndex + 1} - {Math.min(endIndex, totalInquiries)} out of {totalInquiries}
+  </div>
+  
+  <div style={styles.paginationControls}>
+    {/* Previous arrow - plain black text with arrow */}
+    <div
+      onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        cursor: currentPage > 1 ? 'pointer' : 'default',
+        color: currentPage > 1 ? '#000000' : '#9CA3AF',
+        fontSize: windowWidth < 640 ? '12px' : '14px',
+        fontFamily: 'Montserrat',
+        fontWeight: 500,
+        userSelect: 'none',
+      }}
+      onMouseEnter={(e) => {
+        if (currentPage > 1) {
+          e.target.style.textDecoration = 'underline';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (currentPage > 1) {
+          e.target.style.textDecoration = 'none';
+        }
+      }}
+      aria-label="Previous page"
+    >
+      <img 
+        src={PreviousIcon} 
+        alt="Previous" 
+        style={{
+          width: windowWidth < 640 ? '12px' : '14px',
+          height: windowWidth < 640 ? '12px' : '14px',
+          filter: currentPage > 1 ? 'none' : 'opacity(0.5)',
+        }}
+        onError={(e) => {
+          e.target.style.display = 'none';
+          const span = document.createElement('span');
+          span.textContent = '←';
+          span.style.fontSize = windowWidth < 640 ? '14px' : '16px';
+          span.style.color = currentPage > 1 ? '#000000' : '#9CA3AF';
+          e.target.parentNode.appendChild(span);
+        }}
+      />
+      <span>Previous</span>
+    </div>
 
-            {getPageNumbers().map((page, index) => (
-              page === '...' ? (
-                <span key={index} style={styles.ellipsis}>...</span>
-              ) : (
-                <button
-                  key={index}
-                  onClick={() => handlePageChange(page)}
-                  style={{
-                    ...styles.pageNumberButton,
-                    ...(currentPage === page && styles.activePageNumber),
-                  }}
-                  onMouseEnter={(e) => {
-                    if (currentPage !== page) e.target.style.backgroundColor = '#F9FAFB';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (currentPage !== page) e.target.style.backgroundColor = 'white';
-                  }}
-                  aria-label={`Page ${page}`}
-                  aria-current={currentPage === page ? 'page' : undefined}
-                >
-                  {page}
-                </button>
-              )
-            ))}
+    {/* Page numbers in the middle with button boxes */}
+    <button
+      key={1}
+      onClick={() => handlePageChange(1)}
+      style={{
+        ...styles.pageNumberButton,
+        ...(currentPage === 1 && styles.activePageNumber),
+      }}
+      onMouseEnter={(e) => {
+        if (currentPage !== 1) e.target.style.backgroundColor = '#F9FAFB';
+      }}
+      onMouseLeave={(e) => {
+        if (currentPage !== 1) e.target.style.backgroundColor = 'white';
+      }}
+      aria-label="Page 1"
+      aria-current={currentPage === 1 ? 'page' : undefined}
+    >
+      1
+    </button>
 
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              style={{
-                ...styles.paginationButton,
-                ...(currentPage === totalPages && styles.disabledPaginationButton),
-              }}
-              onMouseEnter={(e) => {
-                if (currentPage !== totalPages) e.target.style.backgroundColor = '#F9FAFB';
-              }}
-              onMouseLeave={(e) => {
-                if (currentPage !== totalPages) e.target.style.backgroundColor = 'white';
-              }}
-              aria-label="Next page"
-            >
-              {windowWidth >= 640 && 'Next'}
-              <img 
-                src={NextIcon} 
-                alt="Next" 
-                style={styles.responsiveIcon}
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  const span = document.createElement('span');
-                  span.textContent = '→';
-                  e.target.parentNode.appendChild(span);
-                }}
-              />
-            </button>
-          </div>
-        </div>
+    <button
+      key={2}
+      onClick={() => handlePageChange(2)}
+      style={{
+        ...styles.pageNumberButton,
+        ...(currentPage === 2 && styles.activePageNumber),
+      }}
+      onMouseEnter={(e) => {
+        if (currentPage !== 2) e.target.style.backgroundColor = '#F9FAFB';
+      }}
+      onMouseLeave={(e) => {
+        if (currentPage !== 2) e.target.style.backgroundColor = 'white';
+      }}
+      aria-label="Page 2"
+      aria-current={currentPage === 2 ? 'page' : undefined}
+    >
+      2
+    </button>
+
+    <span style={styles.ellipsis}>-</span>
+
+    <button
+      key={9}
+      onClick={() => handlePageChange(9)}
+      style={{
+        ...styles.pageNumberButton,
+        ...(currentPage === 9 && styles.activePageNumber),
+      }}
+      onMouseEnter={(e) => {
+        if (currentPage !== 9) e.target.style.backgroundColor = '#F9FAFB';
+      }}
+      onMouseLeave={(e) => {
+        if (currentPage !== 9) e.target.style.backgroundColor = 'white';
+      }}
+      aria-label="Page 9"
+      aria-current={currentPage === 9 ? 'page' : undefined}
+    >
+      9
+    </button>
+
+    <button
+      key={10}
+      onClick={() => handlePageChange(10)}
+      style={{
+        ...styles.pageNumberButton,
+        ...(currentPage === 10 && styles.activePageNumber),
+      }}
+      onMouseEnter={(e) => {
+        if (currentPage !== 10) e.target.style.backgroundColor = '#F9FAFB';
+      }}
+      onMouseLeave={(e) => {
+        if (currentPage !== 10) e.target.style.backgroundColor = 'white';
+      }}
+      aria-label="Page 10"
+      aria-current={currentPage === 10 ? 'page' : undefined}
+    >
+      10
+    </button>
+
+    {/* Next arrow - plain black text with arrow */}
+    <div
+      onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        cursor: currentPage < totalPages ? 'pointer' : 'default',
+        color: currentPage < totalPages ? '#000000' : '#9CA3AF',
+        fontSize: windowWidth < 640 ? '12px' : '14px',
+        fontFamily: 'Montserrat',
+        fontWeight: 500,
+        userSelect: 'none',
+      }}
+      onMouseEnter={(e) => {
+        if (currentPage < totalPages) {
+          e.target.style.textDecoration = 'underline';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (currentPage < totalPages) {
+          e.target.style.textDecoration = 'none';
+        }
+      }}
+      aria-label="Next page"
+    >
+      <span>Next</span>
+      <img 
+        src={NextIcon} 
+        alt="Next" 
+        style={{
+          width: windowWidth < 640 ? '12px' : '14px',
+          height: windowWidth < 640 ? '12px' : '14px',
+          filter: currentPage < totalPages ? 'none' : 'opacity(0.5)',
+        }}
+        onError={(e) => {
+          e.target.style.display = 'none';
+          const span = document.createElement('span');
+          span.textContent = '→';
+          span.style.fontSize = windowWidth < 640 ? '14px' : '16px';
+          span.style.color = currentPage < totalPages ? '#000000' : '#9CA3AF';
+          e.target.parentNode.appendChild(span);
+        }}
+      />
+    </div>
+  </div>
+</div>
       </div>
 
             {/* Modal for View Inquiry Details */}

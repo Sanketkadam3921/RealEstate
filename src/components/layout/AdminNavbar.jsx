@@ -8,6 +8,11 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
+  const isIpad =
+  typeof window !== "undefined" &&
+  window.innerWidth >= 768 &&
+  window.innerWidth <= 1024;
+
   const handleSearch = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
@@ -84,7 +89,7 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
       pointerEvents: "none",
     },
     searchInput: {
-      width: "95%",
+      width: isIpad ? "68%" : "95%",
       height: isMobile ? "14px" : "16px",
       borderRadius: "8px",
       border: `1px solid ${isSearchFocused ? "#CDA1F8" : "#D9D9D9"}`,
@@ -97,6 +102,11 @@ const AdminNavbar = ({ onToggleSidebar, isSidebarOpen }) => {
         backgroundColor: "#FFFFFF",
         boxShadow: "0 0 0 3px rgba(205, 161, 248, 0.1)",
       },
+
+  /* iPad Mini / Air / Pro */
+  "@media (min-width: 768px) and (max-width: 1024px)": {
+    width: "68%",
+  },
     },
     rightSection: {
       display: "flex",

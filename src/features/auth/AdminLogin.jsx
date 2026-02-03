@@ -68,14 +68,14 @@ const AdminLogin = () => {
         : isMobile
           ? "15px"
           : isTablet
-            ? "20px"
-            : "20px",
+            ? "8px"
+            : "8px",
       fontFamily: "'Montserrat', sans-serif",
       overflow: "auto",
     },
     wrapper: {
       width: isMobile
-        ? "100%"
+        ? "95%"
         : isTablet
           ? isLandscape
             ? "90%"
@@ -104,7 +104,7 @@ const AdminLogin = () => {
       overflow: "hidden",
       boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
       maxWidth: isMobile
-        ? "100%"
+        ? "95%"
         : isTablet
           ? isLandscape
             ? "1100px"
@@ -182,7 +182,7 @@ const AdminLogin = () => {
     formContainer: {
       flex: 1,
       padding: isSmallMobile
-        ? "20px"
+        ? "10px"
         : isMobile
           ? "25px"
           : isTablet
@@ -211,7 +211,7 @@ const AdminLogin = () => {
               : "46px",
       justifyContent: "center",
       alignItems: "center",
-      width: "100%",
+      width: "95%",
     },
     header: {
       marginBottom: isMobile ? "10px" : isTablet ? "15px" : "20px",
