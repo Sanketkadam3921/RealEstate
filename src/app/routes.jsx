@@ -15,6 +15,7 @@ import AdminRoute from "../guards/AdminRoute";
 import Home from "../pages/user/Home";
 import About from "../pages/user/About";
 import Property from "../pages/user/Properties";
+import PropertyDetails from "../features/property/PropertyDetails";
 import Contact from "../pages/user/Contact";
 
 // admin pages
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "property",
         element: <Property />,
+      },
+      {
+        path: "property/:id",
+        element: <PropertyDetails />,
       },
       {
         path: "contact",

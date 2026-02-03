@@ -33,21 +33,23 @@ export default function HeroSearchBar({
   const [internalType, setInternalType] = useState("");
   const [internalBudget, setInternalBudget] = useState("");
 
-  // Use external props if provided (properties page), otherwise use internal state (homepage)
+  // Use external props if provided (properties page), otherwise internal state
   const searchText =
     externalSearchText !== undefined ? externalSearchText : internalSearchText;
   const setSearchText = externalSetSearchText || setInternalSearchText;
+
   const location =
     externalLocation !== undefined ? externalLocation : internalLocation;
   const setLocation = externalSetLocation || setInternalLocation;
+
   const type = externalType !== undefined ? externalType : internalType;
   const setType = externalSetType || setInternalType;
+
   const budget = externalBudget !== undefined ? externalBudget : internalBudget;
   const setBudget = externalSetBudget || setInternalBudget;
 
   const handleFindNow = () => {
     if (!isPropertiesPage) {
-      // On homepage: navigate to properties page with filters as URL params
       const params = new URLSearchParams();
       if (searchText) params.set("search", searchText);
       if (location) params.set("location", location);
@@ -56,7 +58,27 @@ export default function HeroSearchBar({
 
       navigate(`/property${params.toString() ? `?${params.toString()}` : ""}`);
     }
-    // On properties page: filters already work via props, no action needed
+  };
+
+  // ✅ Correct MenuProps (fixes dropdown drifting)
+  const menuProps = {
+    disablePortal: false,
+    PaperProps: {
+      sx: {
+        maxHeight: 300,
+        mt: 1,
+      },
+    },
+    PopperProps: {
+      modifiers: [
+        {
+          name: "offset",
+          options: {
+            offset: [0, 6],
+          },
+        },
+      ],
+    },
   };
 
   return (
@@ -69,6 +91,7 @@ export default function HeroSearchBar({
         maxWidth: "1400px",
         mx: "auto",
         border: `1px solid ${BORDER_COLOR}`,
+        overflow: "visible", // ✅ important
       }}
     >
       <Stack
@@ -76,7 +99,7 @@ export default function HeroSearchBar({
         spacing={{ xs: 2, sm: 1.5 }}
         alignItems="stretch"
       >
-        {/* Search Input */}
+        {/* Search */}
         <TextField
           fullWidth
           placeholder="Search"
@@ -107,10 +130,10 @@ export default function HeroSearchBar({
           SelectProps={{
             displayEmpty: true,
             IconComponent: KeyboardArrowDownIcon,
+            MenuProps: menuProps,
             renderValue: (selected) => {
-              if (!selected) {
-                return <span style={{ color: "#000000" }}>Location</span>;
-              }
+              if (!selected)
+                return <span style={{ color: "#000" }}>Location</span>;
               const selectedItem = locationOptions.find(
                 (opt) => opt.value === selected,
               );
@@ -127,7 +150,7 @@ export default function HeroSearchBar({
           ))}
         </TextField>
 
-        {/* Property Type */}
+        {/* Type */}
         <TextField
           select
           fullWidth
@@ -136,10 +159,10 @@ export default function HeroSearchBar({
           SelectProps={{
             displayEmpty: true,
             IconComponent: KeyboardArrowDownIcon,
+            MenuProps: menuProps,
             renderValue: (selected) => {
-              if (!selected) {
-                return <span style={{ color: "#000000" }}>Property Type</span>;
-              }
+              if (!selected)
+                return <span style={{ color: "#000" }}>Property Type</span>;
               const selectedItem = typeOptions.find(
                 (opt) => opt.value === selected,
               );
@@ -165,10 +188,10 @@ export default function HeroSearchBar({
           SelectProps={{
             displayEmpty: true,
             IconComponent: KeyboardArrowDownIcon,
+            MenuProps: menuProps,
             renderValue: (selected) => {
-              if (!selected) {
-                return <span style={{ color: "#000000" }}>Budget</span>;
-              }
+              if (!selected)
+                return <span style={{ color: "#000" }}>Budget</span>;
               const selectedItem = budgetOptions.find(
                 (opt) => opt.value === selected,
               );
@@ -213,7 +236,7 @@ export default function HeroSearchBar({
   );
 }
 
-// Options arrays
+/* Options */
 const locationOptions = [
   { value: "pune", label: "Pune" },
   { value: "baner", label: "Baner" },
@@ -238,24 +261,15 @@ const budgetOptions = [
   { value: "100+", label: "₹1Cr+" },
 ];
 
-/* Shared input styles */
 const inputStyles = {
   "& .MuiOutlinedInput-root": {
     borderRadius: 2,
     backgroundColor: "#F2F3F3",
-    "& fieldset": {
-      borderColor: "#A237FF",
-    },
-    "&:hover fieldset": {
-      borderColor: "#A237FF",
-    },
+    "& fieldset": { borderColor: "#A237FF" },
+    "&:hover fieldset": { borderColor: "#A237FF" },
     "&.Mui-focused fieldset": {
       borderColor: "#A237FF",
       borderWidth: 2,
     },
-  },
-  "& input::placeholder": {
-    color: "#999",
-    opacity: 1,
   },
 };

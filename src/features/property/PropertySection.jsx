@@ -20,6 +20,7 @@ const imagePool = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
 
 const staticProperties = [
   {
+    id: "1",
     image: img1,
     title: "Luxury Apartment in Koregaon Park",
     location: "Baner, Pune",
@@ -29,6 +30,7 @@ const staticProperties = [
     price: "₹85 Lacs",
   },
   {
+    id: "2",
     image: img2,
     title: "Beautiful 4 BHK Villa With Pool",
     location: "Pune",
@@ -38,6 +40,7 @@ const staticProperties = [
     price: "₹45K/mo",
   },
   {
+    id: "3",
     image: img3,
     title: "Spacious Office Space in Baner",
     location: "Baner, Pune",
@@ -47,6 +50,7 @@ const staticProperties = [
     price: "₹1.2 Cr",
   },
   {
+    id: "4",
     image: img4,
     title: "Modern Apartment With City Views",
     location: "Baner, Pune",
@@ -56,6 +60,7 @@ const staticProperties = [
     price: "₹95 Lacs",
   },
   {
+    id: "5",
     image: img5,
     title: "Prime Commercial Plot in Hinjewadi",
     location: "Hinjewadi, Pune",
@@ -65,6 +70,7 @@ const staticProperties = [
     price: "₹2.5 Cr",
   },
   {
+    id: "6",
     image: img6,
     title: "Contemporary 3 BHK Apartment",
     location: "Maharashtra",
@@ -74,6 +80,7 @@ const staticProperties = [
     price: "₹35K/mo",
   },
   {
+    id: "7",
     image: img7,
     title: "Luxury 5 BHK Villa",
     location: "Goa",
@@ -83,6 +90,7 @@ const staticProperties = [
     price: "₹3.5 Cr",
   },
   {
+    id: "8",
     image: img8,
     title: "Residential Plot in Whitefield",
     location: "Mahabaleshwar",
@@ -92,6 +100,7 @@ const staticProperties = [
     price: "₹75 Lacs",
   },
   {
+    id: "9",
     image: img9,
     title: "Prime Office Space",
     location: "Baner, Pune",
@@ -126,13 +135,14 @@ export default function PropertiesSection() {
     };
 
     const mapped = stored.map((item) => ({
+      id: item.id,
       image: getStableImage(item.id),
       title: item.name,
       location: item.location,
       type: item.details,
       area: item.details.split(" ")[0] + " sq.ft",
       tag: item.status,
-      price: item.price || "₹ N/A", // Add price from localStorage or default
+      price: item.price || "₹ N/A",
     }));
 
     localStorage.setItem("propertyImageMap", JSON.stringify(imageMap));
@@ -212,7 +222,11 @@ export default function PropertiesSection() {
           }}
         >
           {displayedProperties.map((item, index) => (
-            <FeaturedPropertyCard key={index} {...item} showPrice={true} />
+            <FeaturedPropertyCard
+              key={item.id || index}
+              {...item}
+              showPrice={true}
+            />
           ))}
         </Box>
 

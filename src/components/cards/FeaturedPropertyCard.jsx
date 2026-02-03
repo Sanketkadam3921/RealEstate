@@ -1,6 +1,8 @@
 import { Box, Stack, Typography, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function FeaturedPropertyCard({
+  id,
   image,
   title,
   location,
@@ -10,6 +12,14 @@ export default function FeaturedPropertyCard({
   price,
   showPrice = false,
 }) {
+  const navigate = useNavigate();
+
+  const handleViewDetails = () => {
+    if (id) {
+      navigate(`/property/${id}`);
+    }
+  };
+
   const formattedArea = area
     ? Number(String(area).replace(/[^\d]/g, "")).toLocaleString("en-IN")
     : "";
@@ -157,6 +167,7 @@ export default function FeaturedPropertyCard({
 
           <Button
             variant="contained"
+            onClick={handleViewDetails}
             sx={{
               flex: 1,
               height: { xs: 40, sm: 44 },
@@ -178,6 +189,7 @@ export default function FeaturedPropertyCard({
         <Button
           variant="contained"
           fullWidth
+          onClick={handleViewDetails}
           sx={{
             height: { xs: 40, sm: 44 },
             borderRadius: "8px",
