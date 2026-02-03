@@ -10,11 +10,15 @@ export default function FeaturedPropertyCard({
   price,
   showPrice = false,
 }) {
+  const formattedArea = area
+    ? Number(String(area).replace(/[^\d]/g, "")).toLocaleString("en-IN")
+    : "";
+
   return (
     <Stack
       sx={{
         maxWidth: { xs: "350px", sm: 330, md: 380, lg: 398 },
-        height: { xs: "360px", sm: 401, md: 401, lg: 401 },
+        height: { xs: "360px", sm: 401, md: 421, lg: 401 },
         overflow: "hidden",
         backgroundColor: "#ffffff",
         borderRadius: "14px",
@@ -82,12 +86,18 @@ export default function FeaturedPropertyCard({
 
         {/* TEXT */}
         <Stack spacing={1}>
-          <Typography
-            fontWeight={400}
-            sx={{ fontSize: { xs: "15px", sm: "16px", md: "17px" } }}
+          <Box
+            sx={{
+              height: 50,
+            }}
           >
-            {title}
-          </Typography>
+            <Typography
+              fontWeight={400}
+              sx={{ fontSize: { xs: "15px", sm: "16px", md: "17px" } }}
+            >
+              {title}
+            </Typography>
+          </Box>
 
           <Typography
             variant="body2"
@@ -108,7 +118,7 @@ export default function FeaturedPropertyCard({
             fontWeight={600}
             sx={{ fontSize: { xs: "13px", sm: "14px" }, pt: 1 }}
           >
-            Area ({area})
+            Area ({formattedArea} sq ft)
           </Typography>
         </Stack>
       </Stack>
