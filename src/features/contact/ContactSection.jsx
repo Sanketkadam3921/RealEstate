@@ -93,8 +93,13 @@ const ContactSection = () => {
   // Validation functions
   const validateName = (name) => {
     const nameRegex = /^[A-Za-z\s]+$/;
+
     if (!name.trim()) return "Name is required";
-    if (!nameRegex.test(name)) return "Name should contain only alphabets";
+    if (name.trim().length < 5)
+      return "Name must be at least 5 characters long";
+    if (!nameRegex.test(name))
+      return "Name should contain only alphabets and spaces";
+
     return "";
   };
 
@@ -114,9 +119,15 @@ const ContactSection = () => {
     }
     return "";
   };
-
   const validateMessage = (message) => {
+    const messageRegex = /^[A-Za-z\s]+$/;
+
     if (!message.trim()) return "Message is required";
+    if (message.trim().length < 5)
+      return "Message must be at least 5 characters long";
+    if (!messageRegex.test(message))
+      return "Message should contain only alphabets and spaces";
+
     return "";
   };
 
@@ -283,11 +294,11 @@ const ContactSection = () => {
               },
               height: {
                 xs: "auto",
-                md: "579px",
+                md: "529px",
               },
               minHeight: {
                 xs: "auto",
-                md: "549px",
+                md: "529px",
               },
               backgroundColor: "#ffffff",
               borderRadius: "17px",
@@ -358,11 +369,11 @@ const ContactSection = () => {
               },
               height: {
                 xs: "auto",
-                md: "579px",
+                md: "529px",
               },
               minHeight: {
                 xs: "auto",
-                md: "559px",
+                md: "529px",
               },
               backgroundColor: "#ffffff",
               borderRadius: "17px",
@@ -418,10 +429,6 @@ const ContactSection = () => {
                   helperText={errors.message}
                 />
               </Stack>
-
-              <Typography fontSize="14px" color="#6B7280">
-                Our Team will get back to you within 24 hours
-              </Typography>
 
               <Button
                 fullWidth
