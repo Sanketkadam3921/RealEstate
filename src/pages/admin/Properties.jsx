@@ -500,7 +500,7 @@ const handleCloseViewModal = () => {
       fontFamily: 'Montserrat',
     },
     whiteSection: {
-      width: '100%',
+      // width: '100%',
       maxWidth: '1111px',
       backgroundColor: 'white',
       borderRadius: '11px',
@@ -531,8 +531,7 @@ const handleCloseViewModal = () => {
       height: '16px',
     },
     searchInput: {
-      width: '100%',
-      maxWidth: windowWidth < 768 ? '100%' : '324px',
+      width: windowWidth < 640 ? '100%' : '388px',
       height: '38px',
       border: '1px solid #E2E8F0',
       borderRadius: '6px',

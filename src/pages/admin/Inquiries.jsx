@@ -483,7 +483,7 @@ const Inquiries = () => {
     },
     searchInput: {
       width: windowWidth < 640 ? '100%' : '324px',
-      height: '38px',
+      height: '16px',
       border: '1px solid #E2E8F0',
       borderRadius: '6px',
       padding: '10px 12px 10px 40px',
