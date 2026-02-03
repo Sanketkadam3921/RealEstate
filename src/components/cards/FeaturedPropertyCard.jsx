@@ -88,7 +88,7 @@ export default function FeaturedPropertyCard({
         <Stack spacing={1}>
           <Box
             sx={{
-              height: 50,
+              height: 30,
             }}
           >
             <Typography
