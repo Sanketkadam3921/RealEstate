@@ -127,8 +127,9 @@ export default function Footer() {
             <Typography fontWeight={600}>Quick Links</Typography>
             {[
               { label: "Home", path: "/home" },
-              { label: "Properties", path: "/property" },
               { label: "About Us", path: "/about" },
+              { label: "Properties", path: "/property" },
+
               { label: "Contact", path: "/contact" },
             ].map((item) => (
               <Link
