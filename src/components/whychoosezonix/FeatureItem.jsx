@@ -6,15 +6,17 @@ export default function FeatureItem({ icon, title, subtitle, description }) {
     <Stack spacing={1.5} alignItems="center" textAlign="center">
       <Box
         sx={{
-          width: { xs: 48, sm: 52, md: 56 },
-          height: { xs: 48, sm: 52, md: 56 },
+          width: 85,
+          height: 85,
           borderRadius: "50%",
           bgcolor: "#9b5cff",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          "& svg": {
-            fontSize: { xs: "24px", sm: "26px", md: "28px" },
+          "& img, & svg": {
+            width: 50,
+            height: 50,
+            objectFit: "contain",
           },
         }}
       >

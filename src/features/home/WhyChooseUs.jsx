@@ -1,8 +1,8 @@
 import { Container, Grid, Stack, Typography, Box } from "@mui/material";
-import VerifiedIcon from "@mui/icons-material/Verified";
-import SearchIcon from "@mui/icons-material/Search";
-import ShieldIcon from "@mui/icons-material/Security";
-import HelpIcon from "@mui/icons-material/HelpOutline";
+import verifiedSvg from "../../assets/fouricons/verifiedlisting.svg";
+import searchSvg from "../../assets/fouricons/search.svg";
+import trustedSvg from "../../assets/fouricons/trusted agents.svg";
+import enquirySvg from "../../assets/fouricons/quick-enquiry.svg";
 import FeatureItem from "../../components/whychoosezonix/FeatureItem";
 import CentralVisual from "../../components/whychoosezonix/CentralVisual";
 export default function WhyChooseZonix() {
@@ -101,7 +101,7 @@ export default function WhyChooseZonix() {
             <Stack spacing={{ xs: 4, sm: 35 }}>
               {" "}
               <FeatureItem
-                icon={<VerifiedIcon sx={{ color: "#fff" }} />}
+                icon={<img src={verifiedSvg} alt="Verified" />}
                 title="Verified Listings"
                 subtitle="Genuine Properties"
                 description="All listings are verified to ensure quality and authenticity."
@@ -116,7 +116,7 @@ export default function WhyChooseZonix() {
                 }}
               >
                 <FeatureItem
-                  icon={<ShieldIcon sx={{ color: "#fff" }} />}
+                  icon={<img src={trustedSvg} alt="Trusted" />}
                   title="Trusted Agents"
                   subtitle="Expert Guidance"
                   description="Experienced agents assist you at every step of your property journey."
@@ -133,7 +133,7 @@ export default function WhyChooseZonix() {
           <Grid size={{ xs: 12, sm: 3 }}>
             <Stack spacing={{ xs: 4, sm: 35 }}>
               <FeatureItem
-                icon={<SearchIcon sx={{ color: "#fff" }} />}
+                icon={<img src={searchSvg} alt="Search" />}
                 title="Easy Search"
                 subtitle="Smart Filters"
                 description="Quickly find properties by location, type, budget, and size."
@@ -149,7 +149,7 @@ export default function WhyChooseZonix() {
                 }}
               >
                 <FeatureItem
-                  icon={<HelpIcon sx={{ color: "#fff" }} />}
+                  icon={<img src={enquirySvg} alt="Quick inquiry" />}
                   title="Quick Inquiry"
                   subtitle="Instant Connection"
                   description="Reach out to property experts easily with our simple inquiry system."
