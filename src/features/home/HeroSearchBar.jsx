@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   Box,
@@ -32,6 +32,21 @@ export default function HeroSearchBar({
   const [internalLocation, setInternalLocation] = useState("");
   const [internalType, setInternalType] = useState("");
   const [internalBudget, setInternalBudget] = useState("");
+
+  // Tracks if any select dropdown is open so we can lock body scroll
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isDropdownOpen]);
 
   // Use external props if provided (properties page), otherwise internal state
   const searchText =
@@ -139,6 +154,8 @@ export default function HeroSearchBar({
               );
               return selectedItem?.label || selected;
             },
+            onOpen: () => setIsDropdownOpen(true),
+            onClose: () => setIsDropdownOpen(false),
           }}
           sx={inputStyles}
         >
@@ -168,6 +185,8 @@ export default function HeroSearchBar({
               );
               return selectedItem?.label || selected;
             },
+            onOpen: () => setIsDropdownOpen(true),
+            onClose: () => setIsDropdownOpen(false),
           }}
           sx={inputStyles}
         >
@@ -197,6 +216,8 @@ export default function HeroSearchBar({
               );
               return selectedItem?.label || selected;
             },
+            onOpen: () => setIsDropdownOpen(true),
+            onClose: () => setIsDropdownOpen(false),
           }}
           sx={inputStyles}
         >

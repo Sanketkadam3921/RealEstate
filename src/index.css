@@ -1,13 +1,21 @@
 /* ========== Global Reset (safe) ========== */
 html {
-  scrollbar-gutter: stable;
+  /* Avoid reserving a stable gutter which can create an unwanted gap on the right in some browsers */
+  scrollbar-gutter: auto;
 }
 html,
-body {
+body,
+#root {
+  /* Ensure the root takes full height so we never reveal a white gap on overscroll */
+  height: 100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Prevent horizontal scroll */
   scroll-behavior: smooth;
+
+  /* Prevent overscroll/bounce and scroll chaining in Chromium-based browsers (Edge, Chrome) */
+  overscroll-behavior-y: none;
+  touch-action: pan-y;
 }
 
 /* ========== Embla Root ========== */
