@@ -22,7 +22,7 @@ const INITIAL_PROPERTIES = [
     price: "₹ 70 Lakh",
     details: "3,000 sq ft 3 BHK Villa",
     status: "Available",
-    addedDate: "11-02-2025",
+    addedDate: "02/02/2025",
     bedrooms: "3",
     area: "3000",
     description: "Beautiful luxury villa with modern amenities...",
@@ -35,7 +35,7 @@ const INITIAL_PROPERTIES = [
     price: "₹ 85 Lakh",
     details: "1,300 sq ft Apartment",
     status: "Rented",
-    addedDate: "11-02-2025",
+    addedDate: "02/02/2025",
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const INITIAL_PROPERTIES = [
     price: "₹ 70 Lakh",
     details: "3,000 sq ft 3 BHK Villa",
     status: "Sold",
-    addedDate: "11-02-2025",
+    addedDate: "02/02/2025",
   },
   {
     id: 4,
@@ -53,7 +53,7 @@ const INITIAL_PROPERTIES = [
     price: "₹ 2 Crore",
     details: "1,300 sq ft Apartment",
     status: "Available",
-    addedDate: "11-02-2025",
+    addedDate: "11/02/2025",
   },
   {
     id: 5,
@@ -62,7 +62,7 @@ const INITIAL_PROPERTIES = [
     price: "₹ 70 Lakh",
     details: "2,500 sq ft Commercial",
     status: "Rented",
-    addedDate: "11-02-2025",
+    addedDate: "11/02/2025",
   },
 ];
 
