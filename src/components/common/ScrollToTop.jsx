@@ -23,15 +23,19 @@ export default function ScrollToTop() {
       if (root) root.scrollTop = 0;
 
       // find any scrollable elements and reset them
-      const candidates = Array.from(document.querySelectorAll("*")).filter((el) => {
-        if (!(el instanceof HTMLElement)) return false;
-        const style = window.getComputedStyle(el);
-        const overflowY = style.overflowY;
-        return (
-          (overflowY === "auto" || overflowY === "scroll" || overflowY === "overlay") &&
-          el.scrollHeight > el.clientHeight
-        );
-      });
+      const candidates = Array.from(document.querySelectorAll("*")).filter(
+        (el) => {
+          if (!(el instanceof HTMLElement)) return false;
+          const style = window.getComputedStyle(el);
+          const overflowY = style.overflowY;
+          return (
+            (overflowY === "auto" ||
+              overflowY === "scroll" ||
+              overflowY === "overlay") &&
+            el.scrollHeight > el.clientHeight
+          );
+        },
+      );
 
       candidates.forEach((el) => {
         try {

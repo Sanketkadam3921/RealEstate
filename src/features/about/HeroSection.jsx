@@ -62,7 +62,7 @@ const AboutHero = () => {
             sx={{
               position: "absolute",
               width: {
-                xs: "280px",
+                xs: "320px",
                 sm: "250px",
                 md: "360px",
                 lg: "360px",
