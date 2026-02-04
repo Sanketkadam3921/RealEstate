@@ -418,8 +418,7 @@ const Inquiries = () => {
     return dateString;
   };
 
-  // CSS Styles with responsive adjustments
-  // CSS Styles with responsive adjustments
+  
 const styles = {
   container: {
     padding: windowWidth < 640 ? '16px' : windowWidth < 1024 ? '24px' : '42px',
@@ -511,50 +510,56 @@ const styles = {
     width: windowWidth < 768 ? '100%' : 'auto',
   },
   filterContainer: {
-    position: 'relative',
-    width: windowWidth < 768 ? '100%' : 'auto',
-    minWidth: windowWidth < 768 ? '100%' : '140px',
-  },
-  allFilterButton: {
-    width: '100%',
-    height: windowWidth < 640 ? '36px' : '40px',
-    backgroundColor: 'white',
-    border: '1px solid #E2E8F0',
-    borderRadius: '5px',
-    fontSize: '13px',
-    color: '#475569',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 12px',
-    transition: 'border-color 0.3s ease',
-    fontFamily: 'Montserrat',
-    whiteSpace: 'nowrap',
-  },
-  filterDropdown: {
-    position: 'absolute',
-    top: '100%',
-    left: 0,
-    right: 0,
-    marginTop: '4px',
-    backgroundColor: 'white',
-    border: '1px solid #E2E8F0',
-    borderRadius: '6px',
-    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-    zIndex: 100,
-    overflow: 'hidden',
-    minWidth: '100%',
-  },
-  filterOption: {
-    padding: '10px 12px',
-    fontSize: '13px',
-    color: '#475569',
-    cursor: 'pointer',
-    fontFamily: 'Montserrat',
-    transition: 'background-color 0.3s ease',
-    borderBottom: '1px solid #F3F4F6',
-  },
+  position: 'relative',
+  width: windowWidth < 768 ? '100%' : 'auto',
+  minWidth: windowWidth < 768 ? '100%' : '140px',
+  display: 'inline-block', // Add this
+},
+allFilterButton: {
+  width: '100%',
+  height: windowWidth < 640 ? '36px' : '40px',
+  backgroundColor: 'white',
+  border: '1px solid #E2E8F0',
+  borderRadius: '5px',
+  fontSize: '13px',
+  color: '#475569',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '0 12px',
+  transition: 'border-color 0.3s ease',
+  fontFamily: 'Montserrat',
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box', // Add this
+},
+filterDropdown: {
+  position: 'absolute',
+  top: '100%',
+  left: 0,
+  right: 0,
+  marginTop: '4px',
+  backgroundColor: 'white',
+  border: '1px solid #E2E8F0',
+  borderRadius: '6px',
+  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+  zIndex: 100,
+  overflow: 'hidden',
+  width: '100%', // Change from minWidth to width
+  boxSizing: 'border-box', // Add this
+},
+filterOption: {
+  padding: '10px 12px',
+  fontSize: '13px',
+  color: '#475569',
+  cursor: 'pointer',
+  fontFamily: 'Montserrat',
+  transition: 'background-color 0.3s ease',
+  borderBottom: '1px solid #F3F4F6',
+  whiteSpace: 'nowrap', // Add this
+  overflow: 'hidden', // Add this
+  textOverflow: 'ellipsis', // Add this
+},
   deleteButton: {
     width: '100%',
     height: windowWidth < 640 ? '36px' : '40px',
@@ -1012,7 +1017,7 @@ const styles = {
                     style={styles.responsiveIcon}
                     onError={(e) => e.target.style.display = 'none'}
                   /> 
-                  <span>{selectedStatus === 'All' ? 'Filter by Status' : selectedStatus}</span>
+                  <span>{selectedStatus === 'All' ? 'All Status' : selectedStatus}</span>
                 </div>
                 <img 
                   src={DescendingIcon} 
