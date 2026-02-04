@@ -75,6 +75,7 @@ export default function FeaturedProperties() {
           }}
         >
           <FeaturedPropertyCard
+            id="1"
             image={Img1}
             title="Modern 2 BHK Apartment"
             location="Baner, Pune"
@@ -83,6 +84,7 @@ export default function FeaturedProperties() {
           />
 
           <FeaturedPropertyCard
+            id="2"
             image={Img2}
             title="Premium 3 BHK Villa"
             location="Wakad, Pune"
@@ -91,6 +93,7 @@ export default function FeaturedProperties() {
           />
 
           <FeaturedPropertyCard
+            id="3"
             image={Img3}
             title="Spacious 1 BHK Flat"
             location="Hinjewadi, Pune"
