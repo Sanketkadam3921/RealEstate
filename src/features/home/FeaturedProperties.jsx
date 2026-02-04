@@ -77,7 +77,7 @@ export default function FeaturedProperties() {
           <FeaturedPropertyCard
             id="1"
             image={Img1}
-            title="Modern 2 BHK Apartment"
+            title="Modern 3 BHK Apartment"
             location="Baner, Pune"
             type="Apartment / Villa"
             area="1200 sq ft"
@@ -86,7 +86,7 @@ export default function FeaturedProperties() {
           <FeaturedPropertyCard
             id="2"
             image={Img2}
-            title="Premium 3 BHK Villa"
+            title="Premium 4 BHK Villa"
             location="Wakad, Pune"
             type="Villa"
             area="1800 sq ft"
